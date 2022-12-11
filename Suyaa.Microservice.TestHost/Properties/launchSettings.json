@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Suyaa.Microservice.TestHost": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "dev"
+      }
+    }
+  }
+}

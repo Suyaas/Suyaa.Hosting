@@ -1,8 +1,10 @@
 ﻿using Egg;
 using Egg.Log.Loggers;
 using Microsoft.Extensions.Configuration;
+using Microsoft.OpenApi.Models;
 using Suyaa.Microservice.Configures;
 using Suyaa.Microservice.Exceptions;
+using Suyaa.Microservice.Extensions;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
@@ -196,7 +198,39 @@ namespace Suyaa.Microservice
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // 添加数据仓库依赖注入
+            //services.AddDbRepository((optionsBuilder) => optionsBuilder.UseNpgsql("Host=localhost;Database=salesgirl;Username=postgres;Password=12345678"));
 
+            // 根据配置添加所有的控制器
+            services.AddControllers(this.Assembles);
+
+            // 注册所有的模块
+            services.AddModulers(this.Assembles);
+
+            // 注入 Session
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = "Suyaa.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(2000); // 设置session的过期时间
+                options.Cookie.HttpOnly = true; // 设置在浏览器不能通过js获得该cookie的值 
+            });
+
+            // 注入Swagger
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Suyaa Microservice API V1", Version = "v1" });
+                var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+                var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+                var files = directory.GetFiles("*.xml");
+                foreach (var file in files)
+                {
+                    if (file.Name.StartsWith("Suyaa."))
+                        options.IncludeXmlComments(file.FullName, true);
+                }
+                options.DocInclusionPredicate((docName, description) => true);
+            });
         }
 
         /// <summary>
@@ -206,7 +240,45 @@ namespace Suyaa.Microservice
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // 添加友好错误显示
+            app.UseFriendlyException();
 
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            // 使用交互信息
+            app.UseSession();
+
+            // 使用http跳转https
+            //app.UseHttpsRedirection();
+
+            // 使用静态文件
+            //app.UseStaticFiles();
+
+            // 使用路由及用户授权
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                //endpoints.MapRazorPages();
+                endpoints.MapControllers();
+            });
+
+            // 使用Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Suyaa Microservice API V1");
+                options.EnableFilter();
+            });
         }
 
         #endregion

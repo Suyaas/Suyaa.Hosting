@@ -11,10 +11,10 @@
         public int ErrorCode { get; set; }
 
         /// <summary>
-        /// 对象实例化
+        /// 友好错误
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="code"></param>
+        /// <param name="errorCode"></param>
         public SuyaaFriendlyException(string message, int errorCode) : base(message)
         {
             this.ErrorCode = errorCode;

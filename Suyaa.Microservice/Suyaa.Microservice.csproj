@@ -1,28 +1,35 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <OutputType>Library</OutputType>
-    <Version>1.0.2212.1</Version>
-    <Authors>Uncle Zheng</Authors>
-    <Description>An microservice assembly for .Net 6</Description>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<OutputType>Library</OutputType>
+		<Version>1.0.2212.1</Version>
+		<Authors>Uncle Zheng</Authors>
+		<Description>An microservice assembly for .Net 6</Description>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<IsPackable>true</IsPackable>
+		<PackageProjectUrl>https://github.com/SuyaaUI/Suyaa.Microservice</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/SuyaaUI/Suyaa.Microservice</RepositoryUrl>
+		<PackAsTool>False</PackAsTool>
+		<Title>$(AssemblyName)</Title>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Egg" Version="16.0.2210.7" />
-    <PackageReference Include="Egg.Log" Version="16.0.2210.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Egg" Version="16.0.2210.7" />
+		<PackageReference Include="Egg.Log" Version="16.0.2210.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	</ItemGroup>
 
 </Project>

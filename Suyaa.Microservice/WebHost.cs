@@ -1,5 +1,8 @@
 ﻿namespace Suyaa.Microservice
 {
+    /// <summary>
+    /// Web服务
+    /// </summary>
     public class WebHost
     {
         /// <summary>

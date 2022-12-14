@@ -70,19 +70,19 @@ namespace Suyaa.Microservice
         /// <summary>
         /// 初始化事件
         /// </summary>
-        /// <param name="configuration"></param>
         protected virtual void OnInitialize() { }
 
         /// <summary>
         /// 服务注册事件
         /// </summary>
-        /// <param name="configuration"></param>
+        /// <param name="services"></param>
         protected virtual void OnConfigureServices(IServiceCollection services) { }
 
         /// <summary>
         /// 配置HTTP请求管道事件
         /// </summary>
-        /// <param name="configuration"></param>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         protected virtual void OnConfigure(IApplicationBuilder app, IWebHostEnvironment env) { }
 
         #endregion

@@ -9,7 +9,6 @@
         /// 对象实例化
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="code"></param>
         public SuyaaException(string message) : base(message) { }
 
     }

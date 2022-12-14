@@ -3,7 +3,7 @@
     /// <summary>
     /// 模块启动器
     /// </summary>
-    public interface IModulerStartup
+    public interface IModuleStartup
     {
         /// <summary>
         /// 服务注册

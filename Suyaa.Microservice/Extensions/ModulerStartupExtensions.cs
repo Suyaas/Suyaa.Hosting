@@ -11,12 +11,12 @@ namespace Suyaa.Microservice.Extensions
         private static void AddModulerAssemblyType(IServiceCollection services, Type? tp)
         {
             egg.Logger.Info(tp?.FullName ?? "", "AddModulers");
-            var ifs = tp?.GetInterfaces().Where(x => x == typeof(IModulerStartup));
+            var ifs = tp?.GetInterfaces().Where(x => x == typeof(IModuleStartup));
             if (ifs?.Any() ?? false)
             {
                 if (tp != null)
                 {
-                    IModulerStartup? startup = (IModulerStartup?)Activator.CreateInstance(tp);
+                    IModuleStartup? startup = (IModuleStartup?)Activator.CreateInstance(tp);
                     startup?.ConfigureServices(services);
                 }
             }
@@ -53,7 +53,7 @@ namespace Suyaa.Microservice.Extensions
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static void AddModuler<T>(this IServiceCollection services) where T : IModulerStartup
+        public static void AddModuler<T>(this IServiceCollection services) where T : IModuleStartup
         {
             AddModulerAssembly(services, typeof(T).Assembly);
         }
@@ -107,7 +107,7 @@ namespace Suyaa.Microservice.Extensions
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static void AddModulerIoc<T>(this IServiceCollection services) where T : IModulerStartup
+        public static void AddModulerIoc<T>(this IServiceCollection services) where T : IModuleStartup
         {
             services.AddModulerIoc(typeof(T).Assembly);
         }

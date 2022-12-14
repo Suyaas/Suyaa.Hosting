@@ -4,10 +4,6 @@
 
 An token microservice for .Net 6
 
-![license](https://img.shields.io/github/license/SuyaaUI/Suyaa.Token)
-![codeSize](https://img.shields.io/github/languages/code-size/SuyaaUI/Suyaa.Token)
-![lastCommit](https://img.shields.io/github/last-commit/SuyaaUI/Suyaa.Token)
-
 ## 配置方式
 
 通过配置apps.json文件的方式，加载令牌配置，配置方式如下：

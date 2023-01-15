@@ -231,6 +231,9 @@ namespace Suyaa.Microservice
                 }
                 options.DocInclusionPredicate((docName, description) => true);
             });
+
+            // 执行外部注册
+            this.OnConfigureServices(services);
         }
 
         /// <summary>
@@ -279,6 +282,9 @@ namespace Suyaa.Microservice
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "Suyaa Microservice API V1");
                 options.EnableFilter();
             });
+
+            // 执行外部管道注册
+            this.OnConfigure(app, env);
         }
 
         #endregion

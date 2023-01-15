@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<OutputType>Library</OutputType>
-		<Version>1.0.2212.1</Version>
+		<Version>1.1.2301.3</Version>
 		<Authors>Uncle Zheng</Authors>
 		<Description>An microservice assembly for .Net 6</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -16,9 +16,14 @@
 		<RepositoryUrl>https://github.com/SuyaaUI/Suyaa.Microservice</RepositoryUrl>
 		<PackAsTool>False</PackAsTool>
 		<Title>$(AssemblyName)</Title>
+		<PackageIcon>logo.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include="..\logo.png">
+		  <Pack>True</Pack>
+		  <PackagePath>\</PackagePath>
+		</None>
 		<None Include="..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>

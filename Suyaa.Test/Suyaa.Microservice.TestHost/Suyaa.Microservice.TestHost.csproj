@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Suyaa.Microservice.Test\Suyaa.Microservice.Test.csproj" />
-    <ProjectReference Include="..\Suyaa.Microservice\Suyaa.Microservice.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -26,9 +26,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Egg" Version="16.0.2210.7" />
-		<PackageReference Include="Egg.Log" Version="16.0.2210.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+		<PackageReference Include="Egg" Version="16.1.2301.8" />
+		<PackageReference Include="Egg.Log" Version="16.1.2301.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	</ItemGroup>
 

@@ -1,5 +1,6 @@
 ﻿using Egg;
 using Egg.Log.Loggers;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Suyaa.Microservice.ActionFilters;
@@ -10,6 +11,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using static System.Net.WebRequestMethods;
 
 namespace Suyaa.Microservice
 {
@@ -106,6 +108,11 @@ namespace Suyaa.Microservice
         public List<Assembly> Assembles { get; }
 
         /// <summary>
+        /// 获取程序集合
+        /// </summary>
+        public List<Type> Filters { get; }
+
+        /// <summary>
         /// 获取配置接口
         /// </summary>
         public IConfiguration Configuration { get; }
@@ -154,6 +161,17 @@ namespace Suyaa.Microservice
         }
 
         /// <summary>
+        /// 导入程序集
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public Startup AddFilter<T>() where T : IFilterMetadata
+        {
+            this.Filters.Add(typeof(T));
+            return this;
+        }
+
+        /// <summary>
         /// 启动器
         /// </summary>
         /// <param name="configuration">配置</param>
@@ -162,6 +180,7 @@ namespace Suyaa.Microservice
             // 属性设置
             this.Configuration = configuration;
             this.Assembles = new List<Assembly>();
+            this.Filters = new List<Type>();
             // 加载配置
             var suyaa = configuration.GetSection("Suyaa");
             if (suyaa is null) throw new SuyaaException($"未找到'Suyaa'配置节点");
@@ -182,15 +201,6 @@ namespace Suyaa.Microservice
             {
                 ImportLibrary(this.SuyaaSetting.Libraries[i]);
             }
-            //// 启动器初始化
-            //this.Configurator = new TStartupConfigurator();
-            //this.Options = new StartupOptions();
-            //// 添加自身
-            //this.Options.Import(Assembly.GetExecutingAssembly());
-            //// 添加公共组件
-            //this.Options.Import<Salesgirl.Common.App.ModulerStartup>();
-            //// 启动器启动配置
-            //this.Configurator.Configure(this.Options);
         }
 
         /// <summary>
@@ -207,6 +217,7 @@ namespace Suyaa.Microservice
             {
                 options.Filters.Add<ApiActionFilter>();
                 options.Filters.Add<ApiAsyncActionFilter>();
+                foreach (var filter in Filters) options.Filters.Add(filter);
             }, this.Assembles);
 
             // 注册所有的模块

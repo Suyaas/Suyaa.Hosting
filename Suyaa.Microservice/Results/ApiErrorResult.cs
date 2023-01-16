@@ -1,4 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Suyaa.Microservice.Results
 {
@@ -19,6 +22,17 @@ namespace Suyaa.Microservice.Results
         public ApiErrorResult()
         {
             this.IsSuccess = false;
+        }
+
+        /// <summary>
+        /// 执行结果
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        protected override async Task OnExecuteResultAsync(ActionContext context)
+        {
+            var json = JsonSerializer.Serialize(this);
+            await context.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(json));
         }
     }
 }

@@ -2,6 +2,7 @@
 using Egg.Log.Loggers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using Suyaa.Microservice.ActionFilters;
 using Suyaa.Microservice.Configures;
 using Suyaa.Microservice.Exceptions;
 using Suyaa.Microservice.Extensions;
@@ -202,7 +203,11 @@ namespace Suyaa.Microservice
             //services.AddDbRepository((optionsBuilder) => optionsBuilder.UseNpgsql("Host=localhost;Database=salesgirl;Username=postgres;Password=12345678"));
 
             // 根据配置添加所有的控制器
-            services.AddControllers(this.Assembles);
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<ApiActionFilter>();
+                options.Filters.Add<ApiAsyncActionFilter>();
+            }, this.Assembles);
 
             // 注册所有的模块
             services.AddModulers(this.Assembles);

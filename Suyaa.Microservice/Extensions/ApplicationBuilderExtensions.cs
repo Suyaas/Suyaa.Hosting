@@ -5,7 +5,7 @@ namespace Suyaa.Microservice.Extensions
     /// <summary>
     /// 异常处理扩展
     /// </summary>
-    public static class ExceptionHandlerExtensions
+    public static class ApplicationBuilderExtensions
     {
         /// <summary>
         /// 使用异常处理

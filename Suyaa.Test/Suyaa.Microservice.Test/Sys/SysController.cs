@@ -17,20 +17,28 @@ namespace Suyaa.Microservice.Test.Sys
     [ApiController]
     public class SysController : ControllerBase
     {
+        private readonly ISysCore _sysCore;
+
+        /// <summary>
+        /// 系统
+        /// </summary>
+        public SysController(
+            ISysCore sysCore
+            )
+        {
+            _sysCore = sysCore;
+        }
+
         [HttpGet("GetVersion")]
         public ApiResult<SysVersion> GetVersion()
         {
-            return new SysVersion()
-            {
-                Name = "Suyaa",
-                Version = "1.0.0"
-            };
+            return _sysCore.GetVersionInfo();
         }
 
         [HttpGet("GetName")]
         public string GetName()
         {
-            return "Suyaa";
+            return _sysCore.GetVersionInfo().Name;
         }
 
         [HttpGet("Check")]
@@ -38,10 +46,11 @@ namespace Suyaa.Microservice.Test.Sys
         {
         }
 
-        [HttpGet("CheckAsync")]
-        public async Task CheckAsync()
+        [HttpGet("GetVersionAsync")]
+        public async Task<SysVersion> GetVersionAsync()
         {
-            await Task.CompletedTask;
+            await Task.Delay(1);
+            return _sysCore.GetVersionInfo();
         }
     }
 }

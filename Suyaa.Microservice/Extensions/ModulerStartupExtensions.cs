@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Suyaa.Microservice.Dependency;
+using System.Reflection;
 
 namespace Suyaa.Microservice.Extensions
 {
@@ -7,10 +8,13 @@ namespace Suyaa.Microservice.Extensions
     /// </summary>
     public static class ModulerStartupExtensions
     {
+        // 核心服务接口类型
+        private readonly static Type _serviceCoreType = typeof(IServiceCore);
+
         // 添加程序集
         private static void AddModulerAssemblyType(IServiceCollection services, Type? tp)
         {
-            egg.Logger.Info(tp?.FullName ?? "", "AddModulers");
+            egg.Logger.Info("AddModulerAssemblyType " + (tp?.FullName ?? ""), "ModulerStartup");
             var ifs = tp?.GetInterfaces().Where(x => x == typeof(IModuleStartup));
             if (ifs?.Any() ?? false)
             {
@@ -25,7 +29,7 @@ namespace Suyaa.Microservice.Extensions
         // 添加程序集
         private static void AddModulerAssembly(IServiceCollection services, Assembly? assembly)
         {
-            egg.Logger.Info(assembly?.Location ?? "", "AddModulers");
+            egg.Logger.Info("AddModulerAssembly " + (assembly?.Location ?? ""), "ModulerStartup");
             // 遍历所有的IModulerStartup
             var tps = assembly?.GetTypes();
             if (tps != null)
@@ -73,6 +77,17 @@ namespace Suyaa.Microservice.Extensions
             }
         }
 
+        // 是否为核心服务接口
+        private static bool HasServiceCore(Type[] types)
+        {
+            foreach (var tp in types)
+            {
+                if (tp == _serviceCoreType)
+                    return true;
+            }
+            return false;
+        }
+
         /// <summary>
         /// 添加关联的依赖注入
         /// </summary>
@@ -81,7 +96,7 @@ namespace Suyaa.Microservice.Extensions
         /// <returns></returns>
         public static void AddModulerIoc(this IServiceCollection services, Assembly assembly)
         {
-            egg.Logger.Info(assembly?.Location ?? "", "AddModulerIoc");
+            egg.Logger.Info("AddModulerIoc " + (assembly?.Location ?? ""), "ModulerStartup");
             // 遍历所有的IModulerStartup
             //var tps = ass?.GetTypes().Where(d => d.BaseType == typeof(IModulerStartup));
             var tps = assembly?.GetTypes();
@@ -89,14 +104,19 @@ namespace Suyaa.Microservice.Extensions
             {
                 foreach (var tp in tps)
                 {
+                    // 跳过接口
+                    if (tp.IsInterface) continue;
+                    // 获取所有接口
                     var ifs = tp?.GetInterfaces();
-                    if (ifs != null)
+                    if (ifs is null) continue;
+                    if (!HasServiceCore(ifs)) continue;
+                    foreach (var ifc in ifs)
                     {
-                        foreach (var i in ifs)
-                        {
-                            egg.Logger.Info((i?.FullName ?? "") + ": " + (tp?.FullName ?? ""), "AddModulerIoc");
-                            if (i != null && tp != null) services.AddSingleton(i, tp);
-                        }
+                        // 跳过直接引用IServiceCore接口的类
+                        if (ifc == _serviceCoreType) continue;
+                        // 添加核心服务类
+                        egg.Logger.Info("AddModulerIoc " + (ifc?.FullName ?? "") + " : " + (tp?.FullName ?? ""), "ModulerStartup");
+                        if (ifc != null && tp != null) services.AddTransient(ifc, tp);
                     }
                 }
             }

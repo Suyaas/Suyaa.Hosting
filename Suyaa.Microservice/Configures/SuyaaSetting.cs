@@ -1,9 +1,11 @@
-﻿namespace Suyaa.Microservice.Configures
+﻿using Egg.Config;
+
+namespace Suyaa.Microservice.Configures
 {
     /// <summary>
     /// 舒雅服务配置
     /// </summary>
-    public class SuyaaSetting
+    public class SuyaaSetting : JsonSetting
     {
         /// <summary>
         /// 寻址路径集合

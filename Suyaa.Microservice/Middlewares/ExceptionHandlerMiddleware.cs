@@ -14,7 +14,7 @@ namespace Suyaa.Microservice.Middlewares
         private RequestDelegate _next;
 
         /// <summary>
-        /// 对象实例化
+        /// 异常中间件
         /// </summary>
         /// <param name="next"></param>
         public ExceptionHandlerMiddleware(RequestDelegate next)
@@ -23,7 +23,7 @@ namespace Suyaa.Microservice.Middlewares
         }
 
         /// <summary>
-        /// 
+        /// 执行
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>

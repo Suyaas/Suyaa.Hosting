@@ -1,4 +1,5 @@
 ﻿using Egg;
+using Egg.Config;
 using Egg.Log.Loggers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
@@ -26,17 +27,17 @@ namespace Suyaa.Microservice
             try
             {
                 // 不存在时创建配置文件
-                if (!egg.IO.CheckFileExists(path))
+                if (!egg.IO.FileExists(path))
                 {
-                    string json = JsonSerializer.Serialize(new SuyaaSetting());
-                    egg.IO.WriteUtf8FileContent(path, json);
+                    SuyaaSetting setting = new SuyaaSetting();
+                    setting.SaveToFile(path);
                 }
                 // 读取文件
-                string content = egg.IO.ReadUtf8FileContent(path);
-                return JsonSerializer.Deserialize<SuyaaSetting>(content) ?? new SuyaaSetting();
+                return egg.Config.LoadJsonSettingFromFile<SuyaaSetting>(path) ?? new SuyaaSetting();
             }
-            catch
+            catch (Exception ex)
             {
+                egg.Logger.Error(ex.ToString());
                 return new SuyaaSetting();
             }
         }
@@ -48,7 +49,7 @@ namespace Suyaa.Microservice
             for (int i = 0; i < this.Paths.Count; i++)
             {
                 string filePath = egg.IO.GetOSPathFormat(this.Paths[i] + path);
-                if (egg.IO.CheckFileExists(filePath))
+                if (egg.IO.FileExists(filePath))
                 {
                     Import(Assembly.LoadFrom(filePath));
                 }

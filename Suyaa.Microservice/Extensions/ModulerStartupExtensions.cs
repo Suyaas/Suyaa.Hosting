@@ -11,25 +11,35 @@ namespace Suyaa.Microservice.Extensions
         // 核心服务接口类型
         private readonly static Type _serviceCoreType = typeof(IServiceCore);
 
+        // 判断类型是否包含接口
+        private static bool HasInterface<T>(Type? type)
+        {
+            var typeInterface = typeof(T);
+            if (type is null) return false;
+            if (!typeInterface.IsInterface) throw new Exception($"'{typeInterface.Name}'不是一个有效的接口");
+            var ifs = type.GetInterfaces();
+            foreach (var ifc in ifs)
+            {
+                if (ifc.Equals(typeInterface)) return true;
+            }
+            return false;
+        }
+
         // 添加程序集
         private static void AddModulerAssemblyType(IServiceCollection services, Type? tp)
         {
-            egg.Logger.Info("AddModulerAssemblyType " + (tp?.FullName ?? ""), "ModulerStartup");
-            var ifs = tp?.GetInterfaces().Where(x => x == typeof(IModuleStartup));
-            if (ifs?.Any() ?? false)
-            {
-                if (tp != null)
-                {
-                    IModuleStartup? startup = (IModuleStartup?)Activator.CreateInstance(tp);
-                    startup?.ConfigureServices(services);
-                }
-            }
+            if (tp is null) return;
+            if (!HasInterface<IModuleStartup>(tp)) return;
+            egg.Logger.Info("AddModulerAssemblyType " + tp.FullName, "ModulerStartup");
+            var obj = Activator.CreateInstance(tp);
+            IModuleStartup? startup = (IModuleStartup?)obj;
+            startup?.ConfigureServices(services);
         }
 
         // 添加程序集
         private static void AddModulerAssembly(IServiceCollection services, Assembly? assembly)
         {
-            egg.Logger.Info("AddModulerAssembly " + (assembly?.Location ?? ""), "ModulerStartup");
+            egg.Logger.Info("AddModulerAssembly " + assembly?.Location, "ModulerStartup");
             // 遍历所有的IModulerStartup
             var tps = assembly?.GetTypes();
             if (tps != null)

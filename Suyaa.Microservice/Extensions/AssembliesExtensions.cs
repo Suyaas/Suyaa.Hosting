@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Suyaa.Microservice.ActionFilters;
+using Suyaa.Microservice.Dependency;
 using System.Reflection;
 
 namespace Suyaa.Microservice.Extensions
@@ -9,6 +10,7 @@ namespace Suyaa.Microservice.Extensions
     /// </summary>
     public static class AssembliesExtensions
     {
+
         /// <summary>
         /// 添加程序集列表
         /// </summary>
@@ -18,7 +20,10 @@ namespace Suyaa.Microservice.Extensions
         public static IMvcBuilder AddAssemblyList(this IMvcBuilder builder, List<Assembly> assemblies)
         {
             // 添加程序集
-            foreach (var ass in assemblies) builder.AddApplicationPart(ass);
+            foreach (var ass in assemblies)
+            {
+                builder.AddApplicationPart(ass);
+            }
             return builder;
         }
 

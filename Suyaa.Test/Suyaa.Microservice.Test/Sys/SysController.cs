@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Suyaa.Microservice.Dependency;
 using Suyaa.Microservice.Results;
 using Suyaa.Microservice.Test.Sys.Dto;
 using System;
@@ -13,16 +14,15 @@ namespace Suyaa.Microservice.Test.Sys
     /// <summary>
     /// 系统
     /// </summary>
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SysController : ControllerBase
+    [App("Sys")]
+    public class SysApp : ServiceApp
     {
         private readonly ISysCore _sysCore;
 
         /// <summary>
         /// 系统
         /// </summary>
-        public SysController(
+        public SysApp(
             ISysCore sysCore
             )
         {

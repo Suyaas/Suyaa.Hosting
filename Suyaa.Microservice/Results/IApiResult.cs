@@ -10,7 +10,7 @@ namespace Suyaa.Microservice.Results
         /// <summary>
         /// 是否成功
         /// </summary>
-        bool IsSuccess { get; set; }
+        bool Success { get; set; }
 
         /// <summary>
         /// 消息

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Suyaa.Microservice.Dependency;
+using Suyaa.Microservice.Exceptions;
 using Suyaa.Microservice.Results;
 using Suyaa.Microservice.Test.Sys.Dto;
 using System;
@@ -29,28 +30,45 @@ namespace Suyaa.Microservice.Test.Sys
             _sysCore = sysCore;
         }
 
-        [HttpGet("GetVersion")]
+        /// <summary>
+        /// 获取系统版本
+        /// </summary>
+        /// <returns></returns>
+        [Get]
         public ApiResult<SysVersion> GetVersion()
         {
             return _sysCore.GetVersionInfo();
         }
 
-        [HttpGet("GetName")]
+        /// <summary>
+        /// 获取名称
+        /// </summary>
+        /// <returns></returns>
+        [Get]
         public string GetName()
         {
             return _sysCore.GetVersionInfo().Name;
         }
 
-        [HttpGet("Check")]
+        /// <summary>
+        /// 检测
+        /// </summary>
+        /// <exception cref="SuyaaFriendlyException"></exception>
+        [Get]
         public void Check()
         {
+            throw new SuyaaFriendlyException($"尚未实现的接口");
         }
 
+        /// <summary>
+        /// 获取系统信息
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetVersionAsync")]
         public async Task<SysVersion> GetVersionAsync()
         {
-            await Task.Delay(1);
-            return _sysCore.GetVersionInfo();
+            await Task.CompletedTask;
+            throw new Exception($"尚未实现的接口");
         }
     }
 }

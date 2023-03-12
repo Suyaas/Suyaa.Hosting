@@ -9,8 +9,15 @@ using System.Threading.Tasks;
 
 namespace Suyaa.Microservice.Test
 {
+    /// <summary>
+    /// 模块启动对象
+    /// </summary>
     public class ModuleStartup : IModuleStartup
     {
+        /// <summary>
+        /// 模块初始化配置
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             //throw new NotImplementedException();

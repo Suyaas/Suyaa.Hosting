@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Suyaa.Microservice.Test.Sys
 {
+    /// <summary>
+    /// 系统
+    /// </summary>
     public class SysCore : ISysCore
     {
         /// <summary>
@@ -15,7 +18,8 @@ namespace Suyaa.Microservice.Test.Sys
         /// <returns></returns>
         public SysVersion GetVersionInfo()
         {
-            return new SysVersion() {
+            return new SysVersion()
+            {
                 Name = "Suyaa",
                 Version = "1.0.0"
             };

@@ -13,8 +13,8 @@ namespace Suyaa.Microservice.Results
         /// <summary>
         /// 是否成功
         /// </summary>
-        [JsonPropertyName("isSuccess")]
-        public virtual bool IsSuccess { get; set; }
+        [JsonPropertyName("success")]
+        public virtual bool Success { get; set; }
 
         /// <summary>
         /// 消息
@@ -27,7 +27,7 @@ namespace Suyaa.Microservice.Results
         /// </summary>
         public ApiResult()
         {
-            this.IsSuccess = true;
+            this.Success = true;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Suyaa.Microservice.Results
         /// <param name="value">值类型</param>
         public static implicit operator ApiResult(bool value)
         {
-            return new ApiResult() { IsSuccess = value };
+            return new ApiResult() { Success = value };
         }
 
         /// <summary>
@@ -44,10 +44,24 @@ namespace Suyaa.Microservice.Results
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        protected virtual async Task OnExecuteResultAsync(ActionContext context)
+        protected virtual async Task OnExecuteResultAsync(HttpContext context)
         {
             var json = JsonSerializer.Serialize(this);
-            await context.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(json));
+            // 清理输出状态
+            context.Response.Clear();
+            context.Response.ContentType = "application/json";
+            await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(json));
+        }
+
+        /// <summary>
+        /// 执行结果
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task ExecuteResultAsync(HttpContext context)
+        {
+            await OnExecuteResultAsync(context);
         }
 
         /// <summary>
@@ -58,7 +72,7 @@ namespace Suyaa.Microservice.Results
         /// <exception cref="NotImplementedException"></exception>
         public async Task ExecuteResultAsync(ActionContext context)
         {
-            await OnExecuteResultAsync(context);
+            await OnExecuteResultAsync(context.HttpContext);
         }
     }
 
@@ -93,10 +107,13 @@ namespace Suyaa.Microservice.Results
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        protected override async Task OnExecuteResultAsync(ActionContext context)
+        protected override async Task OnExecuteResultAsync(HttpContext context)
         {
             var json = JsonSerializer.Serialize(this);
-            await context.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(json));
+            // 清理输出状态
+            context.Response.Clear();
+            context.Response.ContentType = "application/json";
+            await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(json));
         }
 
         /// <summary>
@@ -105,7 +122,7 @@ namespace Suyaa.Microservice.Results
         /// <param name="value">值类型</param>
         public static implicit operator ApiResult<T>(T? value)
         {
-            return new ApiResult<T>() { IsSuccess = true, Data = value };
+            return new ApiResult<T>() { Success = true, Data = value };
         }
     }
 }

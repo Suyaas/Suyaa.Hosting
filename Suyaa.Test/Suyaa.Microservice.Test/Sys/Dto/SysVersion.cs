@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace Suyaa.Microservice.Test.Sys.Dto
 {
+    /// <summary>
+    /// 系统信息
+    /// </summary>
     public class SysVersion
     {
-        public string Name { get; set; }
-        public string Version { get; set; }
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; } = string.Empty;
+        /// <summary>
+        /// 版本
+        /// </summary>
+        public string Version { get; set; } = string.Empty;
     }
 }

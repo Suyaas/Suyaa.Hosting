@@ -21,7 +21,7 @@ namespace Suyaa.Microservice.Results
         /// </summary>
         public ApiErrorResult()
         {
-            this.IsSuccess = false;
+            this.Success = false;
         }
 
         /// <summary>
@@ -29,10 +29,13 @@ namespace Suyaa.Microservice.Results
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        protected override async Task OnExecuteResultAsync(ActionContext context)
+        protected override async Task OnExecuteResultAsync(HttpContext context)
         {
             var json = JsonSerializer.Serialize(this);
-            await context.HttpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(json));
+            // 清理输出状态
+            context.Response.Clear();
+            context.Response.ContentType = "application/json";
+            await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(json));
         }
     }
 }

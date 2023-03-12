@@ -38,9 +38,6 @@ namespace Suyaa.Microservice.Middlewares
                 if (ex is InvalidOperationException) ex = ex.InnerException ?? new Exception();
                 // 错误记录
                 egg.Logger.Error(ex.ToString(), context.Request.Path);
-                // 清理输出状态
-                context.Response.Clear();
-                context.Response.ContentType = "application/json";
                 if (ex is SuyaaFriendlyException)
                 {
                     SuyaaFriendlyException friendlyException = (SuyaaFriendlyException)ex;
@@ -49,7 +46,7 @@ namespace Suyaa.Microservice.Middlewares
                         Message = friendlyException.Message,
                         ErrorCode = friendlyException.ErrorCode,
                     };
-                    await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(errorResult)));
+                    await errorResult.ExecuteResultAsync(context);
                 }
                 else
                 {
@@ -58,7 +55,7 @@ namespace Suyaa.Microservice.Middlewares
                         Message = $"An error occurred while executing.",
                         ErrorCode = 0,
                     };
-                    await context.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(errorResult)));
+                    await errorResult.ExecuteResultAsync(context);
                 }
             }
         }

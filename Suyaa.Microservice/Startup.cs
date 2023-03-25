@@ -1,5 +1,6 @@
 ﻿using Egg;
 using Egg.Config;
+using Egg.Log;
 using Egg.Log.Loggers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
@@ -8,11 +9,13 @@ using Suyaa.Microservice.ActionFilters;
 using Suyaa.Microservice.Configures;
 using Suyaa.Microservice.Exceptions;
 using Suyaa.Microservice.Extensions;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using static System.Net.WebRequestMethods;
+using ILogger = Egg.Log.ILogger;
 
 namespace Suyaa.Microservice
 {
@@ -189,7 +192,9 @@ namespace Suyaa.Microservice
             if (suyaa is null) throw new MicroserviceException($"未找到'Suyaa.Path'配置项");
             this.SuyaaSetting = ReadSuyaaSetting(egg.IO.GetExecutionPath(suyaaPath));
             // 注册日志
-            egg.Logger.Reg(new FileLogger(GetFullPath(this.SuyaaSetting.LogPath)));
+            egg.Logger.GetCurrentLogger()
+                .Use(new FileLogger(GetFullPath(this.SuyaaSetting.LogPath)))
+                .Use((string message) => { Debug.WriteLine(message); });
             egg.Logger.Debug($"服务启动 ...");
             // 预处理寻址路径
             this.Paths = new List<string>();
@@ -212,6 +217,9 @@ namespace Suyaa.Microservice
         {
             // 添加数据仓库依赖注入
             //services.AddDbRepository((optionsBuilder) => optionsBuilder.UseNpgsql("Host=localhost;Database=salesgirl;Username=postgres;Password=12345678"));
+
+            // 添加日志注入
+            services.AddSingleton<ILogger>(egg.Logger.GetCurrentLogger());
 
             // 根据配置添加所有的控制器
             services.AddControllers(options =>
@@ -263,9 +271,11 @@ namespace Suyaa.Microservice
             // 添加友好错误显示
             app.UseFriendlyException();
 
+            // 兼容开发模式
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                egg.Logger.GetCurrentLogger().Use<ConsoleLogger>();
             }
             else
             {

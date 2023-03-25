@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<OutputType>Library</OutputType>
-		<Version>1.3.2303.11</Version>
-		<Authors>Uncle Zheng</Authors>
+		<Version>1.3.2303.12</Version>
+		<Authors>Mr.Zheng</Authors>
 		<Description>An microservice assembly for .Net 6</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -31,11 +31,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Egg" Version="16.2.2303.15" />
-		<PackageReference Include="Egg.Config" Version="16.2.2303.15" />
-		<PackageReference Include="Egg.Data" Version="16.2.2303.15" />
-		<PackageReference Include="Egg.EFCore" Version="16.2.2303.15" />
-		<PackageReference Include="Egg.Log" Version="16.2.2303.15" />
+		<PackageReference Include="Egg" Version="16.2.2303.16" />
+		<PackageReference Include="Egg.Config" Version="16.2.2303.16" />
+		<PackageReference Include="Egg.Data" Version="16.2.2303.16" />
+		<PackageReference Include="Egg.EFCore" Version="16.2.2303.16" />
+		<PackageReference Include="Egg.Log" Version="16.2.2303.16" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
 

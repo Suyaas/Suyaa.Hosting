@@ -3,7 +3,7 @@
     "Suyaa.Microservice.TestHost": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "dev"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }

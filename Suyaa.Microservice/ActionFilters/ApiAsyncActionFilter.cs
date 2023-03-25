@@ -16,7 +16,7 @@ namespace Suyaa.Microservice.ActionFilters
         /// <param name="context"></param>
         /// <param name="next"></param>
         /// <returns></returns>
-        /// <exception cref="SuyaaFriendlyException"></exception>
+        /// <exception cref="FriendlyException"></exception>
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             await next();
@@ -55,7 +55,7 @@ namespace Suyaa.Microservice.ActionFilters
             }
             catch (Exception ex)
             {
-                throw new SuyaaFriendlyException(ex.Message);
+                throw new FriendlyException(ex.Message);
             }
         }
     }

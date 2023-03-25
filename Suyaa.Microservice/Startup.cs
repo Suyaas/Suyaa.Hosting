@@ -184,9 +184,9 @@ namespace Suyaa.Microservice
             this.Filters = new List<Type>();
             // 加载配置
             var suyaa = configuration.GetSection("Suyaa");
-            if (suyaa is null) throw new SuyaaException($"未找到'Suyaa'配置节点");
+            if (suyaa is null) throw new MicroserviceException($"未找到'Suyaa'配置节点");
             string suyaaPath = suyaa.GetValue<string>("Path");
-            if (suyaa is null) throw new SuyaaException($"未找到'Suyaa.Path'配置项");
+            if (suyaa is null) throw new MicroserviceException($"未找到'Suyaa.Path'配置项");
             this.SuyaaSetting = ReadSuyaaSetting(egg.IO.GetExecutionPath(suyaaPath));
             // 注册日志
             egg.Logger.Reg(new FileLogger(GetFullPath(this.SuyaaSetting.LogPath)));
@@ -275,7 +275,7 @@ namespace Suyaa.Microservice
             }
 
             // 使用交互信息
-            app.UseSession();
+            //app.UseSession();
 
             // 使用http跳转https
             //app.UseHttpsRedirection();
@@ -285,7 +285,7 @@ namespace Suyaa.Microservice
 
             // 使用路由及用户授权
             app.UseRouting();
-            app.UseAuthorization();
+            //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapRazorPages();

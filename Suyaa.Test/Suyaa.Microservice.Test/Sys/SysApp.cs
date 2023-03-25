@@ -53,11 +53,11 @@ namespace Suyaa.Microservice.Test.Sys
         /// <summary>
         /// 检测
         /// </summary>
-        /// <exception cref="SuyaaFriendlyException"></exception>
+        /// <exception cref="FriendlyException"></exception>
         [Get]
         public void Check()
         {
-            throw new SuyaaFriendlyException($"尚未实现的接口");
+            throw new FriendlyException($"尚未实现的接口");
         }
 
         /// <summary>

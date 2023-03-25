@@ -51,7 +51,7 @@ namespace Suyaa.Microservice.ActionFilters
             }
             catch (Exception ex)
             {
-                throw new SuyaaFriendlyException(ex.Message);
+                throw new FriendlyException(ex.Message);
             }
         }
 

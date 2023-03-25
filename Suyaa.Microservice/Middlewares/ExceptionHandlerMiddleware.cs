@@ -38,9 +38,9 @@ namespace Suyaa.Microservice.Middlewares
                 if (ex is InvalidOperationException) ex = ex.InnerException ?? new Exception();
                 // 错误记录
                 egg.Logger.Error(ex.ToString(), context.Request.Path);
-                if (ex is SuyaaFriendlyException)
+                if (ex is FriendlyException)
                 {
-                    SuyaaFriendlyException friendlyException = (SuyaaFriendlyException)ex;
+                    FriendlyException friendlyException = (FriendlyException)ex;
                     ApiErrorResult errorResult = new ApiErrorResult()
                     {
                         Message = friendlyException.Message,

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Egg;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Microservice.Exceptions;
 using Suyaa.Microservice.Helpers;
@@ -24,6 +25,7 @@ namespace Suyaa.Microservice.ActionFilters
                 // 处理异常
                 if (context.Exception != null)
                 {
+                    egg.Logger.Error(context.Exception.ToString(), context.ActionDescriptor.DisplayName.ToNotNull());
                     context.ExceptionHandled = true;
                     context.Result = context.Exception.ToApiResult();
                     return;
@@ -53,7 +55,7 @@ namespace Suyaa.Microservice.ActionFilters
                         context.Result = new ApiResult();
                         return;
                     }
-                    context.Result = new ApiResult<object>() { Data = obj.Value, DataType = obj.DeclaredType.Name };
+                    context.Result = new ApiResult<object>() { Data = obj.Value, DataType = obj.DeclaredType.FullName };
                     return;
                 }
                 // 直接返回

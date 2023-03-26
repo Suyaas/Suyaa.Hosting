@@ -61,6 +61,16 @@ namespace Suyaa.Microservice.Test.Sys
         }
 
         /// <summary>
+        /// 异步检测
+        /// </summary>
+        /// <exception cref="FriendlyException"></exception>
+        [Get]
+        public async Task Check2Async()
+        {
+            throw new FriendlyException($"尚未实现的接口");
+        }
+
+        /// <summary>
         /// 获取系统信息
         /// </summary>
         /// <returns></returns>

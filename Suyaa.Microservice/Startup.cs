@@ -195,7 +195,7 @@ namespace Suyaa.Microservice
             egg.Logger.GetCurrentLogger()
                 .Use(new FileLogger(GetFullPath(this.SuyaaSetting.LogPath)))
                 .Use((string message) => { Debug.WriteLine(message); });
-            egg.Logger.Debug($"服务启动 ...");
+            egg.Logger.Debug($"Server Start ...", "Server");
             // 预处理寻址路径
             this.Paths = new List<string>();
             this.Paths.Add(egg.Assembly.ExecutionDirectory);
@@ -215,6 +215,9 @@ namespace Suyaa.Microservice
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // 输出服务注册日志
+            egg.Logger.Debug($"Services Configure Start ...", "Services");
+
             // 添加数据仓库依赖注入
             //services.AddDbRepository((optionsBuilder) => optionsBuilder.UseNpgsql("Host=localhost;Database=salesgirl;Username=postgres;Password=12345678"));
 
@@ -224,9 +227,15 @@ namespace Suyaa.Microservice
             // 根据配置添加所有的控制器
             services.AddControllers(options =>
             {
+                egg.Logger.Debug($"Add {typeof(ApiActionFilter).FullName}", "Filters");
                 options.Filters.Add<ApiActionFilter>();
+                egg.Logger.Debug($"Add {typeof(ApiAsyncActionFilter).FullName}", "Filters");
                 options.Filters.Add<ApiAsyncActionFilter>();
-                foreach (var filter in Filters) options.Filters.Add(filter);
+                foreach (var filter in this.Filters)
+                {
+                    egg.Logger.Debug($"Add {filter.FullName}", "Filters");
+                    options.Filters.Add(filter);
+                }
             }, this.Assembles);
 
             // 注册所有的模块
@@ -259,6 +268,9 @@ namespace Suyaa.Microservice
 
             // 执行外部注册
             this.OnConfigureServices(services);
+
+            // 输出服务注册日志
+            egg.Logger.Debug($"Services Configure Completed.", "Services");
         }
 
         /// <summary>
@@ -268,8 +280,11 @@ namespace Suyaa.Microservice
         /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // 输出应用注册日志
+            egg.Logger.Debug($"Apps Configure Start ...", "Apps");
+
             // 添加友好错误显示
-            app.UseFriendlyException();
+            //app.UseFriendlyException();
 
             // 兼容开发模式
             if (env.IsDevelopment())
@@ -279,7 +294,7 @@ namespace Suyaa.Microservice
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                //app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -312,6 +327,9 @@ namespace Suyaa.Microservice
 
             // 执行外部管道注册
             this.OnConfigure(app, env);
+
+            // 输出应用注册日志
+            egg.Logger.Debug($"Apps Configure Completed.", "Apps");
         }
 
         #endregion

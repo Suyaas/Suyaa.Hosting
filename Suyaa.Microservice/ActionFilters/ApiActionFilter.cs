@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Microservice.Exceptions;
+using Suyaa.Microservice.Helpers;
 using Suyaa.Microservice.Results;
 
 namespace Suyaa.Microservice.ActionFilters
@@ -10,6 +11,7 @@ namespace Suyaa.Microservice.ActionFilters
     /// </summary>
     public class ApiActionFilter : IActionFilter
     {
+
         /// <summary>
         /// 执行后
         /// </summary>
@@ -19,6 +21,14 @@ namespace Suyaa.Microservice.ActionFilters
             try
             {
                 var result = context.Result;
+                // 处理异常
+                if (context.Exception != null)
+                {
+                    context.ExceptionHandled = true;
+                    context.Result = context.Exception.ToApiResult();
+                    return;
+                }
+                // 处理空结果
                 if (result is null)
                 {
                     context.Result = new ApiResult();

@@ -8,7 +8,7 @@ namespace Suyaa.Microservice.Results
     /// <summary>
     /// API输出结果
     /// </summary>
-    public class ApiResult : IApiResult, IActionResult
+    public class ApiResult : IApiResult
     {
         /// <summary>
         /// 是否成功

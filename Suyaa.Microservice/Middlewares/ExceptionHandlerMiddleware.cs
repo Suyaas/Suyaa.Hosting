@@ -20,6 +20,26 @@ namespace Suyaa.Microservice.Middlewares
         public ExceptionHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
+            egg.Logger.Info("初始化 ExceptionHandlerMiddleware ...", "Middleware");
+        }
+
+        // 触发友好异常
+        private async Task<bool> RaiseFriendlyException(HttpContext context, Exception ex)
+        {
+            switch (ex)
+            {
+                case FriendlyException friendlyException:
+                    ApiErrorResult errorResult = new ApiErrorResult()
+                    {
+                        Message = friendlyException.Message,
+                        ErrorCode = friendlyException.ErrorCode,
+                    };
+                    await errorResult.ExecuteResultAsync(context);
+                    return true;
+                default:
+                    if (ex.InnerException is null) return false;
+                    return await RaiseFriendlyException(context, ex.InnerException);
+            }
         }
 
         /// <summary>
@@ -35,20 +55,10 @@ namespace Suyaa.Microservice.Middlewares
             }
             catch (Exception ex)
             {
-                if (ex is InvalidOperationException) ex = ex.InnerException ?? new Exception();
                 // 错误记录
                 egg.Logger.Error(ex.ToString(), context.Request.Path);
-                if (ex is FriendlyException)
-                {
-                    FriendlyException friendlyException = (FriendlyException)ex;
-                    ApiErrorResult errorResult = new ApiErrorResult()
-                    {
-                        Message = friendlyException.Message,
-                        ErrorCode = friendlyException.ErrorCode,
-                    };
-                    await errorResult.ExecuteResultAsync(context);
-                }
-                else
+                // 优先触发友好异常，如未找到友好异常，则输出标准异常
+                if (!await RaiseFriendlyException(context, ex))
                 {
                     ApiErrorResult errorResult = new ApiErrorResult()
                     {

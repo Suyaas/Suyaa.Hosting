@@ -1,11 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 namespace Suyaa.Microservice.Results
 {
     /// <summary>
     /// Api执行结果
     /// </summary>
-    public interface IApiResult
+    public interface IApiResult : IActionResult
     {
         /// <summary>
         /// 是否成功

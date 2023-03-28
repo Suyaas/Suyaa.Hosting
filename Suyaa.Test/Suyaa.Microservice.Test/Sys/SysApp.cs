@@ -67,6 +67,7 @@ namespace Suyaa.Microservice.Test.Sys
         [Get]
         public async Task Check2Async()
         {
+            await Task.Delay(1);
             throw new FriendlyException($"尚未实现的接口");
         }
 

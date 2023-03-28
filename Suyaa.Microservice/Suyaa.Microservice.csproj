@@ -31,11 +31,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Egg" Version="16.2.2303.16" />
-		<PackageReference Include="Egg.Config" Version="16.2.2303.16" />
-		<PackageReference Include="Egg.Data" Version="16.2.2303.16" />
-		<PackageReference Include="Egg.EFCore" Version="16.2.2303.16" />
-		<PackageReference Include="Egg.Log" Version="16.2.2303.16" />
+		<PackageReference Include="Egg" Version="16.2.2303.17" />
+		<PackageReference Include="Egg.Config" Version="16.2.2303.17" />
+		<PackageReference Include="Egg.Data" Version="16.2.2303.17" />
+		<PackageReference Include="Egg.EFCore" Version="16.2.2303.17" />
+		<PackageReference Include="Egg.Log" Version="16.2.2303.17" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
 

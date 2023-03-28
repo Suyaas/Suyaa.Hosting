@@ -283,27 +283,35 @@ namespace Suyaa.Microservice
             // 输出应用注册日志
             egg.Logger.Debug($"Apps Configure Start ...", "Apps");
 
-            // 添加友好错误显示
-            //app.UseFriendlyException();
-
             // 兼容开发模式
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 egg.Logger.GetCurrentLogger().Use<ConsoleLogger>();
+
+                // 使用Swagger
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Suyaa Microservice API V1");
+                    options.EnableFilter();
+                });
             }
             else
             {
                 //app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+
+                // 使用http跳转https
+                app.UseHttpsRedirection();
             }
+
+            // 添加友好错误显示
+            //app.UseFriendlyException();
 
             // 使用交互信息
             //app.UseSession();
-
-            // 使用http跳转https
-            //app.UseHttpsRedirection();
 
             // 使用静态文件
             //app.UseStaticFiles();
@@ -315,14 +323,6 @@ namespace Suyaa.Microservice
             {
                 //endpoints.MapRazorPages();
                 endpoints.MapControllers();
-            });
-
-            // 使用Swagger
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Suyaa Microservice API V1");
-                options.EnableFilter();
             });
 
             // 执行外部管道注册

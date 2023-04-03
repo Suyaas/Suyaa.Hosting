@@ -20,7 +20,7 @@ namespace Suyaa.Microservice.Middlewares
         public ExceptionHandlerMiddleware(RequestDelegate next)
         {
             _next = next;
-            egg.Logger.Info("初始化 ExceptionHandlerMiddleware ...", "Middleware");
+            sy.Logger.Info("初始化 ExceptionHandlerMiddleware ...", "Middleware");
         }
 
         // 触发友好异常
@@ -56,7 +56,7 @@ namespace Suyaa.Microservice.Middlewares
             catch (Exception ex)
             {
                 // 错误记录
-                egg.Logger.Error(ex.ToString(), context.Request.Path);
+                sy.Logger.Error(ex.ToString(), context.Request.Path);
                 // 优先触发友好异常，如未找到友好异常，则输出标准异常
                 if (!await RaiseFriendlyException(context, ex))
                 {

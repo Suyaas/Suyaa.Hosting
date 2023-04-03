@@ -30,7 +30,7 @@ namespace Suyaa.Microservice.Extensions
         {
             if (tp is null) return;
             if (!HasInterface<IModuleStartup>(tp)) return;
-            egg.Logger.Info("AddModulerAssemblyType " + tp.FullName, "ModulerStartup");
+            sy.Logger.Info("AddModulerAssemblyType " + tp.FullName, "ModulerStartup");
             var obj = Activator.CreateInstance(tp);
             IModuleStartup? startup = (IModuleStartup?)obj;
             startup?.ConfigureServices(services);
@@ -39,7 +39,7 @@ namespace Suyaa.Microservice.Extensions
         // 添加程序集
         private static void AddModulerAssembly(IServiceCollection services, Assembly? assembly)
         {
-            egg.Logger.Info("AddModulerAssembly " + assembly?.Location, "ModulerStartup");
+            sy.Logger.Info("AddModulerAssembly " + assembly?.Location, "ModulerStartup");
             // 遍历所有的IModulerStartup
             var tps = assembly?.GetTypes();
             if (tps != null)
@@ -106,7 +106,7 @@ namespace Suyaa.Microservice.Extensions
         /// <returns></returns>
         public static void AddModulerIoc(this IServiceCollection services, Assembly assembly)
         {
-            egg.Logger.Info("AddModulerIoc " + (assembly?.Location ?? ""), "ModulerStartup");
+            sy.Logger.Info("AddModulerIoc " + (assembly?.Location ?? ""), "ModulerStartup");
             // 遍历所有的IModulerStartup
             //var tps = ass?.GetTypes().Where(d => d.BaseType == typeof(IModulerStartup));
             var tps = assembly?.GetTypes();
@@ -125,7 +125,7 @@ namespace Suyaa.Microservice.Extensions
                         // 跳过直接引用IServiceCore接口的类
                         if (ifc == _serviceCoreType) continue;
                         // 添加核心服务类
-                        egg.Logger.Info("AddModulerIoc " + (ifc?.FullName ?? "") + " : " + (tp?.FullName ?? ""), "ModulerStartup");
+                        sy.Logger.Info("AddModulerIoc " + (ifc?.FullName ?? "") + " : " + (tp?.FullName ?? ""), "ModulerStartup");
                         if (ifc != null && tp != null) services.AddTransient(ifc, tp);
                     }
                 }

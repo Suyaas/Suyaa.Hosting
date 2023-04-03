@@ -5,8 +5,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<OutputType>Library</OutputType>
-		<Version>1.3.2303.15</Version>
-		<Authors>Mr.Zheng</Authors>
+		<Version>1.4.2304.16</Version>
+		<Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
 		<Description>An microservice assembly for .Net 6</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -16,11 +16,11 @@
 		<RepositoryUrl>https://github.com/SuyaaUI/Suyaa.Microservice</RepositoryUrl>
 		<PackAsTool>False</PackAsTool>
 		<Title>$(AssemblyName)</Title>
-		<PackageIcon>logo.png</PackageIcon>
+		<PackageIcon>suyaa_256.png</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\logo.png">
+		<None Include="..\icon\suyaa_256.png">
 		  <Pack>True</Pack>
 		  <PackagePath>\</PackagePath>
 		</None>
@@ -31,11 +31,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Egg" Version="16.2.2303.17" />
-		<PackageReference Include="Egg.Config" Version="16.2.2303.17" />
-		<PackageReference Include="Egg.Data" Version="16.2.2303.17" />
-		<PackageReference Include="Egg.EFCore" Version="16.2.2303.17" />
-		<PackageReference Include="Egg.Log" Version="16.2.2303.17" />
+		<PackageReference Include="Suyaa.Configure" Version="1.0.2304.1" />
+		<PackageReference Include="Suyaa.EFCore" Version="1.0.2304.1" />
+		<PackageReference Include="Suyaa.Logs" Version="1.0.2304.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
 

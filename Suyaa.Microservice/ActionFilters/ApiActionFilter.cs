@@ -1,9 +1,10 @@
-﻿using Egg;
+﻿using Suyaa;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Microservice.Exceptions;
 using Suyaa.Microservice.Helpers;
 using Suyaa.Microservice.Results;
+using Suyaa.Helpers;
 
 namespace Suyaa.Microservice.ActionFilters
 {
@@ -25,7 +26,7 @@ namespace Suyaa.Microservice.ActionFilters
                 // 处理异常
                 if (context.Exception != null)
                 {
-                    egg.Logger.Error(context.Exception.ToString(), context.ActionDescriptor.DisplayName.ToNotNull());
+                    sy.Logger.Error(context.Exception.ToString(), context.ActionDescriptor.DisplayName.ToNotNull());
                     context.ExceptionHandled = true;
                     context.Result = context.Exception.ToApiResult();
                     return;

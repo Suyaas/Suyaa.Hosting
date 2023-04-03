@@ -1,10 +1,8 @@
-﻿using Egg;
-using Egg.Config;
-using Egg.Log;
-using Egg.Log.Loggers;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using Suyaa.Configure.Helpers;
+using Suyaa.Logs.Loggers;
 using Suyaa.Microservice.ActionFilters;
 using Suyaa.Microservice.Configures;
 using Suyaa.Microservice.Exceptions;
@@ -15,7 +13,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using static System.Net.WebRequestMethods;
-using ILogger = Egg.Log.ILogger;
+using ILogger = Suyaa.Logs.ILogger;
 
 namespace Suyaa.Microservice
 {
@@ -30,17 +28,17 @@ namespace Suyaa.Microservice
             try
             {
                 // 不存在时创建配置文件
-                if (!egg.IO.FileExists(path))
+                if (!sy.IO.FileExists(path))
                 {
                     SuyaaSetting setting = new SuyaaSetting();
                     setting.SaveToFile(path);
                 }
                 // 读取文件
-                return egg.Config.LoadJsonSettingFromFile<SuyaaSetting>(path) ?? new SuyaaSetting();
+                return sy.Configure.LoadJsonSettingFromFile<SuyaaSetting>(path) ?? new SuyaaSetting();
             }
             catch (Exception ex)
             {
-                egg.Logger.Error(ex.ToString());
+                sy.Logger.Error(ex.ToString());
                 return new SuyaaSetting();
             }
         }
@@ -51,8 +49,8 @@ namespace Suyaa.Microservice
             // 所有所有路径
             for (int i = 0; i < this.Paths.Count; i++)
             {
-                string filePath = egg.IO.GetOSPathFormat(this.Paths[i] + path);
-                if (egg.IO.FileExists(filePath))
+                string filePath = sy.IO.GetOSPathFormat(this.Paths[i] + path);
+                if (sy.IO.FileExists(filePath))
                 {
                     Import(Assembly.LoadFrom(filePath));
                 }
@@ -64,7 +62,7 @@ namespace Suyaa.Microservice
         {
             if (path.StartsWith("~/"))
             {
-                return egg.IO.GetExecutionPath(path.Substring(2));
+                return sy.IO.GetExecutionPath(path.Substring(2));
             }
             else
             {
@@ -190,15 +188,15 @@ namespace Suyaa.Microservice
             if (suyaa is null) throw new MicroserviceException($"未找到'Suyaa'配置节点");
             string suyaaPath = suyaa.GetValue<string>("Path");
             if (suyaa is null) throw new MicroserviceException($"未找到'Suyaa.Path'配置项");
-            this.SuyaaSetting = ReadSuyaaSetting(egg.IO.GetExecutionPath(suyaaPath));
+            this.SuyaaSetting = ReadSuyaaSetting(sy.IO.GetExecutionPath(suyaaPath));
             // 注册日志
-            egg.Logger.GetCurrentLogger()
+            sy.Logger.GetCurrentLogger()
                 .Use(new FileLogger(GetFullPath(this.SuyaaSetting.LogPath)))
                 .Use((string message) => { Debug.WriteLine(message); });
-            egg.Logger.Debug($"Server Start ...", "Server");
+            sy.Logger.Debug($"Server Start ...", "Server");
             // 预处理寻址路径
             this.Paths = new List<string>();
-            this.Paths.Add(egg.Assembly.ExecutionDirectory);
+            this.Paths.Add(sy.Assembly.ExecutionDirectory);
             foreach (var path in this.SuyaaSetting.Paths) this.Paths.Add(GetFullPath(path));
             // 触发初始化事件
             this.OnInitialize();
@@ -216,24 +214,24 @@ namespace Suyaa.Microservice
         public void ConfigureServices(IServiceCollection services)
         {
             // 输出服务注册日志
-            egg.Logger.Debug($"Services Configure Start ...", "Services");
+            sy.Logger.Debug($"Services Configure Start ...", "Services");
 
             // 添加数据仓库依赖注入
             //services.AddDbRepository((optionsBuilder) => optionsBuilder.UseNpgsql("Host=localhost;Database=salesgirl;Username=postgres;Password=12345678"));
 
             // 添加日志注入
-            services.AddSingleton<ILogger>(egg.Logger.GetCurrentLogger());
+            services.AddSingleton<ILogger>(sy.Logger.GetCurrentLogger());
 
             // 根据配置添加所有的控制器
             services.AddControllers(options =>
             {
-                egg.Logger.Debug($"Add {typeof(ApiActionFilter).FullName}", "Filters");
+                sy.Logger.Debug($"Add {typeof(ApiActionFilter).FullName}", "Filters");
                 options.Filters.Add<ApiActionFilter>();
-                egg.Logger.Debug($"Add {typeof(ApiAsyncActionFilter).FullName}", "Filters");
+                sy.Logger.Debug($"Add {typeof(ApiAsyncActionFilter).FullName}", "Filters");
                 options.Filters.Add<ApiAsyncActionFilter>();
                 foreach (var filter in this.Filters)
                 {
-                    egg.Logger.Debug($"Add {filter.FullName}", "Filters");
+                    sy.Logger.Debug($"Add {filter.FullName}", "Filters");
                     options.Filters.Add(filter);
                 }
             }, this.Assembles);
@@ -270,7 +268,7 @@ namespace Suyaa.Microservice
             this.OnConfigureServices(services);
 
             // 输出服务注册日志
-            egg.Logger.Debug($"Services Configure Completed.", "Services");
+            sy.Logger.Debug($"Services Configure Completed.", "Services");
         }
 
         /// <summary>
@@ -281,13 +279,13 @@ namespace Suyaa.Microservice
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             // 输出应用注册日志
-            egg.Logger.Debug($"Apps Configure Start ...", "Apps");
+            sy.Logger.Debug($"Apps Configure Start ...", "Apps");
 
             // 兼容开发模式
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                egg.Logger.GetCurrentLogger().Use<ConsoleLogger>();
+                sy.Logger.GetCurrentLogger().Use<ConsoleLogger>();
 
                 // 使用Swagger
                 app.UseSwagger();
@@ -329,7 +327,7 @@ namespace Suyaa.Microservice
             this.OnConfigure(app, env);
 
             // 输出应用注册日志
-            egg.Logger.Debug($"Apps Configure Completed.", "Apps");
+            sy.Logger.Debug($"Apps Configure Completed.", "Apps");
         }
 
         #endregion

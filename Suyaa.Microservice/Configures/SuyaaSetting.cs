@@ -1,4 +1,4 @@
-﻿using Egg.Config;
+﻿using Suyaa.Configure;
 
 namespace Suyaa.Microservice.Configures
 {

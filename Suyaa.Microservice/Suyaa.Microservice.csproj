@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<OutputType>Library</OutputType>
-		<Version>1.4.2304.16</Version>
+		<Version>1.4.2304.17</Version>
 		<Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
 		<Description>An microservice assembly for .Net 6</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -31,9 +31,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Suyaa.Configure" Version="1.0.2304.1" />
-		<PackageReference Include="Suyaa.EFCore" Version="1.0.2304.1" />
-		<PackageReference Include="Suyaa.Logs" Version="1.0.2304.1" />
+		<PackageReference Include="Suyaa.Configure" Version="1.0.2304.2" />
+		<PackageReference Include="Suyaa.EFCore" Version="1.0.2304.2" />
+		<PackageReference Include="Suyaa.Logs" Version="1.0.2304.2" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
 

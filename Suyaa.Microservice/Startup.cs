@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Suyaa.Configure.Helpers;
+using Suyaa.Exceptions;
 using Suyaa.Logs.Loggers;
 using Suyaa.Microservice.ActionFilters;
 using Suyaa.Microservice.Configures;
+using Suyaa.Microservice.Dependency;
 using Suyaa.Microservice.Exceptions;
 using Suyaa.Microservice.Extensions;
 using System.Diagnostics;
@@ -30,6 +34,11 @@ namespace Suyaa.Microservice
                 // 不存在时创建配置文件
                 if (!sy.IO.FileExists(path))
                 {
+                    // 自动创建目录
+                    string? folder = System.IO.Path.GetDirectoryName(path);
+                    if (folder is null) throw new NullException($"路径'{path}'不合法");
+                    sy.IO.CreateFolder(folder);
+                    // 生成默认配置文件
                     SuyaaSetting setting = new SuyaaSetting();
                     setting.SaveToFile(path);
                 }
@@ -195,8 +204,10 @@ namespace Suyaa.Microservice
                 .Use((string message) => { Debug.WriteLine(message); });
             sy.Logger.Debug($"Server Start ...", "Server");
             // 预处理寻址路径
-            this.Paths = new List<string>();
-            this.Paths.Add(sy.Assembly.ExecutionDirectory);
+            this.Paths = new List<string>()
+            {
+                sy.Assembly.ExecutionDirectory
+            };
             foreach (var path in this.SuyaaSetting.Paths) this.Paths.Add(GetFullPath(path));
             // 触发初始化事件
             this.OnInitialize();
@@ -215,6 +226,23 @@ namespace Suyaa.Microservice
         {
             // 输出服务注册日志
             sy.Logger.Debug($"Services Configure Start ...", "Services");
+
+            #region 添加跨域支持
+            if (this.SuyaaSetting.IsCorsAll)
+            {
+                services.AddCors(d =>
+                {
+                    d.AddPolicy(CrosTypes.ALL, p =>
+                    {
+                        p
+                        .SetIsOriginAllowed((host) => true)
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .AllowAnyMethod();
+                    });
+                });
+            }
+            #endregion
 
             // 添加数据仓库依赖注入
             //services.AddDbRepository((optionsBuilder) => optionsBuilder.UseNpgsql("Host=localhost;Database=salesgirl;Username=postgres;Password=12345678"));
@@ -248,21 +276,44 @@ namespace Suyaa.Microservice
                 options.Cookie.HttpOnly = true; // 设置在浏览器不能通过js获得该cookie的值 
             });
 
-            // 注入Swagger
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Suyaa Microservice API V1", Version = "v1" });
-                var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            //// 注入Swagger
+            //services.AddSwaggerGen(options =>
+            //{
+            //    options.SwaggerDoc("all", new OpenApiInfo { Title = "All APIs", Version = "all" });
+            //    var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-                var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-                var files = directory.GetFiles("*.xml");
-                foreach (var file in files)
+            //    var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            //    var files = directory.GetFiles("*.xml");
+            //    foreach (var file in files)
+            //    {
+            //        //if (file.Name.StartsWith("Suyaa."))
+            //        options.IncludeXmlComments(file.FullName, true);
+            //    }
+            //    options.DocInclusionPredicate((docName, description) => true);
+            //});
+
+            #region 添加Swagger配置
+            if (this.SuyaaSetting.IsSwagger)
+            {
+                foreach (var swagger in this.SuyaaSetting.Swaggers)
                 {
-                    if (file.Name.StartsWith("Suyaa."))
-                        options.IncludeXmlComments(file.FullName, true);
+                    services.AddSwaggerGen(options =>
+                    {
+                        options.SwaggerDoc(swagger.Name, new OpenApiInfo { Title = swagger.Description, Version = swagger.Name });
+                        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+                        var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+                        var files = directory.GetFiles("*.xml");
+                        foreach (var file in files)
+                        {
+                            if (swagger.Keyword == "*" || file.Name.Contains(swagger.Keyword))
+                                options.IncludeXmlComments(file.FullName, true);
+                        }
+                        options.DocInclusionPredicate((docName, description) => true);
+                    });
                 }
-                options.DocInclusionPredicate((docName, description) => true);
-            });
+            }
+            #endregion
 
             // 执行外部注册
             this.OnConfigureServices(services);
@@ -281,19 +332,31 @@ namespace Suyaa.Microservice
             // 输出应用注册日志
             sy.Logger.Debug($"Apps Configure Start ...", "Apps");
 
+            // 添加跨域支持
+            if (this.SuyaaSetting.IsCorsAll) app.UseCors(CrosTypes.ALL);
+
+            #region 添加Swagger支持
+            if (this.SuyaaSetting.IsSwagger)
+            {
+                // 使用Swagger
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    foreach (var swagger in this.SuyaaSetting.Swaggers)
+                    {
+                        options.SwaggerEndpoint($"/swagger/{swagger.Name}/swagger.json", swagger.Description);
+                    }
+                    //options.SwaggerEndpoint("/swagger/v1/swagger.json", "Suyaa Microservice API V1");
+                    options.EnableFilter();
+                });
+            }
+            #endregion
+
             // 兼容开发模式
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 sy.Logger.GetCurrentLogger().Use<ConsoleLogger>();
-
-                // 使用Swagger
-                app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Suyaa Microservice API V1");
-                    options.EnableFilter();
-                });
             }
             else
             {

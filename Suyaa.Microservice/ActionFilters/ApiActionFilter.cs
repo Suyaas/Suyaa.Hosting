@@ -74,6 +74,7 @@ namespace Suyaa.Microservice.ActionFilters
         /// <param name="context"></param>
         public void OnActionExecuting(ActionExecutingContext context)
         {
+            //sy.Logger.Debug(context.HttpContext.Request.Path);
         }
     }
 }

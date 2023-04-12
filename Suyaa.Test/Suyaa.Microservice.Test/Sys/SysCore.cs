@@ -1,4 +1,4 @@
-﻿using Egg.Log;
+﻿using Suyaa.Logs;
 using Suyaa.Microservice.Test.Sys.Dto;
 using System;
 using System.Collections.Generic;

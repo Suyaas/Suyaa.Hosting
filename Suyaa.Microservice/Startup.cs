@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Suyaa.Configure.Helpers;
+using Suyaa.Configure;
 using Suyaa.Exceptions;
 using Suyaa.Logs.Loggers;
 using Suyaa.Microservice.ActionFilters;
@@ -26,31 +26,34 @@ namespace Suyaa.Microservice
     /// </summary>
     public class Startup
     {
-        // 读取配置
-        private SuyaaSetting ReadSuyaaSetting(string path)
-        {
-            try
-            {
-                // 不存在时创建配置文件
-                if (!sy.IO.FileExists(path))
-                {
-                    // 自动创建目录
-                    string? folder = System.IO.Path.GetDirectoryName(path);
-                    if (folder is null) throw new NullException($"路径'{path}'不合法");
-                    sy.IO.CreateFolder(folder);
-                    // 生成默认配置文件
-                    SuyaaSetting setting = new SuyaaSetting();
-                    setting.SaveToFile(path);
-                }
-                // 读取文件
-                return sy.Configure.LoadJsonSettingFromFile<SuyaaSetting>(path) ?? new SuyaaSetting();
-            }
-            catch (Exception ex)
-            {
-                sy.Logger.Error(ex.ToString());
-                return new SuyaaSetting();
-            }
-        }
+        // 私有变量
+        private readonly SuyaaConfig _suyaaConfig;
+
+        //// 读取配置
+        //private SuyaaConfig ReadSuyaaSetting(string path)
+        //{
+        //    try
+        //    {
+        //        // 不存在时创建配置文件
+        //        if (!sy.IO.FileExists(path))
+        //        {
+        //            // 自动创建目录
+        //            string? folder = System.IO.Path.GetDirectoryName(path);
+        //            if (folder is null) throw new NullException($"路径'{path}'不合法");
+        //            sy.IO.CreateFolder(folder);
+        //            // 生成默认配置文件
+        //            SuyaaConfig setting = new SuyaaConfig();
+        //            setting.SaveToFile(path);
+        //        }
+        //        // 读取文件
+        //        return sy.Configure.LoadJsonSettingFromFile<SuyaaConfig>(path) ?? new SuyaaConfig();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        sy.Logger.Error(ex.ToString());
+        //        return new SuyaaConfig();
+        //    }
+        //}
 
         // 加载库文件
         private void ImportLibrary(string path)
@@ -106,7 +109,7 @@ namespace Suyaa.Microservice
         /// <summary>
         /// 舒雅服务配置
         /// </summary>
-        public SuyaaSetting SuyaaSetting { get; }
+        public JsonConfigManager<SuyaaConfig> SuyaaConfigManager { get; }
 
         /// <summary>
         /// 寻址路径集合
@@ -197,10 +200,11 @@ namespace Suyaa.Microservice
             if (suyaa is null) throw new MicroserviceException($"未找到'Suyaa'配置节点");
             string suyaaPath = suyaa.GetValue<string>("Path");
             if (suyaa is null) throw new MicroserviceException($"未找到'Suyaa.Path'配置项");
-            this.SuyaaSetting = ReadSuyaaSetting(sy.IO.GetExecutionPath(suyaaPath));
+            this.SuyaaConfigManager = new JsonConfigManager<SuyaaConfig>(GetFullPath(suyaaPath));
+            _suyaaConfig = this.SuyaaConfigManager.Config;
             // 注册日志
             sy.Logger.GetCurrentLogger()
-                .Use(new FileLogger(GetFullPath(this.SuyaaSetting.LogPath)))
+                .Use(new FileLogger(GetFullPath(_suyaaConfig.LogPath)))
                 .Use((string message) => { Debug.WriteLine(message); });
             sy.Logger.Debug($"Server Start ...", "Server");
             // 预处理寻址路径
@@ -208,13 +212,13 @@ namespace Suyaa.Microservice
             {
                 sy.Assembly.ExecutionDirectory
             };
-            foreach (var path in this.SuyaaSetting.Paths) this.Paths.Add(GetFullPath(path));
+            foreach (var path in _suyaaConfig.Paths) this.Paths.Add(GetFullPath(path));
             // 触发初始化事件
             this.OnInitialize();
             // 加载所有的程序集
-            for (int i = 0; i < this.SuyaaSetting.Libraries.Count; i++)
+            for (int i = 0; i < _suyaaConfig.Libraries.Count; i++)
             {
-                ImportLibrary(this.SuyaaSetting.Libraries[i]);
+                ImportLibrary(_suyaaConfig.Libraries[i]);
             }
         }
 
@@ -228,7 +232,7 @@ namespace Suyaa.Microservice
             sy.Logger.Debug($"Services Configure Start ...", "Services");
 
             #region 添加跨域支持
-            if (this.SuyaaSetting.IsCorsAll)
+            if (_suyaaConfig.IsCorsAll)
             {
                 services.AddCors(d =>
                 {
@@ -247,8 +251,9 @@ namespace Suyaa.Microservice
             // 添加数据仓库依赖注入
             //services.AddDbRepository((optionsBuilder) => optionsBuilder.UseNpgsql("Host=localhost;Database=salesgirl;Username=postgres;Password=12345678"));
 
-            // 添加日志注入
+            // 添加注入
             services.AddSingleton<ILogger>(sy.Logger.GetCurrentLogger());
+            services.AddSingleton<IConfig>(_suyaaConfig);
 
             // 根据配置添加所有的控制器
             services.AddControllers(options =>
@@ -293,9 +298,9 @@ namespace Suyaa.Microservice
             //});
 
             #region 添加Swagger配置
-            if (this.SuyaaSetting.IsSwagger)
+            if (_suyaaConfig.IsSwagger)
             {
-                foreach (var swagger in this.SuyaaSetting.Swaggers)
+                foreach (var swagger in _suyaaConfig.Swaggers)
                 {
                     services.AddSwaggerGen(options =>
                     {
@@ -333,16 +338,16 @@ namespace Suyaa.Microservice
             sy.Logger.Debug($"Apps Configure Start ...", "Apps");
 
             // 添加跨域支持
-            if (this.SuyaaSetting.IsCorsAll) app.UseCors(CrosTypes.ALL);
+            if (_suyaaConfig.IsCorsAll) app.UseCors(CrosTypes.ALL);
 
             #region 添加Swagger支持
-            if (this.SuyaaSetting.IsSwagger)
+            if (_suyaaConfig.IsSwagger)
             {
                 // 使用Swagger
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
-                    foreach (var swagger in this.SuyaaSetting.Swaggers)
+                    foreach (var swagger in _suyaaConfig.Swaggers)
                     {
                         options.SwaggerEndpoint($"/swagger/{swagger.Name}/swagger.json", swagger.Description);
                     }

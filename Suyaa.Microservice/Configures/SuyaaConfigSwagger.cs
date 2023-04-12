@@ -5,7 +5,7 @@ namespace Suyaa.Microservice.Configures
     /// <summary>
     /// 舒雅服务Swagger配置
     /// </summary>
-    public class SuyaaSettingSwagger
+    public class SuyaaConfigSwagger
     {
 
         /// <summary>

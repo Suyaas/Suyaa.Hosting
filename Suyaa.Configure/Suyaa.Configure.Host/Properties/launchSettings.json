@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Suyaa.Configure.Host": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

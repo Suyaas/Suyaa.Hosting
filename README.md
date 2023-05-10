@@ -1,12 +1,12 @@
-# 舒雅微服务组件(Suyaa Microservice)
+# 舒雅主机服务组件(Suyaa Hosting)
 
-基于.Net 6的微服务组件
+基于.Net 6的Web服务组件
 
-An microservice assembly for .Net 6
+An web service assembly for .Net 6
 
-![license](https://img.shields.io/github/license/SuyaaUI/Suyaa.Microservice)
-![codeSize](https://img.shields.io/github/languages/code-size/SuyaaUI/Suyaa.Microservice)
-![lastCommit](https://img.shields.io/github/last-commit/SuyaaUI/Suyaa.Microservice)
+![license](https://img.shields.io/github/license/SuyaaUI/Suyaa.Hosting)
+![codeSize](https://img.shields.io/github/languages/code-size/SuyaaUI/Suyaa.Hosting)
+![lastCommit](https://img.shields.io/github/last-commit/SuyaaUI/Suyaa.Hosting)
 
 ## 服务端配置集成
 

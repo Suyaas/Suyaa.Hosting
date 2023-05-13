@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.Diagnostics;
-using Suyaa.Helpers;
 using Suyaa.Configure.Host;
 
 sy.Logger.GetCurrentLogger()

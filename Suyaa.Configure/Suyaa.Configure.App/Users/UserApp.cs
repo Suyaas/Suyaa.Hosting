@@ -2,20 +2,20 @@
 using Suyaa.Data;
 using Suyaa.Hosting.Dependency;
 
-namespace Suyaa.Configure.App.Setups
+namespace Suyaa.Configure.App.Users
 {
     /// <summary>
-    /// 安装
+    /// 用户
     /// </summary>
-    [App("Setup")]
-    public class SetupApp : ServiceApp
+    [App("User")]
+    public class UserApp : ServiceApp
     {
         private readonly IDatabaseConnection _connection;
 
         /// <summary>
-        /// 安装
+        /// 用户
         /// </summary>
-        public SetupApp(
+        public UserApp(
             IDatabaseConnection connection
             )
         {
@@ -26,8 +26,8 @@ namespace Suyaa.Configure.App.Setups
         /// 初始化
         /// </summary>
         /// <returns></returns>
-        [Get]
-        public async Task Init()
+        [Put]
+        public async Task Login()
         {
             var connection = (DatabaseConnection)_connection;
             connection.Open();

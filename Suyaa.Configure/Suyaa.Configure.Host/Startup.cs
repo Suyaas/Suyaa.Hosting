@@ -37,7 +37,7 @@ namespace Suyaa.Configure.Host
 
         protected override void OnInitialize()
         {
-            //throw new NotImplementedException();
+            this.Import<Apps.ModuleStartup>();
         }
     }
 }

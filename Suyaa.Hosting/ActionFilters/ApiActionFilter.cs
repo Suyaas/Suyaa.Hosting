@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Hosting.Helpers;
 using Suyaa.Hosting.Results;
-using Suyaa.Helpers;
 
 namespace Suyaa.Hosting.ActionFilters
 {

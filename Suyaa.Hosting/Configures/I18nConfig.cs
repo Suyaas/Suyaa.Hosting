@@ -1,5 +1,5 @@
 ﻿using Suyaa.Configure;
-using Suyaa.Helpers;
+using Suyaa;
 
 namespace Suyaa.Hosting.Configures
 {

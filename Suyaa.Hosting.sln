@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting", "Suyaa.Host
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Suyaa.Token", "Suyaa.Token", "{33A40A39-EA9C-4199-8588-6CEE7B038C66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Token.Core", "Suyaa.Token\Suyaa.Token.Core\Suyaa.Token.Core.csproj", "{FDCD320E-5336-4497-A2A8-CF0945163FC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Token.Cores", "Suyaa.Token\Suyaa.Token.Core\Suyaa.Token.Cores.csproj", "{FDCD320E-5336-4497-A2A8-CF0945163FC9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Token.App", "Suyaa.Token\Suyaa.Token.App\Suyaa.Token.App.csproj", "{3006B88C-756C-4A92-9C97-E63E9FE916DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Token.Apps", "Suyaa.Token\Suyaa.Token.App\Suyaa.Token.Apps.csproj", "{3006B88C-756C-4A92-9C97-E63E9FE916DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Suyaa.Configure", "Suyaa.Configure", "{A10CBF0F-6643-4E22-B369-CDF1B1BCCE59}"
 EndProject
@@ -17,11 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure.Host", "Suy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure.Apps", "Suyaa.Configure\Suyaa.Configure.App\Suyaa.Configure.Apps.csproj", "{AB723391-F228-4962-A8CD-ADC15B689E4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Configure.Cores", "Suyaa.Configure\Suyaa.Configure.Core\Suyaa.Configure.Cores.csproj", "{B64ADDAC-B064-4D96-AB7F-E08585984192}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure.Cores", "Suyaa.Configure\Suyaa.Configure.Core\Suyaa.Configure.Cores.csproj", "{B64ADDAC-B064-4D96-AB7F-E08585984192}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Configure.Entities", "Suyaa.Configure\Suyaa.Configure.Entity\Suyaa.Configure.Entities.csproj", "{3C780555-12C7-44C6-88B5-911E3D463943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure.Entities", "Suyaa.Configure\Suyaa.Configure.Entity\Suyaa.Configure.Entities.csproj", "{3C780555-12C7-44C6-88B5-911E3D463943}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Configure.Basic", "Suyaa.Configure\Suyaa.Configure.Basic\Suyaa.Configure.Basic.csproj", "{361B3891-2E71-4730-8FEA-7F45689EE8BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure.Basic", "Suyaa.Configure\Suyaa.Configure.Basic\Suyaa.Configure.Basic.csproj", "{361B3891-2E71-4730-8FEA-7F45689EE8BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Token.Basic", "Suyaa.Token\Suyaa.Token.Basic\Suyaa.Token.Basic.csproj", "{2F4CB806-3D15-45A9-AE12-806628D5C70A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{361B3891-2E71-4730-8FEA-7F45689EE8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{361B3891-2E71-4730-8FEA-7F45689EE8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{361B3891-2E71-4730-8FEA-7F45689EE8BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F4CB806-3D15-45A9-AE12-806628D5C70A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F4CB806-3D15-45A9-AE12-806628D5C70A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F4CB806-3D15-45A9-AE12-806628D5C70A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F4CB806-3D15-45A9-AE12-806628D5C70A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{B64ADDAC-B064-4D96-AB7F-E08585984192} = {A10CBF0F-6643-4E22-B369-CDF1B1BCCE59}
 		{3C780555-12C7-44C6-88B5-911E3D463943} = {A10CBF0F-6643-4E22-B369-CDF1B1BCCE59}
 		{361B3891-2E71-4730-8FEA-7F45689EE8BC} = {A10CBF0F-6643-4E22-B369-CDF1B1BCCE59}
+		{2F4CB806-3D15-45A9-AE12-806628D5C70A} = {33A40A39-EA9C-4199-8588-6CEE7B038C66}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23FC978D-1BFE-4D83-8947-4484CE603405}

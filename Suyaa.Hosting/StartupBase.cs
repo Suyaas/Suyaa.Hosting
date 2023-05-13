@@ -17,7 +17,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using static System.Net.WebRequestMethods;
 using ILogger = Suyaa.Logs.ILogger;
-using Suyaa.Helpers;
+using Suyaa;
 
 namespace Suyaa.Hosting
 {
@@ -84,7 +84,7 @@ namespace Suyaa.Hosting
         /// <summary>
         /// 主机服务配置
         /// </summary>
-        public HostConfig HostConfig { get; }
+        public HostConfig HostConfig => _hostConfig;
 
         /// <summary>
         /// 多语言配置信息
@@ -309,29 +309,41 @@ namespace Suyaa.Hosting
             #region 添加Swagger配置
             if (_hostConfig.IsSwagger)
             {
-                foreach (var swagger in _hostConfig.Swaggers)
+                services.AddSwaggerGen(options =>
                 {
-                    services.AddSwaggerGen(options =>
+                    foreach (var swagger in _hostConfig.Swaggers)
                     {
                         options.SwaggerDoc(swagger.Name, new OpenApiInfo { Title = swagger.Description, Version = swagger.Name });
-                        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    }
+                    var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-                        var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-                        var files = directory.GetFiles("*.xml");
-                        foreach (var file in files)
-                        {
-                            if (swagger.Keyword == "*" || file.Name.Contains(swagger.Keyword))
-                                options.IncludeXmlComments(file.FullName, true);
-                        }
-                        options.DocInclusionPredicate((docName, description) => true);
+                    var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+                    var files = directory.GetFiles("*.xml");
+                    foreach (var file in files)
+                    {
+                        //if (swagger.Keyword == "*" || file.Name.Contains(swagger.Keyword))
+                        options.IncludeXmlComments(file.FullName, true);
+                    }
+                    options.DocInclusionPredicate((docName, description) =>
+                    {
+                        var swagger = _hostConfig.Swaggers.Where(d => d.Name == docName).FirstOrDefault();
+                        if (swagger is null) return false;
+                        if (swagger.Keyword == "*") return true;
+                        if (description.RelativePath is null) return false;
+                        if (description.ActionDescriptor is null) return false;
+                        string? displayName = description.ActionDescriptor.DisplayName;
+                        if (displayName is null) return false;
+                        if (displayName.StartsWith(swagger.Keyword)) return true;
+                        return false;
                     });
-                }
+
+                });
             }
             #endregion
 
             // 执行外部注册
             this.OnConfigureServices(services);
-
+           
             // 输出服务注册日志
             sy.Logger.Debug($"Services Configure Completed.", "Services");
         }

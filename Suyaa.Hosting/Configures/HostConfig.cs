@@ -6,7 +6,7 @@ namespace Suyaa.Hosting.Configures
     /// <summary>
     /// 主机服务配置
     /// </summary>
-    public class HostConfig : IHostConfig
+    public class HostConfig : IConfig
     {
         /// <summary>
         /// 寻址路径集合

@@ -1,4 +1,5 @@
-﻿using Suyaa.Hosting.Dependency;
+﻿using Suyaa.Configure;
+using Suyaa.Hosting.Dependency;
 using System.Reflection;
 
 namespace Suyaa.Hosting.Helpers
@@ -87,17 +88,6 @@ namespace Suyaa.Hosting.Helpers
             }
         }
 
-        // 是否为核心服务接口
-        private static bool HasServiceCore(Type[] types)
-        {
-            foreach (var tp in types)
-            {
-                if (tp == _serviceCoreType)
-                    return true;
-            }
-            return false;
-        }
-
         /// <summary>
         /// 添加关联的依赖注入
         /// </summary>
@@ -110,16 +100,19 @@ namespace Suyaa.Hosting.Helpers
             // 遍历所有的IModulerStartup
             //var tps = ass?.GetTypes().Where(d => d.BaseType == typeof(IModulerStartup));
             var tps = assembly?.GetTypes();
-            if (tps != null)
+            if (tps is null) return;
+            foreach (var tp in tps)
             {
-                foreach (var tp in tps)
+                // 跳过空类型
+                if (tp is null) continue;
+                // 跳过接口
+                if (tp.IsInterface) continue;
+                // 获取所有接口
+                var ifs = tp.GetInterfaces();
+                if (ifs is null) continue;
+                // 处理业务类
+                if (tp.HasInterface<IServiceCore>())
                 {
-                    // 跳过接口
-                    if (tp.IsInterface) continue;
-                    // 获取所有接口
-                    var ifs = tp?.GetInterfaces();
-                    if (ifs is null) continue;
-                    if (!HasServiceCore(ifs)) continue;
                     foreach (var ifc in ifs)
                     {
                         // 跳过直接引用IServiceCore接口的类
@@ -128,6 +121,15 @@ namespace Suyaa.Hosting.Helpers
                         sy.Logger.Info("AddModulerIoc " + (ifc?.FullName ?? "") + " : " + (tp?.FullName ?? ""), "ModulerStartup");
                         if (ifc != null && tp != null) services.AddTransient(ifc, tp);
                     }
+                }
+                // 处理配置类
+                if (tp.HasInterface<IConfig>())
+                {
+                    var obj = sy.Assembly.CreateInstance(tp);
+                    if (obj is null) continue;
+                    IConfig config = (IConfig)obj;
+                    config.Default();
+                    services.AddSingleton(tp, config);
                 }
             }
         }

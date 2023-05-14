@@ -87,6 +87,11 @@ namespace Suyaa.Hosting
         public HostConfig HostConfig => _hostConfig;
 
         /// <summary>
+        /// 多语言支持
+        /// </summary>
+        public I18n I18n => _i18n;
+
+        /// <summary>
         /// 多语言配置信息
         /// </summary>
         public JsonConfigManager<I18nConfig> I18nConfigManager { get; }
@@ -261,7 +266,8 @@ namespace Suyaa.Hosting
 
             // 添加注入
             services.AddSingleton<ILogger>(sy.Logger.GetCurrentLogger());
-            services.AddSingleton<IHostConfig>(_hostConfig);
+            services.AddSingleton(typeof(IOptionConfig<>), typeof(OptionConfig<>));
+            services.AddSingleton(_hostConfig);
             services.AddSingleton<II18n>(_i18n);
 
             // 根据配置添加所有的控制器
@@ -343,7 +349,7 @@ namespace Suyaa.Hosting
 
             // 执行外部注册
             this.OnConfigureServices(services);
-           
+
             // 输出服务注册日志
             sy.Logger.Debug($"Services Configure Completed.", "Services");
         }

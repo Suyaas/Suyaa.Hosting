@@ -1,4 +1,7 @@
-﻿using Suyaa.Hosting.Dependency;
+﻿using Suyaa.Configure.Cores.Users.Dto;
+using Suyaa.Configure.Cores.Users.Sto;
+using Suyaa.Hosting;
+using Suyaa.Hosting.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +15,11 @@ namespace Suyaa.Configure.Cores.Users
     /// </summary>
     public interface IUserCore : IServiceCore
     {
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<UserLoginOutput> Login(UserLoginInput input);
     }
 }

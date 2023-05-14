@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Suyaa.Data;
+using Suyaa.Hosting.Configures;
+using Suyaa.Hosting;
+using Suyaa.Configure.Basic.Configures;
 
 namespace Suyaa.Configure.Host
 {
@@ -29,6 +32,11 @@ namespace Suyaa.Configure.Host
 
         protected override void OnConfigureServices(IServiceCollection services)
         {
+            // 填充用户信息
+            var users = _configuration.GetSection("Users");
+            if (users is null) throw new HostException(I18n.Content("Configuration section '{0}' not found.", "Hosting"));
+            var userConfigs = users.Get<UserConfigs>();
+            services.AddSingleton(userConfigs);
             // 添加数据库连接
             var connectionString = _configuration.GetSection("ConnectionStrings").GetSection("Hosting").Get<string>();
             //IDatabaseConnection connection = new Suyaa.Data.DatabaseConnection(DatabaseTypes.Sqlite3, connectionString);

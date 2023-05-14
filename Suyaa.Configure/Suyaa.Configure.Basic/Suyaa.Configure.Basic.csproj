@@ -26,8 +26,4 @@
     <PackageReference Include="Suyaa.Data.Sqlite" Version="1.0.2304.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dependency\" />
-  </ItemGroup>
-
 </Project>

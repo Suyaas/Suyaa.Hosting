@@ -1,4 +1,7 @@
-﻿using Suyaa.Configure.Entity.Projects;
+﻿using Suyaa.Configure.Cores.Users;
+using Suyaa.Configure.Cores.Users.Dto;
+using Suyaa.Configure.Cores.Users.Sto;
+using Suyaa.Configure.Entity.Projects;
 using Suyaa.Data;
 using Suyaa.Hosting.Dependency;
 
@@ -10,29 +13,26 @@ namespace Suyaa.Configure.App.Users
     [App("User")]
     public class UserApp : ServiceApp
     {
-        private readonly IDatabaseConnection _connection;
+        private readonly IUserCore _userCore;
 
         /// <summary>
         /// 用户
         /// </summary>
         public UserApp(
-            IDatabaseConnection connection
+            IUserCore userCore
             )
         {
-            _connection = connection;
+            _userCore = userCore;
         }
 
         /// <summary>
-        /// 初始化
+        /// 登录
         /// </summary>
         /// <returns></returns>
         [Put]
-        public async Task Login()
+        public async Task<UserLoginOutput> Login(UserLoginInput input)
         {
-            var connection = (DatabaseConnection)_connection;
-            connection.Open();
-            // 创建项目表
-            await connection.TableCreated<Project>();
+            return await _userCore.Login(input);
         }
     }
 }

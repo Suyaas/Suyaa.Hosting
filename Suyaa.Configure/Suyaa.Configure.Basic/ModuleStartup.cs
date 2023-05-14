@@ -8,10 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Suyaa.Hosting;
 using Suyaa.Data;
-using Suyaa.Configure.Entity.Projects;
 using Suyaa.Hosting.Helpers;
 
-namespace Suyaa.Configure.Apps
+namespace Suyaa.Configure.Basic
 {
     /// <summary>
     /// 模块启动器
@@ -24,10 +23,7 @@ namespace Suyaa.Configure.Apps
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            // 注册基础类
-            services.AddModuler<Basic.ModuleStartup>();
-            // 注册业务
-            services.AddModuler<Cores.ModuleStartup>();
+            services.AddModulerIoc<ModuleStartup>();
         }
     }
 }

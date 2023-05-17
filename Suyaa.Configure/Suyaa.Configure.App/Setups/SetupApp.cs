@@ -1,4 +1,5 @@
-﻿using Suyaa.Configure.Entity.Projects;
+﻿using Suyaa.Configure.Basic.Dependency;
+using Suyaa.Configure.Entity.Projects;
 using Suyaa.Data;
 using Suyaa.Hosting.Dependency;
 
@@ -8,6 +9,7 @@ namespace Suyaa.Configure.App.Setups
     /// 安装
     /// </summary>
     [App("Setup")]
+    [JwtAuthorize]
     public class SetupApp : ServiceApp
     {
         private readonly IDatabaseConnection _connection;

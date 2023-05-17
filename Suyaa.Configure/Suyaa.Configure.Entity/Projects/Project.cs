@@ -9,7 +9,7 @@ namespace Suyaa.Configure.Entity.Projects
     /// <summary>
     /// 项目
     /// </summary>
-    [DbTable(Convert = DbNameConvertTypes.UnderlineLower, Schema = "cfg")]
+    [DbTable(Convert = DbNameConvertTypes.UnderlineLower)]
     public class Project : GuidKeyEntity
     {
         /// <summary>

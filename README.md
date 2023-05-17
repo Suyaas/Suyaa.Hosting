@@ -15,4 +15,3 @@ An web service assembly for .Net 6
 ## 统一交互格式
 
 采用一套规范化的Json交互格式，增强通用性
-

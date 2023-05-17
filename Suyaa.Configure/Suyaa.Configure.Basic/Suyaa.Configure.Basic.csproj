@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Suyaa.EFCore.Sqlite" Version="1.1.2305.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Suyaa.Hosting\Suyaa.Hosting.csproj" />
   </ItemGroup>
 
@@ -20,10 +24,6 @@
     <None Update="appsettings.Production.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Suyaa.Data.Sqlite" Version="1.0.2304.3" />
   </ItemGroup>
 
 </Project>

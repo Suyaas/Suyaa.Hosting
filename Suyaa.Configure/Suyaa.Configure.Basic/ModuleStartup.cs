@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Suyaa.Hosting;
 using Suyaa.Data;
 using Suyaa.Hosting.Helpers;
+using Suyaa.Configure.Basic.Dependency;
 
 namespace Suyaa.Configure.Basic
 {
@@ -23,7 +24,10 @@ namespace Suyaa.Configure.Basic
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // 注入模块标准对象
             services.AddModulerIoc<ModuleStartup>();
+            // 注册应用授权数据
+            services.AddScoped<AppAuthorizeFilterMetaData>();
         }
     }
 }

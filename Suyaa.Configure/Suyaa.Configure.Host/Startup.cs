@@ -30,6 +30,24 @@ namespace Suyaa.Configure.Host
             //throw new NotImplementedException();
         }
 
+        private DatabaseConnection GetConnection(string connectionString)
+        {
+            if (connectionString.IsNullOrWhiteSpace()) throw new HostException(I18n.Content("Configuration ConnectionStrings '{0}' not found.", "Configure"));
+            if (connectionString[0] != '[') throw new HostException(I18n.Content("ConnectionString must start with '[dbtype]'."));
+            int idx = connectionString.IndexOf(']');
+            if (idx < 0) throw new HostException(I18n.Content("ConnectionString must start with '[dbtype]'."));
+            string dbType = connectionString.Substring(1, idx - 1);
+            string dbConnectionString = connectionString.Substring(idx + 1);
+            switch (dbType)
+            {
+                case "Sqlite":
+                    return new Suyaa.Data.DatabaseConnection(DatabaseTypes.Sqlite3, dbConnectionString);
+                default:
+                    throw new HostException(I18n.Content("Unsupported database type '{0}'.", dbType));
+            }
+
+        }
+
         protected override void OnConfigureServices(IServiceCollection services)
         {
             // 填充用户信息
@@ -38,9 +56,8 @@ namespace Suyaa.Configure.Host
             var userConfigs = users.Get<UserConfigs>();
             services.AddSingleton(userConfigs);
             // 添加数据库连接
-            var connectionString = _configuration.GetSection("ConnectionStrings").GetSection("Hosting").Get<string>();
-            //IDatabaseConnection connection = new Suyaa.Data.DatabaseConnection(DatabaseTypes.Sqlite3, connectionString);
-            services.AddScoped<IDatabaseConnection>(provider => new Suyaa.Data.DatabaseConnection(DatabaseTypes.Sqlite3, connectionString));
+            var connectionString = _configuration.GetSection("ConnectionStrings").GetSection("Configure").Get<string>();
+            services.AddScoped<IDatabaseConnection>(provider => GetConnection(connectionString));
         }
 
         protected override void OnInitialize()

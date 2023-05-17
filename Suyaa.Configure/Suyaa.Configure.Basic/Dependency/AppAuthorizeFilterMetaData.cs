@@ -1,0 +1,16 @@
+﻿using Microsoft.AspNetCore.Mvc.Filters;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Suyaa.Configure.Basic.Dependency
+{
+    /// <summary>
+    /// 应用认证数据
+    /// </summary>
+    public class AppAuthorizeFilterMetaData : IFilterMetadata
+    {
+    }
+}

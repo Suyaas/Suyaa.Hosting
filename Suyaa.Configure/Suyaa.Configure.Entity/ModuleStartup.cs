@@ -25,6 +25,10 @@ namespace Suyaa.Configure.Entities
         {
             // 注册仓库
             services.AddTransient<IRepository<Project, string>, Repository<Project, string>>();
+            // 注册数据库上下文
+            services.AddScoped<ConfigDbContext>();
+            // 注册实体
+            services.AddTransient<Project>();
         }
     }
 }

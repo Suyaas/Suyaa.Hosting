@@ -18,6 +18,10 @@ using System.Text.Json.Serialization;
 using static System.Net.WebRequestMethods;
 using ILogger = Suyaa.Logs.ILogger;
 using Suyaa;
+using Suyaa.Data;
+using Suyaa.EFCore.Dbsets;
+using AutoMapper;
+using System.Runtime.Intrinsics.Arm;
 
 namespace Suyaa.Hosting
 {
@@ -269,6 +273,9 @@ namespace Suyaa.Hosting
             services.AddSingleton(typeof(IOptionConfig<>), typeof(OptionConfig<>));
             services.AddSingleton(_hostConfig);
             services.AddSingleton<II18n>(_i18n);
+            // 添加仓库注入
+            services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
+            services.AddTransient(typeof(IEfRepository<,>), typeof(EfRepository<,>));
 
             // 根据配置添加所有的控制器
             services.AddControllers(options =>
@@ -287,14 +294,14 @@ namespace Suyaa.Hosting
             // 注册所有的模块
             services.AddModulers(this.Assembles);
 
-            // 注入 Session
-            services.AddDistributedMemoryCache();
-            services.AddSession(options =>
-            {
-                options.Cookie.Name = "Suyaa.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(2000); // 设置session的过期时间
-                options.Cookie.HttpOnly = true; // 设置在浏览器不能通过js获得该cookie的值 
-            });
+            //// 注入 Session
+            //services.AddDistributedMemoryCache();
+            //services.AddSession(options =>
+            //{
+            //    options.Cookie.Name = "Suyaa.Session";
+            //    options.IdleTimeout = TimeSpan.FromSeconds(2000); // 设置session的过期时间
+            //    options.Cookie.HttpOnly = true; // 设置在浏览器不能通过js获得该cookie的值 
+            //});
 
             //// 注入Swagger
             //services.AddSwaggerGen(options =>
@@ -346,6 +353,17 @@ namespace Suyaa.Hosting
                 });
             }
             #endregion
+
+            // 添加AutoMapper
+            var configuration = new MapperConfiguration(cfg =>
+            {
+
+                //cfg.ReplaceMemberName("Src", "Dest");
+                //cfg.CreateMap<Src02, Dest02>();
+            });
+            var mapper = configuration.CreateMapper();
+            services.AddSingleton(configuration);
+            services.AddSingleton(mapper);
 
             // 执行外部注册
             this.OnConfigureServices(services);

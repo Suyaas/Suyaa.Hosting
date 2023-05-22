@@ -6,12 +6,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Suyaa.Hosting.Dependency;
+using Suyaa.Configure.Entity.Projects;
 
 namespace Suyaa.Configure.Cores.Projects.Dto
 {
     /// <summary>
     /// 项目出参
     /// </summary>
+    [MapFrom(typeof(Project))]
     public class ProjectOutput
     {
         /// <summary>

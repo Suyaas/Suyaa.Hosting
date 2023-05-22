@@ -6,6 +6,8 @@ using Suyaa.Data;
 using Suyaa.Hosting.Configures;
 using Suyaa.Hosting;
 using Suyaa.Configure.Basic.Configures;
+using Suyaa.Hosting.Dependency;
+using Microsoft.EntityFrameworkCore;
 
 namespace Suyaa.Configure.Host
 {
@@ -58,6 +60,11 @@ namespace Suyaa.Configure.Host
             // 添加数据库连接
             var connectionString = _configuration.GetSection("ConnectionStrings").GetSection("Configure").Get<string>();
             services.AddScoped<IDatabaseConnection>(provider => GetConnection(connectionString));
+            // 添加数据库上下文配置
+            var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+            optionsBuilder.UseSqlite(connectionString);
+            var options = new HostDbContextOptions(optionsBuilder.Options, connectionString);
+            services.AddSingleton(options);
         }
 
         protected override void OnInitialize()

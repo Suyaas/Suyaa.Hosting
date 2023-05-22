@@ -31,6 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
 		<PackageReference Include="Suyaa.Configure" Version="1.1.2305.5" />
 		<PackageReference Include="Suyaa.EFCore" Version="1.1.2305.5" />
 		<PackageReference Include="Suyaa.Logs" Version="1.1.2305.5" />

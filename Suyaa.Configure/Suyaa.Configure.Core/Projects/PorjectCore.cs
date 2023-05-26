@@ -6,6 +6,7 @@ using Suyaa.Configure.Cores.Projects.Sto;
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.EFCore.Dbsets;
 using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,9 +45,10 @@ namespace Suyaa.Configure.Cores.Projects
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
-        public IQueryable<Project> GetQuery(Expression<Func<Project, bool>> expression)
+        public IQueryable<Project> GetQuery(Expression<Func<Project, bool>>? expression = null)
         {
-            var query = from p in _projectRepository.Query().Where(expression)
+            var query = from p in _projectRepository.Query()
+                            .WhereIf(expression != null, expression)
                         orderby p.Name
                         select p;
             return query.AsNoTracking();
@@ -59,7 +61,9 @@ namespace Suyaa.Configure.Cores.Projects
         /// <returns></returns>
         public async Task<PagedOutput<ProjectOutput>> GetList(ProjectListInput input)
         {
-
+            var query = GetQuery();
+            var result = await query.ToListAsync();
+            return new PagedOutput<ProjectOutput>();
         }
     }
 }

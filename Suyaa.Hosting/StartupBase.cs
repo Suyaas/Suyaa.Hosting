@@ -357,12 +357,11 @@ namespace Suyaa.Hosting
             // 添加AutoMapper
             var configuration = new MapperConfiguration(cfg =>
             {
-
                 //cfg.ReplaceMemberName("Src", "Dest");
                 //cfg.CreateMap<Src02, Dest02>();
             });
             var mapper = configuration.CreateMapper();
-            services.AddSingleton(configuration);
+            //services.AddSingleton(configuration);
             services.AddSingleton(mapper);
 
             // 执行外部注册

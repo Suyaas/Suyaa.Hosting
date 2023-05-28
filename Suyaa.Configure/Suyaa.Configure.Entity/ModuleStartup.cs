@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Suyaa.Hosting;
 using Suyaa.Data;
 using Suyaa.Configure.Entity.Projects;
+using Suyaa.EFCore;
 
 namespace Suyaa.Configure.Entities
 {
@@ -26,7 +27,7 @@ namespace Suyaa.Configure.Entities
             // 注册仓库
             services.AddTransient<IRepository<Project, string>, Repository<Project, string>>();
             // 注册数据库上下文
-            services.AddScoped<ConfigDbContext>();
+            services.AddScoped<DbContextBase, ConfigDbContext>();
             // 注册实体
             services.AddTransient<Project>();
         }

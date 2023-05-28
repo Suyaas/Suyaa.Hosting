@@ -6,20 +6,12 @@ namespace Suyaa.Hosting.Dependency
     /// 映射目标特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class MapToAttribute : Attribute
+    public class MapToAttribute : MapAttributeBase
     {
-        /// <summary>
-        /// 目标类型
-        /// </summary>
-        public Type Type { get; }
-
         /// <summary>
         /// 映射目标特性
         /// </summary>
-        /// <param name="type">目标类型</param>
-        public MapToAttribute(Type type)
-        {
-            Type = type;
-        }
+        /// <param name="types">目标类型</param>
+        public MapToAttribute(params Type[] types) : base(types) { }
     }
 }

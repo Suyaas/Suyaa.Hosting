@@ -23,6 +23,15 @@ namespace Suyaa.Hosting.Dependency
         /// <summary>
         /// 数据集合
         /// </summary>
-        public T Datas { get; set; } = new T();
+        public List<T> Datas { get; set; }
+
+        /// <summary>
+        /// 分页输出
+        /// </summary>
+        /// <param name="datas"></param>
+        public PagedOutput(List<T> datas)
+        {
+            this.Datas = datas;
+        }
     }
 }

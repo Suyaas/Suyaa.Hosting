@@ -22,6 +22,7 @@ using Suyaa.Data;
 using Suyaa.EFCore.Dbsets;
 using AutoMapper;
 using System.Runtime.Intrinsics.Arm;
+using Suyaa.Hosting.Dependency.Mappers;
 
 namespace Suyaa.Hosting
 {
@@ -351,18 +352,21 @@ namespace Suyaa.Hosting
             }
             #endregion
 
+            // 建立映射配置文件
+            MapperProfile profile = new MapperProfile();
+            services.AddSingleton(profile);
+
+            // 注册所有的模块
+            services.AddModulers(this.Assembles);
+
             // 添加AutoMapper
             var configuration = new MapperConfiguration(cfg =>
             {
-                //cfg.ReplaceMemberName("Src", "Dest");
-                //cfg.CreateMap<Src02, Dest02>();
+                cfg.AddProfile(profile);
             });
             var mapper = configuration.CreateMapper();
             //services.AddSingleton(configuration);
             services.AddSingleton(mapper);
-
-            // 注册所有的模块
-            services.AddModulers(this.Assembles);
 
             // 执行外部注册
             this.OnConfigureServices(services);

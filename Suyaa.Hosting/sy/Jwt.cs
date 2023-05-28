@@ -58,7 +58,7 @@ namespace sy
                 throw new HostException($"Jwt invalid.");
             }
             if (jwt is null) throw new HostException("Jwt invalid.");
-            var info = sy.Assembly.CreateInstance(type);
+            var info = sy.Assembly.Create(type);
             if (info is null) throw new HostException($"Type '{type.FullName}' instance fail.");
             //读取信息
             foreach (var claim in jwt.Claims)

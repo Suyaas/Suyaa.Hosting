@@ -28,7 +28,7 @@ namespace Suyaa.Configure.Basic.Dependency
         {
         }
 
-        public bool IsReusable => throw new NotImplementedException();
+        public bool IsReusable => true;
 
         public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
         {

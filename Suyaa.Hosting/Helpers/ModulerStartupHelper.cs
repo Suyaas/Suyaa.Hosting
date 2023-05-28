@@ -1,5 +1,6 @@
 ﻿using Suyaa.Configure;
 using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Dependency.Mappers;
 using System.Reflection;
 
 namespace Suyaa.Hosting.Helpers
@@ -97,6 +98,9 @@ namespace Suyaa.Hosting.Helpers
         public static void AddModulerIoc(this IServiceCollection services, Assembly assembly)
         {
             sy.Logger.Info("AddModulerIoc " + (assembly?.Location ?? ""), "ModulerStartup");
+            // 获取关联的映射配置
+            var provider = services.BuildServiceProvider();
+            var profile = provider.GetRequiredService<MapperProfile>();
             // 遍历所有的IModulerStartup
             //var tps = ass?.GetTypes().Where(d => d.BaseType == typeof(IModulerStartup));
             var tps = assembly?.GetTypes();
@@ -107,6 +111,10 @@ namespace Suyaa.Hosting.Helpers
                 if (tp is null) continue;
                 // 跳过接口
                 if (tp.IsInterface) continue;
+                #region 处理映射类
+                // 尝试添加类映射
+                profile.TryCreateMapByAttribute(tp);
+                #endregion
                 // 获取所有接口
                 var ifs = tp.GetInterfaces();
                 if (ifs is null) continue;
@@ -125,7 +133,7 @@ namespace Suyaa.Hosting.Helpers
                 // 处理配置类
                 if (tp.HasInterface<IConfig>())
                 {
-                    var obj = sy.Assembly.CreateInstance(tp);
+                    var obj = sy.Assembly.Create(tp);
                     if (obj is null) continue;
                     IConfig config = (IConfig)obj;
                     config.Default();

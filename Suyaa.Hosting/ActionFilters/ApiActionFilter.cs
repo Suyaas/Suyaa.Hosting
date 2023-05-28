@@ -24,7 +24,7 @@ namespace Suyaa.Hosting.ActionFilters
                 // 处理异常
                 if (context.Exception != null)
                 {
-                    sy.Logger.Error(context.Exception.ToString(), context.ActionDescriptor.DisplayName.ToNotNull());
+                    sy.Logger.Error(context.Exception.ToString(), context.ActionDescriptor.DisplayName.Fixed());
                     context.ExceptionHandled = true;
                     context.Result = context.Exception.ToApiResult();
                     return;
@@ -54,7 +54,7 @@ namespace Suyaa.Hosting.ActionFilters
                         context.Result = new ApiResult();
                         return;
                     }
-                    context.Result = new ApiResult<object>() { Data = obj.Value, DataType = obj.DeclaredType.FullName };
+                    context.Result = new ApiResult<object>() { Data = obj.Value, DataType = obj.DeclaredType.Name };
                     return;
                 }
                 // 直接返回

@@ -38,6 +38,7 @@ namespace Suyaa.Configure.Apps.Projects
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        [Put]
         public async Task<PagedOutput<ProjectOutput>> GetList(ProjectListInput input)
         {
             return await _projectCore.GetList(input);

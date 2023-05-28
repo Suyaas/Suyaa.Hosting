@@ -291,9 +291,6 @@ namespace Suyaa.Hosting
                 }
             }, this.Assembles);
 
-            // 注册所有的模块
-            services.AddModulers(this.Assembles);
-
             //// 注入 Session
             //services.AddDistributedMemoryCache();
             //services.AddSession(options =>
@@ -363,6 +360,9 @@ namespace Suyaa.Hosting
             var mapper = configuration.CreateMapper();
             //services.AddSingleton(configuration);
             services.AddSingleton(mapper);
+
+            // 注册所有的模块
+            services.AddModulers(this.Assembles);
 
             // 执行外部注册
             this.OnConfigureServices(services);

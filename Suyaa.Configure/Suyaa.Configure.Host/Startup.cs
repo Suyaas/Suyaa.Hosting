@@ -8,6 +8,7 @@ using Suyaa.Hosting;
 using Suyaa.Configure.Basic.Configures;
 using Suyaa.Hosting.Dependency;
 using Microsoft.EntityFrameworkCore;
+using Suyaa.Hosting.Dependency.EFCore;
 
 namespace Suyaa.Configure.Host
 {
@@ -50,6 +51,29 @@ namespace Suyaa.Configure.Host
 
         }
 
+        // 获取连接配置
+        private HostDbContextOptions GetDbContextOptions(string connectionString)
+        {
+            if (connectionString.IsNullOrWhiteSpace()) throw new HostException(I18n.Content("Configuration ConnectionStrings '{0}' not found.", "Configure"));
+            if (connectionString[0] != '[') throw new HostException(I18n.Content("ConnectionString must start with '[dbtype]'."));
+            int idx = connectionString.IndexOf(']');
+            if (idx < 0) throw new HostException(I18n.Content("ConnectionString must start with '[dbtype]'."));
+            string dbType = connectionString.Substring(1, idx - 1);
+            string dbConnectionString = connectionString.Substring(idx + 1);
+            // 添加数据库上下文配置
+            var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+            switch (dbType)
+            {
+                case "Sqlite":
+                    optionsBuilder.UseSqlite(dbConnectionString);
+                    break;
+                default:
+                    throw new HostException(I18n.Content("Unsupported database type '{0}'.", dbType));
+            }
+            var options = new HostDbContextOptions(optionsBuilder.Options, dbConnectionString);
+            return options;
+        }
+
         protected override void OnConfigureServices(IServiceCollection services)
         {
             // 填充用户信息
@@ -60,11 +84,8 @@ namespace Suyaa.Configure.Host
             // 添加数据库连接
             var connectionString = _configuration.GetSection("ConnectionStrings").GetSection("Configure").Get<string>();
             services.AddScoped<IDatabaseConnection>(provider => GetConnection(connectionString));
-            // 添加数据库上下文配置
-            var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
-            optionsBuilder.UseSqlite(connectionString);
-            var options = new HostDbContextOptions(optionsBuilder.Options, connectionString);
-            services.AddSingleton(options);
+            // 添加数据库上下文
+            services.AddSingleton(GetDbContextOptions(connectionString));
         }
 
         protected override void OnInitialize()

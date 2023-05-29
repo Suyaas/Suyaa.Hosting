@@ -54,7 +54,7 @@ namespace Suyaa.Configure.Cores.Users
             return await Task.FromResult(new UserLoginOutput()
             {
                 Token = token,
-                RenewalTime = sy.Time.Now.AddHours(1).ToUnixTimeSeconds()
+                RenewalTime = sy.Time.Now.AddHours(1).ToUnixTimeSeconds(),
             });
         }
     }

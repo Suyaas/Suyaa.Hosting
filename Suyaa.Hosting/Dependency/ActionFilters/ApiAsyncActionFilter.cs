@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Hosting.Helpers;
 using Suyaa.Hosting.Results;
 
-namespace Suyaa.Hosting.ActionFilters
+namespace Suyaa.Hosting.Dependency.ActionFilters
 {
     /// <summary>
     /// Api执行过滤器

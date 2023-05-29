@@ -12,19 +12,15 @@ using Suyaa.Configure.Entity.Projects;
 namespace Suyaa.Configure.Cores.Projects.Dto
 {
     /// <summary>
-    /// 项目出参
+    /// 项目添加
     /// </summary>
-    [MapFrom(typeof(Project))]
-    public class ProjectOutput
+    [MapTo(typeof(Project))]
+    public class ProjectInsertInput
     {
-        /// <summary>
-        /// Id
-        /// </summary>
-        public string Id { get; set; } = string.Empty;
-
         /// <summary>
         /// 名称
         /// </summary>
+        [Required]
         public string Name { get; set; } = string.Empty;
 
         /// <summary>

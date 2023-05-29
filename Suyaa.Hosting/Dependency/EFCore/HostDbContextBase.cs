@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Suyaa.EFCore;
+using Suyaa.EFCore.Helpers;
 
-namespace Suyaa.Hosting.Dependency
+namespace Suyaa.Hosting.Dependency.EFCore
 {
     /// <summary>
     /// 主机数据库上下文基类

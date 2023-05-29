@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Suyaa.Hosting.Dependency.Attributes;
 using System.Reflection;
 
 namespace Suyaa.Hosting.Dependency.Mappers

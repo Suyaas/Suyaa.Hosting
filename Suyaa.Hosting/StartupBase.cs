@@ -6,7 +6,6 @@ using Microsoft.OpenApi.Models;
 using Suyaa.Configure;
 using Suyaa.Exceptions;
 using Suyaa.Logs.Loggers;
-using Suyaa.Hosting.ActionFilters;
 using Suyaa.Hosting.Configures;
 using Suyaa.Hosting.Dependency;
 using Suyaa.Hosting.Helpers;
@@ -23,6 +22,9 @@ using Suyaa.EFCore.Dbsets;
 using AutoMapper;
 using System.Runtime.Intrinsics.Arm;
 using Suyaa.Hosting.Dependency.Mappers;
+using Suyaa.Hosting.Dependency.ActionFilters;
+using Suyaa.Hosting.Dependency.Constants;
+using Suyaa.EFCore.Dependency;
 
 namespace Suyaa.Hosting
 {
@@ -276,7 +278,6 @@ namespace Suyaa.Hosting
             services.AddSingleton<II18n>(_i18n);
             // 添加仓库注入
             services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
-            services.AddTransient(typeof(IEfRepository<,>), typeof(EfRepository<,>));
 
             // 根据配置添加所有的控制器
             services.AddControllers(options =>

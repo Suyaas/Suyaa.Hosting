@@ -2,6 +2,7 @@
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.Data;
 using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Dependency.Attributes;
 
 namespace Suyaa.Configure.App.Setups
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Suyaa.Hosting.Dependency
+namespace Suyaa.Hosting.Dependency.EFCore
 {
     /// <summary>
     /// 主机上下文选项
@@ -22,7 +22,7 @@ namespace Suyaa.Hosting.Dependency
         /// </summary>
         /// <param name="options"></param>
         /// <param name="connectionString"></param>
-        public HostDbContextOptions(DbContextOptions options,string connectionString)
+        public HostDbContextOptions(DbContextOptions options, string connectionString)
         {
             Options = options;
             ConnectionString = connectionString;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Suyaa.Hosting.Dependency.Attributes;
 
 namespace Suyaa.Hosting.Dependency
 {

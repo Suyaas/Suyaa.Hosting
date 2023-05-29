@@ -10,6 +10,8 @@ using Suyaa.Hosting;
 using Suyaa.Data;
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.EFCore;
+using Suyaa.EFCore.Dependency;
+using Suyaa.EFCore.Dbsets;
 
 namespace Suyaa.Configure.Entities
 {

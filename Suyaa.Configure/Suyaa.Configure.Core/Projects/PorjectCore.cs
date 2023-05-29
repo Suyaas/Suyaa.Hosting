@@ -6,7 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Suyaa.Configure.Cores.Projects.Dto;
 using Suyaa.Configure.Cores.Projects.Sto;
 using Suyaa.Configure.Entity.Projects;
+using Suyaa.Data;
 using Suyaa.EFCore.Dbsets;
+using Suyaa.EFCore.Dependency;
 using Suyaa.Hosting.Dependency;
 using Suyaa.Hosting.Helpers;
 using System;
@@ -25,7 +27,7 @@ namespace Suyaa.Configure.Cores.Projects
     {
 
         #region DI注入
-        //private readonly IEfRepository<Project, string> _projectRepository;
+        private readonly IRepository<Project, string> _projectRepository;
         private readonly IMapper _mapper;
         private readonly IServiceProvider _provider;
 
@@ -35,12 +37,12 @@ namespace Suyaa.Configure.Cores.Projects
         /// 项目
         /// </summary>
         public PorjectCore(
-            //IEfRepository<Project, string> projectRepository,
+            IRepository<Project, string> projectRepository,
             IMapper mapper,
             IServiceProvider provider
             )
         {
-            //_projectRepository = projectRepository;
+            _projectRepository = projectRepository;
             _mapper = mapper;
             _provider = provider;
             //_projectCore = projectCore;
@@ -49,13 +51,13 @@ namespace Suyaa.Configure.Cores.Projects
         #endregion
 
         /// <summary>
-        /// 获取查询
+        /// 获取 项目 查询
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
         public IQueryable<Project> GetQuery(Expression<Func<Project, bool>>? expression = null)
         {
-            var _projectRepository = _provider.GetRequiredService<IEfRepository<Project, string>>();
+            //var _projectRepository = _provider.GetRequiredService<IRepository<Project, string>>();
             var query = from p in _projectRepository.Query()
                             .WhereIf(expression != null, expression)
                         orderby p.Name
@@ -64,24 +66,36 @@ namespace Suyaa.Configure.Cores.Projects
         }
 
         /// <summary>
-        /// 获取列表
+        /// 获取 项目 列表
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         public async Task<PagedOutput<ProjectOutput>> GetList(ProjectListInput input)
         {
-            //var query = GetQuery();
-            //var result = await query.ToListAsync();
-            List<Project> projects = new List<Project>()
-            {
-                new Project()
-                {
-                    Description="KKK",
-                    Name="TTT",
-                }
-            };
+            var query = GetQuery();
+            var projects = await query.ToListAsync();
             var output = new PagedOutput<ProjectOutput>(_mapper.Map<List<ProjectOutput>>(projects));
             return await Task.FromResult(output);
+        }
+
+        /// <summary>
+        /// 新增 项目
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task Insert(Project input)
+        {
+            await _projectRepository.InsertAsync(input);
+        }
+
+        /// <summary>
+        /// 删除 项目
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task Delete(string id)
+        {
+            await _projectRepository.DeleteAsync(id);
         }
     }
 }

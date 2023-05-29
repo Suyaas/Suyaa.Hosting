@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.EFCore;
-using Suyaa.Hosting.Dependency;
+using Suyaa.EFCore.Helpers;
+using Suyaa.Hosting.Dependency.EFCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,5 +34,14 @@ namespace Suyaa.Configure.Entities
 
 #nullable enable
 
+        /// <summary>
+        /// 模型创建
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.BuildToLowerName<ConfigDbContext>();
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

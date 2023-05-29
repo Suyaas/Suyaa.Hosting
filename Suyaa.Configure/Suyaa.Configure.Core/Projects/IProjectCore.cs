@@ -29,5 +29,12 @@ namespace Suyaa.Configure.Cores.Projects
         /// <param name="input"></param>
         /// <returns></returns>
         Task<PagedOutput<ProjectOutput>> GetList(ProjectListInput input);
+
+        /// <summary>
+        /// 新增 项目
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task Insert(Project input);
     }
 }

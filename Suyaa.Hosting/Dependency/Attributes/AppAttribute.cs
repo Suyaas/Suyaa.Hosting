@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Suyaa.Hosting.Dependency
+namespace Suyaa.Hosting.Dependency.Attributes
 {
     /// <summary>
     /// 服务应用特性

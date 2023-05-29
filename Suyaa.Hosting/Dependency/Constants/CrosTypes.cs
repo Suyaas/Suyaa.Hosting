@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Dependency
+﻿namespace Suyaa.Hosting.Dependency.Constants
 {
     /// <summary>
     /// 跨域类型

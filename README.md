@@ -4,9 +4,10 @@
 
 An web service assembly for .Net 6
 
-![license](https://img.shields.io/github/license/SuyaaUI/Suyaa.Hosting)
-![codeSize](https://img.shields.io/github/languages/code-size/SuyaaUI/Suyaa.Hosting)
-![lastCommit](https://img.shields.io/github/last-commit/SuyaaUI/Suyaa.Hosting)
+![license](https://img.shields.io/github/license/Suyaas/Suyaa.Hosting)
+![codeSize](https://img.shields.io/github/languages/code-size/Suyaas/Suyaa.Hosting)
+![lastCommit](https://img.shields.io/github/last-commit/Suyaas/Suyaa.Hosting)
+[![NuGet version](https://badge.fury.io/nu/Suyaa.Hosting.svg)](https://badge.fury.io/nu/Suyaa.Hosting)
 
 ## 服务端配置集成
 

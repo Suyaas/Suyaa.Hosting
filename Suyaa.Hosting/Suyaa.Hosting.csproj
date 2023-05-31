@@ -32,11 +32,16 @@
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
-		<PackageReference Include="Suyaa.Configure" Version="1.1.2305.7" />
-		<PackageReference Include="Suyaa.EFCore" Version="1.1.2305.7" />
-		<PackageReference Include="Suyaa.Logs" Version="1.1.2305.7" />
+		<PackageReference Include="Suyaa" Version="1.1.2305.8" />
+		<PackageReference Include="Suyaa.Configure" Version="1.1.2305.8" />
+		<PackageReference Include="Suyaa.EFCore" Version="1.1.2305.8" />
+		<PackageReference Include="Suyaa.Logs" Version="1.1.2305.8" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.30.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="MetaDatas\" />
 	</ItemGroup>
 
 </Project>

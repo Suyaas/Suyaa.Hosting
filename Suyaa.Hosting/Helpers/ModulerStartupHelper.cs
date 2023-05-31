@@ -1,6 +1,6 @@
 ﻿using Suyaa.Configure;
 using Suyaa.Hosting.Dependency;
-using Suyaa.Hosting.Dependency.Mappers;
+using Suyaa.Hosting.Mappers;
 using System.Reflection;
 
 namespace Suyaa.Hosting.Helpers

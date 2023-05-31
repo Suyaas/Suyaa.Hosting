@@ -2,7 +2,7 @@
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.EFCore;
 using Suyaa.EFCore.Helpers;
-using Suyaa.Hosting.Dependency.EFCore;
+using Suyaa.Hosting.EFCores;
 using System;
 using System.Collections.Generic;
 using System.Linq;

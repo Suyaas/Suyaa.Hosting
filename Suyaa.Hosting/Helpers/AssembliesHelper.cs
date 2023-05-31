@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Suyaa.Hosting.Dependency.ActionFilters;
+using Suyaa.Hosting.ActionFilters;
 using Suyaa.Hosting.Dependency;
 using Suyaa.Hosting.Helpers;
 using System.Reflection;

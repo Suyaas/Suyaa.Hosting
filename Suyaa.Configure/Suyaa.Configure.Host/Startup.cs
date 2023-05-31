@@ -8,7 +8,10 @@ using Suyaa.Hosting;
 using Suyaa.Configure.Basic.Configures;
 using Suyaa.Hosting.Dependency;
 using Microsoft.EntityFrameworkCore;
-using Suyaa.Hosting.Dependency.EFCore;
+using Suyaa.Configure.Basic.Dependency;
+using Suyaa.Hosting.EFCores;
+using Suyaa.Configure.Basic.Infos;
+using Suyaa.Configure.Basic.Dependency.Infos;
 
 namespace Suyaa.Configure.Host
 {
@@ -86,6 +89,9 @@ namespace Suyaa.Configure.Host
             services.AddScoped<IDatabaseConnection>(provider => GetConnection(connectionString));
             // 添加数据库上下文
             services.AddSingleton(GetDbContextOptions(connectionString));
+            // 注册应用授权信息和
+            services.AddScoped<IAppInfo, AppInfo>();
+            services.AddScoped<IJwtData, JwtInfo>();
         }
 
         protected override void OnInitialize()

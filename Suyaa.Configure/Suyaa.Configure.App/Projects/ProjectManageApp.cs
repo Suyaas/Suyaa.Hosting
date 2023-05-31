@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Suyaa.Configure.Basic.Dependency;
+using Suyaa.Configure.Basic.Infos;
 using Suyaa.Configure.Cores.Projects;
 using Suyaa.Configure.Cores.Projects.Dto;
 using Suyaa.Configure.Cores.Projects.Sto;
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.Hosting.Attributes;
+using Suyaa.Hosting.Dependency;
 using Suyaa.Hosting.Pages;
 using Suyaa.Hosting.Services;
 using System;
@@ -18,40 +20,39 @@ namespace Suyaa.Configure.Apps.Projects
     /// <summary>
     /// 项目
     /// </summary>
-    [App("Project")]
-    [AppAuthorize]
-    public class ProjectApp : ServiceApp
+    [App("ProjectManage")]
+    [JwtAuthorize]
+    public class ProjectManageApp : ServiceApp
     {
         #region DI注入
         private readonly IProjectCore _projectCore;
         private readonly IMapper _mapper;
-        private readonly IAppInfo _appInfo;
+        private readonly IJwtData _jwtData;
 
         /// <summary>
         /// 项目
         /// </summary>
-        public ProjectApp(
+        public ProjectManageApp(
             IProjectCore projectCore,
             IMapper mapper,
-            IAppInfo appInfo
+            IJwtData jwtData
             )
         {
             _projectCore = projectCore;
             _mapper = mapper;
-            _appInfo = appInfo;
+            _jwtData = jwtData;
         }
 
         #endregion
 
         /// <summary>
-        /// 获取应用测试数据
+        /// 获取Jwt信息
         /// </summary>
-        /// <param name="input"></param>
         /// <returns></returns>
         [Get]
-        public async Task<string> AppTest(ProjectListInput input)
+        public async Task<JwtInfo> GetJwtInfo()
         {
-            return await Task.FromResult(_appInfo.AppId);
+            return await Task.FromResult((JwtInfo)_jwtData);
         }
 
         /// <summary>

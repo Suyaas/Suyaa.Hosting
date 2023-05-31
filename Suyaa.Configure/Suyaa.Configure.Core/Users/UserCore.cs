@@ -11,6 +11,8 @@ using Suyaa.Hosting;
 using Suyaa.Configure.Cores.Users.Dto;
 using System.Runtime;
 using Suyaa.Configure.Basic.Dependency;
+using Suyaa.Configure.Basic.Dependency.Infos;
+using Suyaa.Configure.Basic.Infos;
 
 namespace Suyaa.Configure.Cores.Users
 {
@@ -50,7 +52,7 @@ namespace Suyaa.Configure.Cores.Users
             var userConfig = _userConfigs.Where(d => d.Account == input.Account).FirstOrDefault();
             if (userConfig is null) throw new HostFriendlyException(_i18n.Content("Login fail."));
             if (userConfig.Password != input.Password) throw new HostFriendlyException(_i18n.Content("Login fail."));
-            var token = sy.Jwt.CreateToken(new JwtUserInfo() { UserId = userConfig.Id });
+            var token = sy.Jwt.CreateToken(new JwtInfo() { UserId = userConfig.Id });
             return await Task.FromResult(new UserLoginOutput()
             {
                 Token = token,

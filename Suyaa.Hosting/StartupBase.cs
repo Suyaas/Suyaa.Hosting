@@ -21,10 +21,11 @@ using Suyaa.Data;
 using Suyaa.EFCore.Dbsets;
 using AutoMapper;
 using System.Runtime.Intrinsics.Arm;
-using Suyaa.Hosting.Dependency.Mappers;
-using Suyaa.Hosting.Dependency.ActionFilters;
-using Suyaa.Hosting.Dependency.Constants;
 using Suyaa.EFCore.Dependency;
+using Suyaa.Hosting.ActionFilters;
+using Suyaa.Hosting.Constants;
+using Suyaa.Hosting.Mappers;
+using Suyaa.Hosting.Options;
 
 namespace Suyaa.Hosting
 {
@@ -267,6 +268,11 @@ namespace Suyaa.Hosting
                 });
             }
             #endregion
+
+            // 注册Http上下文
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            // 注册Metadata
+            services.AddScoped<JwtAuthorizeFilter>();
 
             // 添加数据仓库依赖注入
             //services.AddDbRepository((optionsBuilder) => optionsBuilder.UseNpgsql("Host=localhost;Database=salesgirl;Username=postgres;Password=12345678"));

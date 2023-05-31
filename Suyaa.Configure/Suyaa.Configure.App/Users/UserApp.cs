@@ -3,8 +3,8 @@ using Suyaa.Configure.Cores.Users.Dto;
 using Suyaa.Configure.Cores.Users.Sto;
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.Data;
-using Suyaa.Hosting.Dependency;
-using Suyaa.Hosting.Dependency.Attributes;
+using Suyaa.Hosting.Attributes;
+using Suyaa.Hosting.Services;
 
 namespace Suyaa.Configure.App.Users
 {

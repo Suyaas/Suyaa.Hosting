@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Suyaa.Hosting.Dependency;
 using Suyaa.Configure.Entity.Projects;
+using Suyaa.Hosting.Attributes;
 
 namespace Suyaa.Configure.Cores.Projects.Dto
 {

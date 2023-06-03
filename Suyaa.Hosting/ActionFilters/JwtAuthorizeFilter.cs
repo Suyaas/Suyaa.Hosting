@@ -70,13 +70,7 @@ namespace Suyaa.Hosting.ActionFilters
                 throw new HostFriendlyException(ex.Message);
             }
             if (info.UserId <= 0) throw new HostFriendlyException($"Jwt invalid.");
-            // 执行变更事件
-            var pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var pro in pros)
-            {
-                pro.SetValue(_jwtData, pro.GetValue(info));
-            }
-            //_jwtData.Fill(info);
+            _jwtData.CopyFrom(info);
         }
     }
 }

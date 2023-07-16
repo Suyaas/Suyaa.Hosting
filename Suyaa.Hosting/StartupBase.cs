@@ -26,6 +26,7 @@ using Suyaa.Hosting.ActionFilters;
 using Suyaa.Hosting.Constants;
 using Suyaa.Hosting.Mappers;
 using Suyaa.Hosting.Options;
+using Suyaa.Hosting.Infos;
 
 namespace Suyaa.Hosting
 {
@@ -284,7 +285,9 @@ namespace Suyaa.Hosting
             services.AddSingleton<II18n>(_i18n);
             // 添加仓库注入
             services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
-
+            // 添加数据类
+            services.AddSingleton<IJwtDataType>(new JwtDataType(typeof(JwtData)));
+            services.AddScoped<IJwtDataManager>(pro => new JwtDataManager());
             // 根据配置添加所有的控制器
             services.AddControllers(options =>
             {

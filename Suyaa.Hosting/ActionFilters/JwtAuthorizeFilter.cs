@@ -19,18 +19,21 @@ namespace Suyaa.Hosting.ActionFilters
     {
 
         #region DI注入
-        private readonly IJwtData _jwtData;
+        private readonly IJwtDataManager _jwtDataManager;
+        private readonly IJwtDataType _jwtDataType;
         private readonly IServiceProvider _provider;
 
         /// <summary>
         /// 应用认证数据
         /// </summary>
         public JwtAuthorizeFilter(
-            IJwtData jwtData,
+            IJwtDataManager jwtDataManager,
+            IJwtDataType jwtDataType,
             IServiceProvider provider
             )
         {
-            _jwtData = jwtData;
+            _jwtDataManager = jwtDataManager;
+            _jwtDataType = jwtDataType;
             _provider = provider;
         }
         #endregion
@@ -58,7 +61,7 @@ namespace Suyaa.Hosting.ActionFilters
             if (!request.Headers.ContainsKey(sy.Jwt.TokenName)) throw new HostFriendlyException($"Jwt invalid.");
             string token = request.Headers[sy.Jwt.TokenName].ToString();
             // 数据类型
-            var type = _jwtData.GetType();
+            var type = _jwtDataType.Type;
             // 检测Jwt信息
             IJwtData info;
             try
@@ -70,7 +73,7 @@ namespace Suyaa.Hosting.ActionFilters
                 throw new HostFriendlyException(ex.Message);
             }
             if (info.UserId <= 0) throw new HostFriendlyException($"Jwt invalid.");
-            _jwtData.CopyFrom(info);
+            _jwtDataManager.Data = info;
         }
     }
 }

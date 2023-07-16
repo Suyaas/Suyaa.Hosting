@@ -23,7 +23,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure.Entities", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Configure.Basic", "Suyaa.Configure\Suyaa.Configure.Basic\Suyaa.Configure.Basic.csproj", "{361B3891-2E71-4730-8FEA-7F45689EE8BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Token.Basic", "Suyaa.Token\Suyaa.Token.Basic\Suyaa.Token.Basic.csproj", "{2F4CB806-3D15-45A9-AE12-806628D5C70A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Token.Basic", "Suyaa.Token\Suyaa.Token.Basic\Suyaa.Token.Basic.csproj", "{2F4CB806-3D15-45A9-AE12-806628D5C70A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Suyaa.Proxy", "Suyaa.Proxy", "{4FF96C8B-AED2-4DD2-907D-66A7F5EE84E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Proxy.Host", "Suyaa.Proxy\Suyaa.Proxy.Host\Suyaa.Proxy.Host.csproj", "{E6DA9E67-8AD2-4B71-8059-EE8590E3B9C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Proxy.Basic", "Suyaa.Proxy\Suyaa.Proxy.Basic\Suyaa.Proxy.Basic.csproj", "{D41133FA-86C0-498F-BD6F-D39A766F8E36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Proxy.Apps", "Suyaa.Proxy\Suyaa.Proxy.Apps\Suyaa.Proxy.Apps.csproj", "{88CA39CF-3089-43F5-8409-5D430602B73E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +75,18 @@ Global
 		{2F4CB806-3D15-45A9-AE12-806628D5C70A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F4CB806-3D15-45A9-AE12-806628D5C70A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F4CB806-3D15-45A9-AE12-806628D5C70A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6DA9E67-8AD2-4B71-8059-EE8590E3B9C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6DA9E67-8AD2-4B71-8059-EE8590E3B9C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6DA9E67-8AD2-4B71-8059-EE8590E3B9C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6DA9E67-8AD2-4B71-8059-EE8590E3B9C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D41133FA-86C0-498F-BD6F-D39A766F8E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D41133FA-86C0-498F-BD6F-D39A766F8E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D41133FA-86C0-498F-BD6F-D39A766F8E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D41133FA-86C0-498F-BD6F-D39A766F8E36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88CA39CF-3089-43F5-8409-5D430602B73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88CA39CF-3089-43F5-8409-5D430602B73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88CA39CF-3089-43F5-8409-5D430602B73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88CA39CF-3089-43F5-8409-5D430602B73E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +100,9 @@ Global
 		{3C780555-12C7-44C6-88B5-911E3D463943} = {A10CBF0F-6643-4E22-B369-CDF1B1BCCE59}
 		{361B3891-2E71-4730-8FEA-7F45689EE8BC} = {A10CBF0F-6643-4E22-B369-CDF1B1BCCE59}
 		{2F4CB806-3D15-45A9-AE12-806628D5C70A} = {33A40A39-EA9C-4199-8588-6CEE7B038C66}
+		{E6DA9E67-8AD2-4B71-8059-EE8590E3B9C1} = {4FF96C8B-AED2-4DD2-907D-66A7F5EE84E5}
+		{D41133FA-86C0-498F-BD6F-D39A766F8E36} = {4FF96C8B-AED2-4DD2-907D-66A7F5EE84E5}
+		{88CA39CF-3089-43F5-8409-5D430602B73E} = {4FF96C8B-AED2-4DD2-907D-66A7F5EE84E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23FC978D-1BFE-4D83-8947-4484CE603405}

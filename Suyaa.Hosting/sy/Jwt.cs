@@ -58,8 +58,7 @@ namespace sy
                 throw new HostException($"Jwt invalid.");
             }
             if (jwt is null) throw new HostException("Jwt invalid.");
-            var info = sy.Assembly.Create(type);
-            if (info is null) throw new HostException($"Type '{type.FullName}' instance fail.");
+            var info = sy.Assembly.Create(type) ?? throw new HostException($"Type '{type.FullName}' instance fail.");
             //读取信息
             foreach (var claim in jwt.Claims)
             {
@@ -140,14 +139,14 @@ namespace sy
             var key = Encoding.ASCII.GetBytes(TokenKey);
 
             // 组织内容
-            List<Claim> claims = new List<Claim>();
+            var claims = new List<Claim>();
             var type = typeof(T);
             var pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             foreach (var pro in pros)
             {
                 string value = "";
                 var proValue = pro.GetValue(data);
-                if (proValue != null) value = proValue.ToString().ToNotNull();
+                if (proValue != null) value = proValue.ToString().Fixed();
                 claims.Add(new Claim(pro.Name, value));
             }
 

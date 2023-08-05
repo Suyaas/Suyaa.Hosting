@@ -17,5 +17,9 @@ namespace Suyaa.Configure.Basic.Infos
         /// 用户Id
         /// </summary>
         public long UserId { get; set; }
+        /// <summary>
+        /// 用户账户
+        /// </summary>
+        public string UserAccount { get; set; } = string.Empty;
     }
 }

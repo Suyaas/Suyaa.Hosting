@@ -21,6 +21,7 @@ namespace Suyaa.Hosting.ActionFilters
         #region DI注入
         private readonly IJwtDataManager _jwtDataManager;
         private readonly IJwtDataType _jwtDataType;
+        private readonly II18n _i18n;
         private readonly IServiceProvider _provider;
 
         /// <summary>
@@ -29,11 +30,13 @@ namespace Suyaa.Hosting.ActionFilters
         public JwtAuthorizeFilter(
             IJwtDataManager jwtDataManager,
             IJwtDataType jwtDataType,
+            II18n i18n,
             IServiceProvider provider
             )
         {
             _jwtDataManager = jwtDataManager;
             _jwtDataType = jwtDataType;
+            _i18n = i18n;
             _provider = provider;
         }
         #endregion

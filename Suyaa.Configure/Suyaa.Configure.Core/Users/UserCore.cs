@@ -52,7 +52,7 @@ namespace Suyaa.Configure.Cores.Users
             var userConfig = _userConfigs.Where(d => d.Account == input.Account).FirstOrDefault();
             if (userConfig is null) throw new HostFriendlyException(_i18n.Content("Login fail."));
             if (userConfig.Password != input.Password) throw new HostFriendlyException(_i18n.Content("Login fail."));
-            var token = sy.Jwt.CreateToken(new JwtInfo() { UserId = userConfig.Id });
+            var token = sy.Jwt.CreateToken(new JwtInfo() { UserId = userConfig.Id, UserAccount = userConfig.Account });
             return await Task.FromResult(new UserLoginOutput()
             {
                 Token = token,

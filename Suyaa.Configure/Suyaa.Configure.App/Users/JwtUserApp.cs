@@ -4,6 +4,7 @@ using Suyaa.Configure.Cores.Users.Dto;
 using Suyaa.Configure.Cores.Users.Sto;
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.Data;
+using Suyaa.Hosting;
 using Suyaa.Hosting.Attributes;
 using Suyaa.Hosting.Dependency;
 using Suyaa.Hosting.Services;
@@ -18,18 +19,21 @@ namespace Suyaa.Configure.App.Users
     public class JwtUserApp : ServiceApp
     {
         private readonly IUserCore _userCore;
-        private readonly IJwtData _jwtData;
+        private readonly IJwtDataManager _jwtDataManager;
+        private readonly II18n _i18n;
 
         /// <summary>
         /// 用户
         /// </summary>
         public JwtUserApp(
             IUserCore userCore,
-            IJwtData jwtData
+            IJwtDataManager jwtDataManager,
+            II18n i18n
             )
         {
             _userCore = userCore;
-            _jwtData = jwtData;
+            _jwtDataManager = jwtDataManager;
+            _i18n = i18n;
         }
 
         /// <summary>
@@ -39,7 +43,8 @@ namespace Suyaa.Configure.App.Users
         [Get]
         public async Task<JwtInfo> GetJwtInfo()
         {
-            return await Task.FromResult((JwtInfo)_jwtData);
+            if (_jwtDataManager.Data is null) throw new HostFriendlyException(_i18n.Content("Jwt info not found."));
+            return await Task.FromResult((JwtInfo)_jwtDataManager.Data);
         }
     }
 }

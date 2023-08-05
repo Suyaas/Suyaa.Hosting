@@ -12,6 +12,7 @@ using Suyaa.Configure.Basic.Dependency;
 using Suyaa.Hosting.EFCores;
 using Suyaa.Configure.Basic.Infos;
 using Suyaa.Configure.Basic.Dependency.Infos;
+using Suyaa.Hosting.Infos;
 
 namespace Suyaa.Configure.Host
 {
@@ -91,7 +92,9 @@ namespace Suyaa.Configure.Host
             services.AddSingleton(GetDbContextOptions(connectionString));
             // 注册应用授权信息和
             services.AddScoped<IAppInfo, AppInfo>();
-            services.AddScoped<IJwtData, JwtInfo>();
+            //services.AddScoped<IJwtData, JwtInfo>();
+            // 设置支持的Jwt类型
+            services.AddScoped<IJwtDataType>(provider => new JwtDataType(typeof(JwtInfo)));
         }
 
         protected override void OnInitialize()

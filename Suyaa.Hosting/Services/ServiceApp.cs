@@ -6,7 +6,7 @@ namespace Suyaa.Hosting.Services
     /// <summary>
     /// 服务应用
     /// </summary>
-    [ApiController]
+    //[ApiController]
     public abstract class ServiceApp : IServiceApp
     {
     }

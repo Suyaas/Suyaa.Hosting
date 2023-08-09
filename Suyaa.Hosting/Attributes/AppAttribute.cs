@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace Suyaa.Hosting.Attributes
 {
@@ -6,12 +7,20 @@ namespace Suyaa.Hosting.Attributes
     /// 服务应用特性
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class AppAttribute : RouteAttribute
+    public class AppAttribute : Attribute
     {
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; }
+
         /// <summary>
         /// 服务应用特性
         /// </summary>
-        /// <param name="route"></param>
-        public AppAttribute(string route) : base($"app/{route}") { }
+        /// <param name="name"></param>
+        public AppAttribute(string name)
+        {
+            Name = name;
+        }
     }
 }

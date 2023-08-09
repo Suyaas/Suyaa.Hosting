@@ -1,11 +1,12 @@
 ﻿using Suyaa.Hosting.Middlewares;
+using Suyaa.Hosting.Options;
 
 namespace Suyaa.Hosting.Helpers
 {
     /// <summary>
-    /// 异常处理扩展
+    /// 应用扩展
     /// </summary>
-    public static class ApplicationBuilderHelper
+    public static partial class ApplicationBuilderHelper
     {
         /// <summary>
         /// 使用异常处理

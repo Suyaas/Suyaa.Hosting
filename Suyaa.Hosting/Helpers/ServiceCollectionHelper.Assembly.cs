@@ -6,10 +6,8 @@ using System.Reflection;
 
 namespace Suyaa.Hosting.Helpers
 {
-    /// <summary>
-    /// 程序集扩展
-    /// </summary>
-    public static class AssembliesHelper
+    /* 容器扩展 - 程序集相关 */
+    public static partial class ServiceCollectionHelper
     {
 
         /// <summary>

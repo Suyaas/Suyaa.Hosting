@@ -27,6 +27,11 @@ using Suyaa.Hosting.Constants;
 using Suyaa.Hosting.Mappers;
 using Suyaa.Hosting.Options;
 using Suyaa.Hosting.Infos;
+using Suyaa.Hosting.Controllers;
+using System.Text;
+using System.Xml.XPath;
+using Suyaa.Hosting.ApplicationModelConventions;
+using Suyaa.Hosting.ApplicationFeatureProviders;
 
 namespace Suyaa.Hosting
 {
@@ -38,6 +43,8 @@ namespace Suyaa.Hosting
         // 私有变量
         private readonly HostConfig _hostConfig;
         private readonly I18n _i18n;
+
+        #region [=====私有方法=====]
 
         // 加载库文件
         private void ImportLibrary(string path)
@@ -65,6 +72,8 @@ namespace Suyaa.Hosting
                 return path;
             }
         }
+
+        #endregion
 
         #region [=====继承方法=====]
 
@@ -189,6 +198,7 @@ namespace Suyaa.Hosting
             this.Configuration = configuration;
             this.Assembles = new List<Assembly>();
             this.Filters = new List<Type>();
+            #region 多语言配置
             // 加载多语言配置
             var i18nSection = configuration.GetSection("i18n");
             if (i18nSection is null) throw new HostException($"Configuration section 'i18n' not found.");
@@ -208,6 +218,7 @@ namespace Suyaa.Hosting
             if (i18nName.IsNullOrWhiteSpace()) throw new HostException($"Configuration setting 'i18n.language' not found.");
             this.I18nConfigManager = new JsonConfigManager<I18nConfig>(sy.IO.CombinePath(i18nFolder, i18nName + ".json"));
             _i18n = new(this.I18nConfigManager);
+            #endregion
             // 加载Suyaa配置
             //_suyaaConfig = configuration.GetValue<SuyaaConfig>("Suyaa");
             //if (_suyaaConfig is null) throw new HostException(i18n.Content("Configuration section '{0}' not found.", "Suyaa"));
@@ -228,7 +239,7 @@ namespace Suyaa.Hosting
             sy.Logger.GetCurrentLogger()
                 .Use(new FileLogger(GetFullPath(_hostConfig.LogPath)))
                 .Use((string message) => { Debug.WriteLine(message); });
-            sy.Logger.Debug($"Server Start ...", "Server");
+            sy.Logger.Debug($"Server Start ...", LogEvents.Server);
             // 预处理寻址路径
             this.Paths = new List<string>()
             {
@@ -291,41 +302,28 @@ namespace Suyaa.Hosting
             // 根据配置添加所有的控制器
             services.AddControllers(options =>
             {
-                sy.Logger.Debug($"Add {typeof(ApiActionFilter).FullName}", "Filters");
+                // 添加过滤器
+                sy.Logger.Debug($"Add {typeof(ApiActionFilter).FullName}", LogEvents.Filter);
                 options.Filters.Add<ApiActionFilter>();
-                sy.Logger.Debug($"Add {typeof(ApiAsyncActionFilter).FullName}", "Filters");
+                sy.Logger.Debug($"Add {typeof(ApiAsyncActionFilter).FullName}", LogEvents.Filter);
                 options.Filters.Add<ApiAsyncActionFilter>();
                 foreach (var filter in this.Filters)
                 {
-                    sy.Logger.Debug($"Add {filter.FullName}", "Filters");
+                    sy.Logger.Debug($"Add {filter.FullName}", LogEvents.Filter);
                     options.Filters.Add(filter);
                 }
-            }, this.Assembles);
-
-            //// 注入 Session
-            //services.AddDistributedMemoryCache();
-            //services.AddSession(options =>
-            //{
-            //    options.Cookie.Name = "Suyaa.Session";
-            //    options.IdleTimeout = TimeSpan.FromSeconds(2000); // 设置session的过期时间
-            //    options.Cookie.HttpOnly = true; // 设置在浏览器不能通过js获得该cookie的值 
-            //});
-
-            //// 注入Swagger
-            //services.AddSwaggerGen(options =>
-            //{
-            //    options.SwaggerDoc("all", new OpenApiInfo { Title = "All APIs", Version = "all" });
-            //    var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            //    var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-            //    var files = directory.GetFiles("*.xml");
-            //    foreach (var file in files)
-            //    {
-            //        //if (file.Name.StartsWith("Suyaa."))
-            //        options.IncludeXmlComments(file.FullName, true);
-            //    }
-            //    options.DocInclusionPredicate((docName, description) => true);
-            //});
+                // 添加约定器
+                options.Conventions.Add(new ServiceApplicationModelConvention("/app"));
+            }, this.Assembles)
+                .ConfigureApplicationPartManager(pm =>
+                {
+                    // 建立应用配置
+                    ApplicationOption option = new ApplicationOption();
+                    option.RouteUrl = "/app";
+                    option.AddAssemblies(this.Assembles);
+                    // 添加自定义控制器
+                    pm.FeatureProviders.Add(new ApplicationControllerFeatureProvider(option));
+                });
 
             #region 添加Swagger配置
             if (_hostConfig.IsSwagger)
@@ -337,7 +335,7 @@ namespace Suyaa.Hosting
                         options.SwaggerDoc(swagger.Name, new OpenApiInfo { Title = swagger.Description, Version = swagger.Name });
                     }
                     var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
+                    // 将所有xml文档添加到Swagger
                     var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
                     var files = directory.GetFiles("*.xml");
                     foreach (var file in files)
@@ -357,7 +355,6 @@ namespace Suyaa.Hosting
                         if (displayName.StartsWith(swagger.Keyword)) return true;
                         return false;
                     });
-
                 });
             }
             #endregion
@@ -446,6 +443,7 @@ namespace Suyaa.Hosting
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapRazorPages();
+                // 映射所有控制器
                 endpoints.MapControllers();
             });
 

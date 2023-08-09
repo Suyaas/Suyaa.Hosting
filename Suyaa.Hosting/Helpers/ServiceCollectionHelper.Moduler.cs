@@ -5,10 +5,8 @@ using System.Reflection;
 
 namespace Suyaa.Hosting.Helpers
 {
-    /// <summary>
-    /// 模块启动器扩展
-    /// </summary>
-    public static class ModulerStartupHelper
+    /* 容器扩展 - 模块相关 */
+    public static partial class ServiceCollectionHelper
     {
         // 核心服务接口类型
         private readonly static Type _serviceCoreType = typeof(IServiceCore);

@@ -1,4 +1,5 @@
 ﻿using Suyaa.Configure.Basic.Dependency;
+using Suyaa.Configure.Entity.ProjectCatalogs;
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.Data;
 using Suyaa.Hosting.Attributes;
@@ -35,6 +36,7 @@ namespace Suyaa.Configure.App.Setups
             var connection = (DatabaseConnection)_connection;
             connection.Open();
             // 创建项目表
+            await connection.TableCreated<ProjectCatalog>();
             await connection.TableCreated<Project>();
         }
     }

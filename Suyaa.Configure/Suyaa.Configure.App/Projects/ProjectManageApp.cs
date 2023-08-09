@@ -27,7 +27,9 @@ namespace Suyaa.Configure.Apps.Projects
         #region DI注入
         private readonly IProjectCore _projectCore;
         private readonly IMapper _mapper;
-        private readonly IJwtData _jwtData;
+        private readonly IJwtDataManager _jwtDataManager;
+
+        //private readonly IJwtData _jwtData;
 
         /// <summary>
         /// 项目
@@ -35,12 +37,14 @@ namespace Suyaa.Configure.Apps.Projects
         public ProjectManageApp(
             IProjectCore projectCore,
             IMapper mapper,
-            IJwtData jwtData
+            IJwtDataManager jwtDataManager
+            //IJwtData jwtData
             )
         {
             _projectCore = projectCore;
             _mapper = mapper;
-            _jwtData = jwtData;
+            _jwtDataManager = jwtDataManager;
+            //_jwtData = jwtData;
         }
 
         #endregion
@@ -52,7 +56,7 @@ namespace Suyaa.Configure.Apps.Projects
         [Get]
         public async Task<JwtInfo> GetJwtInfo()
         {
-            return await Task.FromResult((JwtInfo)_jwtData);
+            return await Task.FromResult((JwtInfo)_jwtDataManager.Data!);
         }
 
         /// <summary>

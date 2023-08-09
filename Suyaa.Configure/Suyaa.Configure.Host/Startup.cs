@@ -13,6 +13,7 @@ using Suyaa.Hosting.EFCores;
 using Suyaa.Configure.Basic.Infos;
 using Suyaa.Configure.Basic.Dependency.Infos;
 using Suyaa.Hosting.Infos;
+using Suyaa.Hosting.Helpers;
 
 namespace Suyaa.Configure.Host
 {

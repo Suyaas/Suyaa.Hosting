@@ -5,13 +5,13 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Suyaa.Configure.Entity.Projects
+namespace Suyaa.Configure.Entity.ProjectCatalogs
 {
     /// <summary>
     /// 项目
     /// </summary>
     [DbTable(Convert = DbNameConvertTypes.UnderlineLower)]
-    public class Project : GuidKeyEntity
+    public class ProjectCatalog : GuidKeyEntity
     {
         /// <summary>
         /// 名称
@@ -30,14 +30,5 @@ namespace Suyaa.Configure.Entity.Projects
         [DbColumn(Convert = DbNameConvertTypes.UnderlineLower)]
         [DbColumnType(DbColumnTypes.Varchar, 128)]
         public virtual string Description { get; set; } = string.Empty;
-
-        /// <summary>
-        /// 分类Id
-        /// </summary>
-        [Description("分类Id")]
-        [StringLength(50)]
-        [DbColumn(Convert = DbNameConvertTypes.UnderlineLower)]
-        [DbColumnType(DbColumnTypes.Varchar, 50)]
-        public virtual string CatalogId { get; set; } = string.Empty;
     }
 }

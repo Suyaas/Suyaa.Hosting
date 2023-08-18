@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<OutputType>Library</OutputType>
-		<Version>1.7.2307.26</Version>
+		<Version>1.8.2308.28</Version>
 		<Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
 		<Description>An microservice assembly for .Net 6</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -17,6 +17,9 @@
 		<PackAsTool>False</PackAsTool>
 		<Title>$(AssemblyName)</Title>
 		<PackageIcon>suyaa_256.png</PackageIcon>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageTags>host,microservice,framework</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -20,4 +20,4 @@ var builder = new ConfigurationBuilder()
                .AddEnvironmentVariables(prefix: "ASPNETCORE_")
                .AddCommandLine(args);
 var config = builder.Build();
-Suyaa.Hosting.WebHost.CreateHostBuilder<Startup>(webBuilder => webBuilder.UseConfiguration(config), args).Build().Run();
+sy.Hosting.CreateHost<Startup>(webBuilder => webBuilder.UseConfiguration(config), args).Run();

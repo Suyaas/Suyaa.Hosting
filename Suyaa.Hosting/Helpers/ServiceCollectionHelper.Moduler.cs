@@ -116,15 +116,27 @@ namespace Suyaa.Hosting.Helpers
                 // 获取所有接口
                 var ifs = tp.GetInterfaces();
                 if (ifs is null) continue;
-                // 处理业务类
-                if (tp.HasInterface<IServiceCore>())
+                // 处理瞬时单例类
+                if (tp.HasInterface<ISingletonDependency>())
                 {
                     foreach (var ifc in ifs)
                     {
                         // 跳过直接引用IServiceCore接口的类
                         if (ifc == _serviceCoreType) continue;
                         // 添加核心服务类
-                        sy.Logger.Info("AddModulerIoc " + (ifc?.FullName ?? "") + " : " + (tp?.FullName ?? ""), "ModulerStartup");
+                        sy.Logger.Info("AddModulerIoc Singleton " + (ifc?.FullName ?? "") + " : " + (tp?.FullName ?? ""), "ModulerStartup");
+                        if (ifc != null && tp != null) services.AddSingleton(ifc, tp);
+                    }
+                }
+                // 处理瞬时业务类
+                if (tp.HasInterface<ITransientDependency>())
+                {
+                    foreach (var ifc in ifs)
+                    {
+                        // 跳过直接引用IServiceCore接口的类
+                        if (ifc == _serviceCoreType) continue;
+                        // 添加核心服务类
+                        sy.Logger.Info("AddModulerIoc Transient " + (ifc?.FullName ?? "") + " : " + (tp?.FullName ?? ""), "ModulerStartup");
                         if (ifc != null && tp != null) services.AddTransient(ifc, tp);
                     }
                 }

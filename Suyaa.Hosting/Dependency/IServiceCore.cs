@@ -3,7 +3,8 @@
     /// <summary>
     /// 核心服务接口
     /// </summary>
-    public interface IServiceCore
+    public interface IServiceCore : ITransientDependency
     {
+        
     }
 }

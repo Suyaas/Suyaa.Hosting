@@ -38,7 +38,7 @@ namespace Suyaa.Hosting
     /// <summary>
     /// 启动器
     /// </summary>
-    public abstract class StartupBase
+    public abstract class StartupBase 
     {
         // 私有变量
         private readonly HostConfig _hostConfig;

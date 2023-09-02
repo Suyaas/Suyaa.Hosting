@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Suyaa.Hosting.Attributes;
 using Suyaa.Hosting.Helpers;
 using Suyaa.Hosting.Results;
 
@@ -17,6 +18,9 @@ namespace Suyaa.Hosting.ActionFilters
         /// <param name="context"></param>
         public void OnActionExecuted(ActionExecutedContext context)
         {
+            // 支持标准输出特性
+            var standardResult = context.ActionDescriptor.EndpointMetadata.Where(d => d is StandardResultAttribute).FirstOrDefault();
+            if (standardResult != null) return;
             try
             {
                 var result = context.Result;

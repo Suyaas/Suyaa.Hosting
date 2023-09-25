@@ -1,4 +1,4 @@
-﻿using Suyaa.Hosting.Dependency;
+﻿using Suyaa.Hosting.Kernel.Dependency;
 using System.Reflection;
 
 namespace Suyaa.Hosting.Options

@@ -1,12 +1,10 @@
-﻿using Suyaa.Configure.Basic.Infos;
+﻿using Suyaa.Configure.Basic.Jwt;
 using Suyaa.Configure.Cores.Users;
-using Suyaa.Configure.Cores.Users.Dto;
-using Suyaa.Configure.Cores.Users.Sto;
-using Suyaa.Configure.Entity.Projects;
-using Suyaa.Data;
-using Suyaa.Hosting;
-using Suyaa.Hosting.Attributes;
 using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Jwt.Attributes;
+using Suyaa.Hosting.Kernel;
+using Suyaa.Hosting.Kernel.Attributes;
+using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Services;
 
 namespace Suyaa.Configure.App.Users
@@ -19,20 +17,20 @@ namespace Suyaa.Configure.App.Users
     public class JwtUserApp : ServiceApp
     {
         private readonly IUserCore _userCore;
-        private readonly IJwtDataManager _jwtDataManager;
-        private readonly II18n _i18n;
+        private readonly IJwtManager _jwtManager;
+        private readonly IMultilingualManager _i18n;
 
         /// <summary>
         /// 用户
         /// </summary>
         public JwtUserApp(
             IUserCore userCore,
-            IJwtDataManager jwtDataManager,
-            II18n i18n
+            IJwtManager jwtManager,
+            IMultilingualManager i18n
             )
         {
             _userCore = userCore;
-            _jwtDataManager = jwtDataManager;
+            _jwtManager = jwtManager;
             _i18n = i18n;
         }
 
@@ -43,8 +41,8 @@ namespace Suyaa.Configure.App.Users
         [Get]
         public async Task<JwtInfo> GetJwtInfo()
         {
-            if (_jwtDataManager.Data is null) throw new HostFriendlyException(_i18n.Content("Jwt info not found."));
-            return await Task.FromResult((JwtInfo)_jwtDataManager.Data);
+            if (_jwtManager.Current is null) throw new HostFriendlyException(_i18n.Content("Jwt info not found."));
+            return await Task.FromResult((JwtInfo)_jwtManager.Current);
         }
     }
 }

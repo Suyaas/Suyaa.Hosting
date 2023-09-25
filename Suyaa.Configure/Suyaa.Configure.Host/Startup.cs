@@ -3,24 +3,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Suyaa.Data;
-using Suyaa.Hosting.Configures;
-using Suyaa.Hosting;
 using Suyaa.Configure.Basic.Configures;
-using Suyaa.Hosting.Dependency;
 using Microsoft.EntityFrameworkCore;
-using Suyaa.Configure.Basic.Dependency;
 using Suyaa.Hosting.EFCores;
-using Suyaa.Configure.Basic.Infos;
-using Suyaa.Configure.Basic.Dependency.Infos;
-using Suyaa.Hosting.Infos;
-using Suyaa.Hosting.Helpers;
+using Suyaa.DependencyInjection;
+using Suyaa.Hosting.Kernel;
+using Suyaa.Hosting;
 
 namespace Suyaa.Configure.Host
 {
     /// <summary>
     /// 启动器
     /// </summary>
-    public class Startup : Hosting.StartupBase
+    public class Startup : HostStartupBase
     {
         private readonly IConfiguration _configuration;
 
@@ -40,10 +35,10 @@ namespace Suyaa.Configure.Host
 
         private DatabaseConnection GetConnection(string connectionString)
         {
-            if (connectionString.IsNullOrWhiteSpace()) throw new HostException(I18n.Content("Configuration ConnectionStrings '{0}' not found.", "Configure"));
-            if (connectionString[0] != '[') throw new HostException(I18n.Content("ConnectionString must start with '[dbtype]'."));
+            if (connectionString.IsNullOrWhiteSpace()) throw new HostException(string.Format("Configuration ConnectionStrings '{0}' not found.", "Configure"));
+            if (connectionString[0] != '[') throw new HostException(string.Format("ConnectionString must start with '[dbtype]'."));
             int idx = connectionString.IndexOf(']');
-            if (idx < 0) throw new HostException(I18n.Content("ConnectionString must start with '[dbtype]'."));
+            if (idx < 0) throw new HostException(string.Format("ConnectionString must start with '[dbtype]'."));
             string dbType = connectionString.Substring(1, idx - 1);
             string dbConnectionString = connectionString.Substring(idx + 1);
             switch (dbType)
@@ -51,7 +46,7 @@ namespace Suyaa.Configure.Host
                 case "Sqlite":
                     return new Suyaa.Data.DatabaseConnection(DatabaseTypes.Sqlite3, dbConnectionString);
                 default:
-                    throw new HostException(I18n.Content("Unsupported database type '{0}'.", dbType));
+                    throw new HostException(string.Format("Unsupported database type '{0}'.", dbType));
             }
 
         }
@@ -59,10 +54,10 @@ namespace Suyaa.Configure.Host
         // 获取连接配置
         private HostDbContextOptions GetDbContextOptions(string connectionString)
         {
-            if (connectionString.IsNullOrWhiteSpace()) throw new HostException(I18n.Content("Configuration ConnectionStrings '{0}' not found.", "Configure"));
-            if (connectionString[0] != '[') throw new HostException(I18n.Content("ConnectionString must start with '[dbtype]'."));
+            if (connectionString.IsNullOrWhiteSpace()) throw new HostException(string.Format("Configuration ConnectionStrings '{0}' not found.", "Configure"));
+            if (connectionString[0] != '[') throw new HostException(string.Format("ConnectionString must start with '[dbtype]'."));
             int idx = connectionString.IndexOf(']');
-            if (idx < 0) throw new HostException(I18n.Content("ConnectionString must start with '[dbtype]'."));
+            if (idx < 0) throw new HostException(string.Format("ConnectionString must start with '[dbtype]'."));
             string dbType = connectionString.Substring(1, idx - 1);
             string dbConnectionString = connectionString.Substring(idx + 1);
             // 添加数据库上下文配置
@@ -73,34 +68,53 @@ namespace Suyaa.Configure.Host
                     optionsBuilder.UseSqlite(dbConnectionString);
                     break;
                 default:
-                    throw new HostException(I18n.Content("Unsupported database type '{0}'.", dbType));
+                    throw new HostException(string.Format("Unsupported database type '{0}'.", dbType));
             }
             var options = new HostDbContextOptions(optionsBuilder.Options, dbConnectionString);
             return options;
         }
 
-        protected override void OnConfigureServices(IServiceCollection services)
+        /// <summary>
+        /// 依赖配置
+        /// </summary>
+        /// <param name="dependency"></param>
+        /// <exception cref="HostException"></exception>
+        protected override void OnConfigureDependency(IDependencyManager dependency)
         {
+            // 使用多语言支持
+            //dependency.AddMultilingual();
+            // 使用工作单元
+            //dependency.AddUnitOfWork();
             // 填充用户信息
             var users = _configuration.GetSection("Users");
-            if (users is null) throw new HostException(I18n.Content("Configuration section '{0}' not found.", "Hosting"));
+            if (users is null) throw new HostException(string.Format("Configuration section '{0}' not found.", "Hosting"));
             var userConfigs = users.Get<UserConfigs>();
-            services.AddSingleton(userConfigs);
-            // 添加数据库连接
-            var connectionString = _configuration.GetSection("ConnectionStrings").GetSection("Configure").Get<string>();
-            services.AddScoped<IDatabaseConnection>(provider => GetConnection(connectionString));
+            dependency.Register(userConfigs);
+            //// 添加数据库连接
+            //var connectionString = _configuration.GetSection("ConnectionStrings").GetSection("Configure").Get<string>();
+            //services.AddScoped<IDatabaseConnection>(provider => GetConnection(connectionString));
             // 添加数据库上下文
-            services.AddSingleton(GetDbContextOptions(connectionString));
+            //services.AddSingleton(GetDbContextOptions(connectionString));
             // 注册应用授权信息和
-            services.AddScoped<IAppInfo, AppInfo>();
+            //services.AddScoped<IAppInfo, AppInfo>();
             //services.AddScoped<IJwtData, JwtInfo>();
             // 设置支持的Jwt类型
-            services.AddScoped<IJwtDataType>(provider => new JwtDataType(typeof(JwtInfo)));
+            //services.AddScoped<IJwtDataType>(provider => new JwtDataType(typeof(JwtInfo)));
         }
 
         protected override void OnInitialize()
         {
             this.Import<Apps.ModuleStartup>();
+        }
+
+        /// <summary>
+        /// 创建依赖管理器
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        protected override IDependencyManager OnDependencyManagerCreating(IServiceCollection services)
+        {
+            return new DependencyInjection.ServiceCollection.DependencyManager(services);
         }
     }
 }

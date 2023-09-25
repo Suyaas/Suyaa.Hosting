@@ -4,8 +4,9 @@ using Suyaa.Configure.Cores.Projects.Dto;
 using Suyaa.Configure.Cores.Projects.Sto;
 using Suyaa.Configure.Entity.ProjectCatalogs;
 using Suyaa.Configure.Entity.Projects;
-using Suyaa.EFCore.Dependency;
-using Suyaa.EFCore.Helpers;
+using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Helpers;
+using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Pages;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Suyaa.Configure.Cores.ProjectCatalogs
     {
         #region DI注入
         private readonly IRepository<ProjectCatalog, string> _projectCatalogRepository;
-        private readonly IMapper _mapper;
+        private readonly IObjectMapper _objectMapper;
         private readonly IServiceProvider _provider;
 
         //private readonly IProjectCore _projectCore;
@@ -38,12 +39,12 @@ namespace Suyaa.Configure.Cores.ProjectCatalogs
         /// </summary>
         public ProjectCatalogCore(
             IRepository<ProjectCatalog, string> projectCatalogRepository,
-            IMapper mapper,
+            IObjectMapper objectMapper,
             IServiceProvider provider
             )
         {
             _projectCatalogRepository = projectCatalogRepository;
-            _mapper = mapper;
+            _objectMapper = objectMapper;
             _provider = provider;
             //_projectCore = projectCore;
         }

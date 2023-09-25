@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Routing.Patterns;
 using Suyaa.Configure.Helpers;
 using System.Text;
 using System.Reflection;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Suyaa.Hosting.Applications
 {

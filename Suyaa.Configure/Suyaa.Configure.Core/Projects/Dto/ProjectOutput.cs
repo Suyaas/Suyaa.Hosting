@@ -1,14 +1,5 @@
-﻿using Suyaa.Data.Dependency;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Suyaa.Hosting.Dependency;
-using Suyaa.Configure.Entity.Projects;
-using Suyaa.Hosting.Attributes;
+﻿using Suyaa.Configure.Entity.Projects;
+using Suyaa.Hosting.AutoMapper.Attributes;
 
 namespace Suyaa.Configure.Cores.Projects.Dto
 {

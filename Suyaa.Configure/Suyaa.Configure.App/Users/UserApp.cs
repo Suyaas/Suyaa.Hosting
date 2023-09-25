@@ -1,9 +1,7 @@
 ﻿using Suyaa.Configure.Cores.Users;
 using Suyaa.Configure.Cores.Users.Dto;
 using Suyaa.Configure.Cores.Users.Sto;
-using Suyaa.Configure.Entity.Projects;
-using Suyaa.Data;
-using Suyaa.Hosting.Attributes;
+using Suyaa.Hosting.Kernel.Attributes;
 using Suyaa.Hosting.Services;
 
 namespace Suyaa.Configure.App.Users

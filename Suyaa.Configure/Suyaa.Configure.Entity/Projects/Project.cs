@@ -1,6 +1,6 @@
 ﻿using Suyaa.Data.Dependency;
 using Suyaa.Data.Dependency.Attributes;
-using Suyaa.Data.Entities;
+using Suyaa.Hosting.Entities;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

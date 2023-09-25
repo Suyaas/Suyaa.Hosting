@@ -1,24 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Suyaa.Configure.Basic.Dependency;
-using Suyaa.Configure.Basic.Infos;
 using Suyaa.Configure.Cores.ProjectCatalogs;
 using Suyaa.Configure.Cores.ProjectCatalogs.Dto;
 using Suyaa.Configure.Cores.ProjectCatalogs.Sto;
-using Suyaa.Configure.Cores.Projects;
-using Suyaa.Configure.Cores.Projects.Dto;
-using Suyaa.Configure.Cores.Projects.Sto;
 using Suyaa.Configure.Entity.ProjectCatalogs;
-using Suyaa.Configure.Entity.Projects;
-using Suyaa.Hosting.Attributes;
-using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Jwt.Attributes;
+using Suyaa.Hosting.Kernel.Attributes;
 using Suyaa.Hosting.Pages;
 using Suyaa.Hosting.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Suyaa.Configure.Apps.ProjectCatalogs
 {

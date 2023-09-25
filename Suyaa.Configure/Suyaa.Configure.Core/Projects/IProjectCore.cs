@@ -1,7 +1,7 @@
 ﻿using Suyaa.Configure.Cores.Projects.Dto;
 using Suyaa.Configure.Cores.Projects.Sto;
 using Suyaa.Configure.Entity.Projects;
-using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Pages;
 using System;
 using System.Collections.Generic;

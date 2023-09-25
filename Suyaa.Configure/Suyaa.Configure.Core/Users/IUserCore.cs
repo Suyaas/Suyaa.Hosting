@@ -1,7 +1,7 @@
 ﻿using Suyaa.Configure.Cores.Users.Dto;
 using Suyaa.Configure.Cores.Users.Sto;
 using Suyaa.Hosting;
-using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Kernel.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;

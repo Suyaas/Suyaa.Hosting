@@ -1,12 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Suyaa.Hosting.Attributes;
-using Suyaa.Hosting.Dependency;
 using Suyaa.Hosting.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Suyaa.Configure.Apps.Infos
 {

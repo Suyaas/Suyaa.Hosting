@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Suyaa.Hosting;
 using Suyaa.Data;
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.Hosting.Helpers;
+using Suyaa.Hosting.Kernel.Dependency;
+using Suyaa.DependencyInjection;
+using Suyaa.Hosting.Kernel.Helpers;
 
 namespace Suyaa.Configure.Cores
 {
@@ -19,13 +21,12 @@ namespace Suyaa.Configure.Cores
     public class ModuleStartup : IModuleStartup
     {
         /// <summary>
-        /// 配置服务
+        /// 依赖配置
         /// </summary>
-        /// <param name="services"></param>
-        public void ConfigureServices(IServiceCollection services)
+        /// <param name="dependency"></param>
+        public void ConfigureDependency(IDependencyManager dependency)
         {
-            services.AddModulerIoc<ModuleStartup>();
-            services.AddModuler<Entities.ModuleStartup>();
+            dependency.AddModulerIoc<ModuleStartup>().AddModuler<Entities.ModuleStartup>();
         }
     }
 }

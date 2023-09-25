@@ -1,17 +1,13 @@
 ﻿using AutoMapper;
-using Suyaa.Configure.Basic.Dependency;
+using Suyaa.Configure.Basic.AppAuthorize.Attributes;
+using Suyaa.Configure.Basic.AppAuthorize.Dependency;
 using Suyaa.Configure.Cores.Projects;
 using Suyaa.Configure.Cores.Projects.Dto;
 using Suyaa.Configure.Cores.Projects.Sto;
 using Suyaa.Configure.Entity.Projects;
-using Suyaa.Hosting.Attributes;
+using Suyaa.Hosting.Kernel.Attributes;
 using Suyaa.Hosting.Pages;
 using Suyaa.Hosting.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Suyaa.Configure.Apps.Projects
 {

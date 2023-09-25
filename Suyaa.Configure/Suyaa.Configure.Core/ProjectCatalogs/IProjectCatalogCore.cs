@@ -1,5 +1,5 @@
 ﻿using Suyaa.Configure.Entity.ProjectCatalogs;
-using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Kernel.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;

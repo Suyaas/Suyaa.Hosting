@@ -1,19 +1,14 @@
 ﻿using AutoMapper;
-using Suyaa.Configure.Basic.Dependency;
-using Suyaa.Configure.Basic.Infos;
+using Suyaa.Configure.Basic.Jwt;
 using Suyaa.Configure.Cores.Projects;
 using Suyaa.Configure.Cores.Projects.Dto;
 using Suyaa.Configure.Cores.Projects.Sto;
 using Suyaa.Configure.Entity.Projects;
-using Suyaa.Hosting.Attributes;
-using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Jwt.Attributes;
+using Suyaa.Hosting.Kernel.Attributes;
+using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Pages;
 using Suyaa.Hosting.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Suyaa.Configure.Apps.Projects
 {
@@ -27,7 +22,7 @@ namespace Suyaa.Configure.Apps.Projects
         #region DI注入
         private readonly IProjectCore _projectCore;
         private readonly IMapper _mapper;
-        private readonly IJwtDataManager _jwtDataManager;
+        private readonly IJwtManager _jwtManager;
 
         //private readonly IJwtData _jwtData;
 
@@ -37,13 +32,13 @@ namespace Suyaa.Configure.Apps.Projects
         public ProjectManageApp(
             IProjectCore projectCore,
             IMapper mapper,
-            IJwtDataManager jwtDataManager
+            IJwtManager jwtManager
             //IJwtData jwtData
             )
         {
             _projectCore = projectCore;
             _mapper = mapper;
-            _jwtDataManager = jwtDataManager;
+            _jwtManager = jwtManager;
             //_jwtData = jwtData;
         }
 
@@ -56,7 +51,7 @@ namespace Suyaa.Configure.Apps.Projects
         [Get]
         public async Task<JwtInfo> GetJwtInfo()
         {
-            return await Task.FromResult((JwtInfo)_jwtDataManager.Data!);
+            return await Task.FromResult((JwtInfo)_jwtManager.Current!);
         }
 
         /// <summary>

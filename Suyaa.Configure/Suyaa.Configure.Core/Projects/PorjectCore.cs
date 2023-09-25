@@ -6,10 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Suyaa.Configure.Cores.Projects.Dto;
 using Suyaa.Configure.Cores.Projects.Sto;
 using Suyaa.Configure.Entity.Projects;
-using Suyaa.Data;
-using Suyaa.EFCore.Dbsets;
-using Suyaa.EFCore.Dependency;
+using Suyaa.Hosting.Dependency;
 using Suyaa.Hosting.Helpers;
+using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Pages;
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ namespace Suyaa.Configure.Cores.Projects
 
         #region DI注入
         private readonly IRepository<Project, string> _projectRepository;
-        private readonly IMapper _mapper;
+        private readonly IObjectMapper _objectMapper;
         private readonly IServiceProvider _provider;
 
         //private readonly IProjectCore _projectCore;
@@ -38,12 +37,12 @@ namespace Suyaa.Configure.Cores.Projects
         /// </summary>
         public PorjectCore(
             IRepository<Project, string> projectRepository,
-            IMapper mapper,
+            IObjectMapper objectMapper,
             IServiceProvider provider
             )
         {
             _projectRepository = projectRepository;
-            _mapper = mapper;
+            _objectMapper = objectMapper;
             _provider = provider;
             //_projectCore = projectCore;
         }
@@ -57,7 +56,7 @@ namespace Suyaa.Configure.Cores.Projects
         /// <returns></returns>
         public IQueryable<Project> GetQuery(Expression<Func<Project, bool>>? expression = null)
         {
-            //var _projectRepository = _provider.GetRequiredService<IRepository<Project, string>>();
+            var _projectRepository = _provider.GetRequiredService<IRepository<Project, string>>();
             var query = from p in _projectRepository.Query()
                             .WhereIf(expression != null, expression)
                         orderby p.Name
@@ -74,7 +73,7 @@ namespace Suyaa.Configure.Cores.Projects
         {
             var query = GetQuery();
             var projects = await query.ToListAsync();
-            var output = new PagedOutput<ProjectOutput>(_mapper.Map<List<ProjectOutput>>(projects));
+            var output = new PagedOutput<ProjectOutput>(_objectMapper.Map<List<ProjectOutput>>(projects));
             return await Task.FromResult(output);
         }
 
@@ -85,7 +84,7 @@ namespace Suyaa.Configure.Cores.Projects
         /// <returns></returns>
         public async Task Insert(Project input)
         {
-            await _projectRepository.InsertAsync(input);
+            //await _projectRepository.InsertAsync(input);
         }
 
         /// <summary>
@@ -95,7 +94,7 @@ namespace Suyaa.Configure.Cores.Projects
         /// <returns></returns>
         public async Task Delete(string id)
         {
-            await _projectRepository.DeleteAsync(id);
+            //await _projectRepository.DeleteAsync(id);
         }
     }
 }

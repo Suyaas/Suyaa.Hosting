@@ -1,18 +1,10 @@
 ﻿using Suyaa.Configure.Basic.Configures;
 using Suyaa.Configure.Cores.Users.Sto;
 using Suyaa.Hosting.Dependency;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Suyaa.Exceptions;
-using Suyaa.Hosting;
 using Suyaa.Configure.Cores.Users.Dto;
-using System.Runtime;
-using Suyaa.Configure.Basic.Dependency;
-using Suyaa.Configure.Basic.Dependency.Infos;
-using Suyaa.Configure.Basic.Infos;
+using Suyaa.Hosting.Kernel;
+using Suyaa.Hosting.Kernel.Dependency;
+using Suyaa.Configure.Basic.Jwt;
 
 namespace Suyaa.Configure.Cores.Users
 {
@@ -25,14 +17,14 @@ namespace Suyaa.Configure.Cores.Users
         #region IOC注入
 
         private readonly UserConfigs _userConfigs;
-        private readonly II18n _i18n;
+        private readonly IMultilingualManager _i18n;
 
         /// <summary>
         /// 用户
         /// </summary>
         public UserCore(
             IOptionConfig<UserConfigs> userConfigs,
-            II18n i18n
+            IMultilingualManager i18n
             )
         {
             _userConfigs = userConfigs.CurrentValue;

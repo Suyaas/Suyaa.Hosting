@@ -2,6 +2,8 @@
 using Suyaa;
 using System.Diagnostics;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
+using Suyaa.Hosting.Kernel;
 
 namespace Suyaa.Hosting.Helpers
 {

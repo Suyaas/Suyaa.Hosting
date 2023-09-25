@@ -1,4 +1,6 @@
-﻿namespace Suyaa.Hosting.Services
+﻿using Suyaa.DependencyInjection;
+
+namespace Suyaa.Hosting.Services
 {
     /// <summary>
     /// 服务基础
@@ -8,6 +10,6 @@
         /// <summary>
         /// 获取服务供应商
         /// </summary>
-        public IServiceProvider Services => sy.Hosting.Services;
+        public IDependencyManager DependencyManager => sy.Hosting.DependencyManager;
     }
 }

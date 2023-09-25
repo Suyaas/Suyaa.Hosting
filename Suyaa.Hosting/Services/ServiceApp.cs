@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Kernel.Dependency;
 
 namespace Suyaa.Hosting.Services
 {

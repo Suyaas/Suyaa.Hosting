@@ -1,8 +1,8 @@
-﻿using Suyaa.Configure.Basic.Dependency;
-using Suyaa.Configure.Entity.ProjectCatalogs;
+﻿using Suyaa.Configure.Entity.ProjectCatalogs;
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.Data;
-using Suyaa.Hosting.Attributes;
+using Suyaa.Hosting.Jwt.Attributes;
+using Suyaa.Hosting.Kernel.Attributes;
 using Suyaa.Hosting.Services;
 
 namespace Suyaa.Configure.App.Setups

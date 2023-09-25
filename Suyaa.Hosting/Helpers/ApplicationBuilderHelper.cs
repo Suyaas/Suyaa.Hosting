@@ -1,4 +1,5 @@
-﻿using Suyaa.Hosting.Middlewares;
+﻿using Microsoft.AspNetCore.Builder;
+using Suyaa.Hosting.Middlewares;
 using Suyaa.Hosting.Options;
 
 namespace Suyaa.Hosting.Helpers

@@ -60,6 +60,6 @@ namespace Suyaa.Hosting.Jwt
         /// <summary>
         /// 用户Id
         /// </summary>
-        public long? UserId => this.Current?.UserId;
+        public string? Uid => this.Current?.Uid;
     }
 }

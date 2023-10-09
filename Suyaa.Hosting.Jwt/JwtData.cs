@@ -10,8 +10,12 @@ namespace Suyaa.Hosting.Jwt
     public class JwtData : IJwtData, IDependencyTransient
     {
         /// <summary>
-        /// 用户Id
+        /// 用户标识
         /// </summary>
-        public long UserId { get; set; } = 0;
+        public string? Uid { get; set; }
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        public int? TenantId { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
 
         #region DI注入
         private readonly IJwtManager _jwtManager;
+        private readonly ISession _session;
         private readonly IDependencyManager _dependency;
 
         //private readonly II18n _i18n;
@@ -22,11 +23,13 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
         /// </summary>
         public JwtAuthorizeFilter(
             IJwtManager jwtDataManager,
+            ISession session,
             //II18n i18n,
             IDependencyManager dependency
             )
         {
             _jwtManager = jwtDataManager;
+            _session = session;
             _dependency = dependency;
             //_i18n = i18n;
         }
@@ -64,12 +67,15 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
                 if (!types.Any()) throw new HostFriendlyException("Jwt data type missing.");
                 info = (IJwtData)sy.Jwt.GetData(token, types.First());
                 _jwtManager.SetCurrentData(info);
+                _session.Uid = info.Uid;
+                _session.TenantId = info.TenantId;
+                _session.InvalidTime = DateTime.Now.AddHours(1);
             }
             catch (HostException ex)
             {
                 throw new HostFriendlyException(ex.Message);
             }
-            if (info.UserId <= 0) throw new HostFriendlyException($"Jwt invalid.");
+            if (info.Uid.IsNullOrWhiteSpace()) throw new HostFriendlyException($"Jwt invalid.");
             //_jwtDataManager.Data = info;
         }
     }

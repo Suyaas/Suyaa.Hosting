@@ -15,5 +15,13 @@ namespace Suyaa.Configure.Basic.Jwt
         /// 用户账户
         /// </summary>
         public string UserAccount { get; set; } = string.Empty;
+        /// <summary>
+        /// 用户标识
+        /// </summary>
+        public string? Uid { get; set; }
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        public int? TenantId { get; set; }
     }
 }

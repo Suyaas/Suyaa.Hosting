@@ -24,6 +24,8 @@ using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Kernel.ActionFilters;
 using Suyaa.Hosting.Kernel.ApplicationModelConventions;
 using Suyaa.Hosting.Kernel.Helpers;
+using Suyaa.Hosting.Kernel.FeatureProviders;
+using Suyaa.Hosting.Options;
 
 namespace Suyaa.Hosting.Kernel
 {
@@ -276,6 +278,11 @@ namespace Suyaa.Hosting.Kernel
             services.AddSingleton(typeof(IOptionConfig<>), typeof(OptionConfig<>));
             services.AddSingleton(_hostConfig);
 
+            // 添加服务配置
+            ServiceOption option = new ServiceOption();
+            option.RouteUrl = "/app";
+            option.AddAssemblies(this.Assembles);
+
             // 根据配置添加所有的控制器
             services.AddControllers(options =>
             {
@@ -290,17 +297,12 @@ namespace Suyaa.Hosting.Kernel
                     options.Filters.Add(filter);
                 }
                 // 添加约定器
-                options.Conventions.Add(new ServiceApplicationModelConvention("/app"));
-            }, this.Assembles);
-            //.ConfigureApplicationPartManager(pm =>
-            //{
-            //    // 建立应用配置
-            //    ApplicationOption option = new ApplicationOption();
-            //    option.RouteUrl = "/app";
-            //    option.AddAssemblies(this.Assembles);
-            //    // 添加自定义控制器
-            //    pm.FeatureProviders.Add(new ApplicationControllerFeatureProvider(option));
-            //});
+                options.Conventions.Add(new ServiceApplicationModelConvention(option));
+            }, this.Assembles).ConfigureApplicationPartManager(pm =>
+            {
+                // 添加自定义控制器
+                pm.FeatureProviders.Add(new ServiceControllerFeatureProvider(option));
+            });
 
             //services.AddSingleton(configuration);
             //services.AddSingleton(mapper);

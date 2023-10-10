@@ -12,7 +12,10 @@ using Suyaa.Hosting.Helpers;
 using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.DependencyInjection;
 using Suyaa.Hosting.Kernel.Helpers;
+using Suyaa.Hosting.Kernel.Attributes;
 
+// 设定模块名称
+[assembly: Module("cfg")]
 namespace Suyaa.Configure.Apps
 {
     /// <summary>

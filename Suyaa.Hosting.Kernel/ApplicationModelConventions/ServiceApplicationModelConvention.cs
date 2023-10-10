@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Routing;
 using Suyaa.Hosting.Kernel.Attributes;
 using Suyaa.Hosting.Kernel.Dependency;
+using Suyaa.Hosting.Options;
 using System.Reflection;
 
 namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
@@ -12,15 +13,15 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
     public class ServiceApplicationModelConvention : IApplicationModelConvention
     {
         // 路由设置
-        private readonly string _route;
+        private readonly ServiceOption _option;
 
         /// <summary>
         /// 服务应用模型提供商
         /// </summary>
         /// <param name="route"></param>
-        public ServiceApplicationModelConvention(string route)
+        public ServiceApplicationModelConvention(ServiceOption option)
         {
-            _route = route;
+            _option = option;
         }
 
         // 应用行为
@@ -76,7 +77,7 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
                 controllerName = app.Name;
             }
             // 判断是否定义了Route
-            AttributeRouteModel routeModel = new AttributeRouteModel() { Name = controllerName, Template = _route + "/" + controllerName };
+            AttributeRouteModel routeModel = new AttributeRouteModel() { Name = controllerName, Template = _option.RouteUrl + "/" + _option.GetModuleName(controllerType) + "/" + controllerName };
             foreach (var selector in controllerModel.Selectors)
             {
                 selector.AttributeRouteModel = routeModel;

@@ -92,6 +92,12 @@ namespace Suyaa.Hosting.Kernel
         protected abstract void OnConfigureDependency(IDependencyManager dependency);
 
         /// <summary>
+        /// 服务配置事件
+        /// </summary>
+        /// <param name="services"></param>
+        protected virtual void OnConfigureServices(IServiceCollection services) { }
+
+        /// <summary>
         /// 配置HTTP请求管道事件
         /// </summary>
         /// <param name="app"></param>
@@ -206,13 +212,26 @@ namespace Suyaa.Hosting.Kernel
             this.Configuration = configuration;
             this.Assembles = new List<Assembly>();
             this.Filters = new List<Type>();
-
             // 加载Suyaa配置
+            sy.Logger.Debug("Load Hosting Config ...");
+            try
+            {
+                var hosting = configuration.GetSection("Hosting");
+                if (hosting is null) throw new HostException(string.Format("Configuration section '{0}' not found.", "Hosting"));
+                _hostConfig = hosting.Get<HostConfig>();
+                // 注册日志
+                sy.Logger.GetCurrentLogger()
+                    .Use(new FileLogger(GetFullPath(_hostConfig.LogPath)))
+                    .Use((string message) => { Debug.WriteLine(message); });
+            }
+            catch (Exception ex)
+            {
+                sy.Logger.Error(ex.ToString());
+                throw;
+            }
             //_suyaaConfig = configuration.GetValue<SuyaaConfig>("Suyaa");
             //if (_suyaaConfig is null) throw new HostException(i18n.Content("Configuration section '{0}' not found.", "Suyaa"));
-            var hosting = configuration.GetSection("Hosting");
-            if (hosting is null) throw new HostException(string.Format("Configuration section '{0}' not found.", "Hosting"));
-            _hostConfig = hosting.Get<HostConfig>();
+
             //string suyaaPath = suyaa.GetValue<string>("Path");
             //if (suyaa is null) throw new HostException($"未找到'Suyaa.Path'配置项");
             //this.SuyaaConfigManager = new JsonConfigManager<SuyaaConfig>(GetFullPath(suyaaPath));
@@ -223,10 +242,6 @@ namespace Suyaa.Hosting.Kernel
             //    config.Default();
             //    return config;
             //});
-            // 注册日志
-            sy.Logger.GetCurrentLogger()
-                .Use(new FileLogger(GetFullPath(_hostConfig.LogPath)))
-                .Use((string message) => { Debug.WriteLine(message); });
             sy.Logger.Debug($"Server Start ...", LogEvents.Server);
             // 预处理寻址路径
             this.Paths = new List<string>()
@@ -319,6 +334,7 @@ namespace Suyaa.Hosting.Kernel
             //services.AddSingleton(mapper);
 
             // 执行外部注册
+            this.OnConfigureServices(services);
             this.OnConfigureDependency(dependency);
 
             // 输出服务注册日志

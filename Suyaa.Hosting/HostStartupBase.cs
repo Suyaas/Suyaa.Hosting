@@ -27,6 +27,7 @@ namespace Suyaa.Hosting
         public HostStartupBase(IConfiguration configuration) : base(configuration)
         {
             #region 多语言配置
+            sy.Logger.Debug("Load i18n ...");
             // 加载多语言配置
             var i18nSection = configuration.GetSection("i18n");
             if (i18nSection is null) throw new HostException($"Configuration section 'i18n' not found.");

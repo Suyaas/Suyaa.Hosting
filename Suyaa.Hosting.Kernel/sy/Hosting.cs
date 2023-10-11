@@ -79,12 +79,14 @@ namespace sy
         /// <param name="configureBuilder"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static IHost CreateHost<TStartup>(Action<IHostBuilder> configureBuilder, string[]? args = null)
+        public static IHost CreateHost<TStartup>(Action<IWebHostBuilder> configure, Action<IHostBuilder> configureBuilder, string[]? args = null)
             where TStartup : class
         {
             var builder = Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(
                 webBuilder =>
                 {
+                    // 执行配置
+                    configure(webBuilder);
                     webBuilder.UseStartup<TStartup>();
                 });
             // 配置

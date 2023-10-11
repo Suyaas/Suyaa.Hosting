@@ -20,4 +20,8 @@ var builder = new ConfigurationBuilder()
                .AddEnvironmentVariables(prefix: "ASPNETCORE_")
                .AddCommandLine(args);
 var config = builder.Build();
+
+// 启动器
+Startup startup = new Startup(config);
+
 sy.Hosting.CreateHost<Startup>(webBuilder => webBuilder.UseConfiguration(config), args).Run();

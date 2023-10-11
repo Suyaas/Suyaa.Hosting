@@ -12,7 +12,6 @@ namespace Suyaa.Configure.Apps.Infos
         /// 获取版本号
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
         public string GetVersion()
         {
             return sy.Assembly.Version;

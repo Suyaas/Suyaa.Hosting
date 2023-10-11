@@ -278,6 +278,16 @@ namespace Suyaa.Hosting.Kernel
             services.AddSingleton(typeof(IOptionConfig<>), typeof(OptionConfig<>));
             services.AddSingleton(_hostConfig);
 
+            // 创建依赖管理器
+            IDependencyManager dependency = this.OnDependencyManagerCreating(services);
+            sy.Hosting.DependencyManager = dependency;
+
+            // 先执行自动注册
+            dependency.RegisterAll();
+
+            // 注册所有的模块
+            dependency.AddModulers(this.Assembles);
+
             // 添加服务配置
             ServiceOption option = new ServiceOption();
             option.RouteUrl = "/app";
@@ -298,6 +308,7 @@ namespace Suyaa.Hosting.Kernel
                 }
                 // 添加约定器
                 options.Conventions.Add(new ServiceApplicationModelConvention(option));
+                options.Conventions.Add(new ServiceActionModelConvention());
             }, this.Assembles).ConfigureApplicationPartManager(pm =>
             {
                 // 添加自定义控制器
@@ -306,16 +317,6 @@ namespace Suyaa.Hosting.Kernel
 
             //services.AddSingleton(configuration);
             //services.AddSingleton(mapper);
-
-            // 创建依赖管理器
-            IDependencyManager dependency = this.OnDependencyManagerCreating(services);
-            sy.Hosting.DependencyManager = dependency;
-
-            // 先执行自动注册
-            dependency.RegisterAll();
-
-            // 注册所有的模块
-            dependency.AddModulers(this.Assembles);
 
             // 执行外部注册
             this.OnConfigureDependency(dependency);

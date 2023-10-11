@@ -7,7 +7,7 @@ using System.Reflection;
 namespace Suyaa.Hosting.Kernel.FeatureProviders
 {
     /// <summary>
-    /// 服务控制器特征提供者
+    /// 服务控制器特征供应商
     /// </summary>
     public class ServiceControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>, IApplicationFeatureProvider
     {

@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Suyaa.Hosting.Kernel.Attributes;
 using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Options;
+using System.Linq;
 using System.Reflection;
+using System.Xml.Linq;
 
 namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
 {
@@ -24,27 +27,6 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
             _option = option;
         }
 
-        // 应用行为
-        private void ApplyControllerAction(ApplicationModel application, ControllerModel controllerModel, string controllerName, ActionModel actionModel)
-        {
-            // 方法属性
-            var method = actionModel.ActionMethod;
-            var httpMethod = method.GetCustomAttribute<HttpMethodAttribute>();
-            // 兼容系统定义
-            if (httpMethod is null) return;
-            if (!httpMethod.Template.IsNullOrWhiteSpace()) return;
-            // 遍历选择器
-            foreach (var selector in actionModel.Selectors)
-            {
-                if (selector.AttributeRouteModel != null) continue;
-                // 判断是否定义了Route
-                AttributeRouteModel routeModel = new AttributeRouteModel() { Template = method.Name };
-                selector.AttributeRouteModel = routeModel;
-                //selector.EndpointMetadata.Add(new HttpGetAttribute());
-                //selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { "GET" }));
-            }
-        }
-
         // 应用控制器
         private void ApplyController(ApplicationModel application, ControllerModel controllerModel)
         {
@@ -57,9 +39,9 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
             if (app is null)
             {
                 // 兼容ServerApp结尾
-                if (controllerType.Name.EndsWith(Resources.String_ServerApp))
+                if (controllerType.Name.EndsWith(Resources.String_ServiceApp))
                 {
-                    controllerName = controllerType.Name.Substring(0, controllerType.Name.Length - Resources.String_ServerApp.Length);
+                    controllerName = controllerType.Name.Substring(0, controllerType.Name.Length - Resources.String_ServiceApp.Length);
                 }
                 // 兼容App结尾
                 else if (controllerType.Name.EndsWith(Resources.String_App))
@@ -82,8 +64,8 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
             {
                 selector.AttributeRouteModel = routeModel;
             }
-            // 处理所有行为
-            foreach (var action in controllerModel.Actions) ApplyControllerAction(application, controllerModel, controllerName, action);
+            //// 处理所有行为
+            //foreach (var action in controllerModel.Actions) ApplyControllerAction(application, controllerModel, controllerName, action);
         }
 
         /// <summary>

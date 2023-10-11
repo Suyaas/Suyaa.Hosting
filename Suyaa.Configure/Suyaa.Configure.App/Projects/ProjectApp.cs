@@ -44,7 +44,6 @@ namespace Suyaa.Configure.Apps.Projects
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [Get]
         public async Task<string> AppTest(ProjectListInput input)
         {
             return await Task.FromResult(_appInfo.AppId);

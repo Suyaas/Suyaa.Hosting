@@ -1,10 +1,10 @@
 ﻿namespace Suyaa.Hosting.Kernel.Dependency
 {
     /// <summary>
-    /// 工作单元
+    /// 数据仓储供应商
     /// </summary>
-    public interface IUnitOfWorkManager
+    public interface IRepositoryProvider
     {
-        
+
     }
 }

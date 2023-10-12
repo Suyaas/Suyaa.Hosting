@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Suyaa.Hosting.Data;
 
 namespace Suyaa.Hosting.EFCores
 {
@@ -7,27 +8,27 @@ namespace Suyaa.Hosting.EFCores
     /// </summary>
     public class HostDbContextOptions
     {
-        /// <summary>
-        /// 数据库设置
-        /// </summary>
-        public DbContextOptions Options { get; }
 
         /// <summary>
         /// 连接字符串
         /// </summary>
-        public string ConnectionString { get; }
+        public DbConnectionDescriptor ConnectionInfo { get; }
+
+        /// <summary>
+        /// 连接名称
+        /// </summary>
+        public string ConnectionName { get; }
 
         /// <summary>
         /// 主机上下文选项
         /// </summary>
         /// <param name="options"></param>
         /// <param name="connectionString"></param>
-        public HostDbContextOptions(DbContextOptions options, string connectionString)
+        public HostDbContextOptions(string connectionName, DbConnectionDescriptor info)
         {
-            Options = options;
-            ConnectionString = connectionString;
+            ConnectionInfo = info;
+            ConnectionName = connectionName;
         }
-
 
     }
 }

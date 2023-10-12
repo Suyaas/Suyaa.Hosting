@@ -292,6 +292,7 @@ namespace Suyaa.Hosting.Kernel
             services.AddSingleton<ILogger>(sy.Logger.GetCurrentLogger());
             services.AddSingleton(typeof(IOptionConfig<>), typeof(OptionConfig<>));
             services.AddSingleton(_hostConfig);
+            services.AddSingleton(Configuration);
 
             // 创建依赖管理器
             IDependencyManager dependency = this.OnDependencyManagerCreating(services);

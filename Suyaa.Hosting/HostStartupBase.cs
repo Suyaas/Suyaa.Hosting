@@ -7,6 +7,7 @@ using Suyaa.Hosting.Configures;
 using Suyaa.Hosting.Implementations;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Dependency;
+using Suyaa.Hosting.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Linq;

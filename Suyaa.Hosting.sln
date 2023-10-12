@@ -35,9 +35,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.Jwt", "Suyaa.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.Kernel", "Suyaa.Hosting.Kernel\Suyaa.Hosting.Kernel.csproj", "{C1A64F4C-9514-48B3-8805-907AF070E96B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Hosting.UnitOfWorks", "Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWorks.csproj", "{340B9052-2E23-42CF-AC81-CF04E933BA4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWorks", "Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWorks.csproj", "{340B9052-2E23-42CF-AC81-CF04E933BA4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Hosting.AutoMapper", "Suyaa.Hosting.AutoMapper\Suyaa.Hosting.AutoMapper.csproj", "{E449A7EA-C9E5-480B-864C-E9A7DC61419D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.AutoMapper", "Suyaa.Hosting.AutoMapper\Suyaa.Hosting.AutoMapper.csproj", "{E449A7EA-C9E5-480B-864C-E9A7DC61419D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.EFCore", "Suyaa.Hosting.EFCore\Suyaa.Hosting.EFCore.csproj", "{A78C3F97-BBD8-4B9C-9972-BA8829788591}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{34DB06AB-CBE9-491C-8D82-0EE5C958C4FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlServerDemo", "Demo\SqlServerDemo\SqlServerDemo.csproj", "{3E159C1D-EBDE-4577-A9E0-9E69FAEC695F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Hosting.Data", "Suyaa.Hosting.Data\Suyaa.Hosting.Data.csproj", "{748DE1DF-18DA-456D-8E49-2193883F02CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +117,18 @@ Global
 		{E449A7EA-C9E5-480B-864C-E9A7DC61419D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E449A7EA-C9E5-480B-864C-E9A7DC61419D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E449A7EA-C9E5-480B-864C-E9A7DC61419D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A78C3F97-BBD8-4B9C-9972-BA8829788591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A78C3F97-BBD8-4B9C-9972-BA8829788591}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A78C3F97-BBD8-4B9C-9972-BA8829788591}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A78C3F97-BBD8-4B9C-9972-BA8829788591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E159C1D-EBDE-4577-A9E0-9E69FAEC695F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E159C1D-EBDE-4577-A9E0-9E69FAEC695F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E159C1D-EBDE-4577-A9E0-9E69FAEC695F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E159C1D-EBDE-4577-A9E0-9E69FAEC695F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{748DE1DF-18DA-456D-8E49-2193883F02CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{748DE1DF-18DA-456D-8E49-2193883F02CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{748DE1DF-18DA-456D-8E49-2193883F02CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{748DE1DF-18DA-456D-8E49-2193883F02CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +142,7 @@ Global
 		{3C780555-12C7-44C6-88B5-911E3D463943} = {A10CBF0F-6643-4E22-B369-CDF1B1BCCE59}
 		{361B3891-2E71-4730-8FEA-7F45689EE8BC} = {A10CBF0F-6643-4E22-B369-CDF1B1BCCE59}
 		{2F4CB806-3D15-45A9-AE12-806628D5C70A} = {33A40A39-EA9C-4199-8588-6CEE7B038C66}
+		{3E159C1D-EBDE-4577-A9E0-9E69FAEC695F} = {34DB06AB-CBE9-491C-8D82-0EE5C958C4FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23FC978D-1BFE-4D83-8947-4484CE603405}

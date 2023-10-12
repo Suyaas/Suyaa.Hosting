@@ -9,6 +9,7 @@ using Suyaa.Hosting.EFCores;
 using Suyaa.DependencyInjection;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting;
+using Suyaa.Data.Dependency;
 
 namespace Suyaa.Configure.Host
 {
@@ -70,7 +71,7 @@ namespace Suyaa.Configure.Host
                 default:
                     throw new HostException(string.Format("Unsupported database type '{0}'.", dbType));
             }
-            var options = new HostDbContextOptions(optionsBuilder.Options, dbConnectionString);
+            var options = new HostDbContextOptions("Configure", dbConnectionString, optionsBuilder.Options);
             return options;
         }
 

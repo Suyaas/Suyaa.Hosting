@@ -1,5 +1,6 @@
-﻿using Suyaa.Data.Dependency;
-using Suyaa.Data.Dependency.Attributes;
+﻿using Suyaa.Data.Attributes;
+using Suyaa.Data.Dependency;
+using Suyaa.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

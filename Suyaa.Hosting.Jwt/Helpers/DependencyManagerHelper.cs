@@ -16,8 +16,8 @@ namespace Suyaa.Hosting.Jwt.Helpers
         /// <returns></returns>
         public static IDependencyManager AddJwt(this IDependencyManager dependency)
         {
-            dependency.Register<IJwtData, JwtData>();
-            dependency.Register<IJwtManager, JwtManager>();
+            dependency.Register<IJwtData, JwtData>(Lifetimes.Transient);
+            dependency.Register<IJwtManager, JwtManager>(Lifetimes.Transient);
             return dependency;
         }
     }

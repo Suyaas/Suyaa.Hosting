@@ -45,35 +45,35 @@ namespace Suyaa.Configure.Host
             switch (dbType)
             {
                 case "Sqlite":
-                    return new Suyaa.Data.DatabaseConnection(DatabaseTypes.Sqlite3, dbConnectionString);
+                    return new Suyaa.Data.DatabaseConnection(DbTypes.Sqlite3, dbConnectionString);
                 default:
                     throw new HostException(string.Format("Unsupported database type '{0}'.", dbType));
             }
 
         }
 
-        // 获取连接配置
-        private HostDbContextOptions GetDbContextOptions(string connectionString)
-        {
-            if (connectionString.IsNullOrWhiteSpace()) throw new HostException(string.Format("Configuration ConnectionStrings '{0}' not found.", "Configure"));
-            if (connectionString[0] != '[') throw new HostException(string.Format("ConnectionString must start with '[dbtype]'."));
-            int idx = connectionString.IndexOf(']');
-            if (idx < 0) throw new HostException(string.Format("ConnectionString must start with '[dbtype]'."));
-            string dbType = connectionString.Substring(1, idx - 1);
-            string dbConnectionString = connectionString.Substring(idx + 1);
-            // 添加数据库上下文配置
-            var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
-            switch (dbType)
-            {
-                case "Sqlite":
-                    optionsBuilder.UseSqlite(dbConnectionString);
-                    break;
-                default:
-                    throw new HostException(string.Format("Unsupported database type '{0}'.", dbType));
-            }
-            var options = new HostDbContextOptions("Configure", dbConnectionString, optionsBuilder.Options);
-            return options;
-        }
+        //// 获取连接配置
+        //private HostDbContextOptions GetDbContextOptions(string connectionString)
+        //{
+        //    if (connectionString.IsNullOrWhiteSpace()) throw new HostException(string.Format("Configuration ConnectionStrings '{0}' not found.", "Configure"));
+        //    if (connectionString[0] != '[') throw new HostException(string.Format("ConnectionString must start with '[dbtype]'."));
+        //    int idx = connectionString.IndexOf(']');
+        //    if (idx < 0) throw new HostException(string.Format("ConnectionString must start with '[dbtype]'."));
+        //    string dbType = connectionString.Substring(1, idx - 1);
+        //    string dbConnectionString = connectionString.Substring(idx + 1);
+        //    // 添加数据库上下文配置
+        //    var optionsBuilder = new DbContextOptionsBuilder<DbContext>();
+        //    switch (dbType)
+        //    {
+        //        case "Sqlite":
+        //            optionsBuilder.UseSqlite(dbConnectionString);
+        //            break;
+        //        default:
+        //            throw new HostException(string.Format("Unsupported database type '{0}'.", dbType));
+        //    }
+        //    var options = new HostDbContextOptions("Configure", dbConnectionString, optionsBuilder.Options);
+        //    return options;
+        //}
 
         /// <summary>
         /// 依赖配置

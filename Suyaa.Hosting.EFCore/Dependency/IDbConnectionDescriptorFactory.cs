@@ -1,4 +1,5 @@
-﻿using Suyaa.Hosting.Data;
+﻿using Suyaa.Data;
+using Suyaa.Hosting.Data;
 using Suyaa.Hosting.EFCores;
 using System;
 using System.Collections.Generic;

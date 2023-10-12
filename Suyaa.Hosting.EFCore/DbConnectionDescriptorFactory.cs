@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Suyaa.Data;
 using Suyaa.DependencyInjection;
 using Suyaa.Hosting.Data;
 using Suyaa.Hosting.EFCore.Dependency;

@@ -5,7 +5,24 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Version>1.9.2310.37</Version>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
+    <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
+    <PackageProjectUrl>https://github.com/SuyaaUI/Suyaa.Hosting</PackageProjectUrl>
+    <PackageIcon>suyaa_256.png</PackageIcon>
+    <RepositoryUrl>https://github.com/SuyaaUI/Suyaa.Hosting</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>host,efcore</PackageTags>
+    <Description>舒雅微服务组件中的EFCore数据库操作插件</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\icon\suyaa_256.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Suyaa.EFCore" Version="1.5.2310.29" />

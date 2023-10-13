@@ -8,7 +8,23 @@
 		<Version>1.9.2310.37</Version>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<IsPackable>true</IsPackable>
+		<Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
+		<Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
+		<PackageProjectUrl>https://github.com/SuyaaUI/Suyaa.Hosting</PackageProjectUrl>
+		<PackageIcon>suyaa_256.png</PackageIcon>
+		<RepositoryUrl>https://github.com/SuyaaUI/Suyaa.Hosting</RepositoryUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageTags>host,microservice,framework</PackageTags>
+		<Description>舒雅微服务组件中的核心实现</Description>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\icon\suyaa_256.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Suyaa.Configure" Version="1.5.2310.28" />

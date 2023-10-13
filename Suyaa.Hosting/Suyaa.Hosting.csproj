@@ -7,7 +7,7 @@
 		<OutputType>Library</OutputType>
 		<Version>1.9.2310.37</Version>
 		<Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
-		<Description>An microservice assembly for .Net 6</Description>
+		<Description>舒雅套件中的微服务组件</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -20,6 +20,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageTags>host,microservice,framework</PackageTags>
+		<Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
 	</PropertyGroup>
 
 	<ItemGroup>

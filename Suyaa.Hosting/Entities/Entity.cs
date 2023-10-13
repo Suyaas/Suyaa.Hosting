@@ -1,15 +1,7 @@
-﻿using Suyaa.Data.Dependency;
-using Suyaa.Data.Dependency.Attributes;
+﻿using Suyaa.Data.Attributes;
+using Suyaa.Data.Enums;
 using Suyaa.Hosting.Kernel.Dependency;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Suyaa.Hosting.Entities
 {

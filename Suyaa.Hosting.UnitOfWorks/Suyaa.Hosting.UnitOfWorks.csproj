@@ -9,10 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Suyaa.Data" Version="1.4.2309.26" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Suyaa.Hosting.Data\Suyaa.Hosting.Data.csproj" />
     <ProjectReference Include="..\Suyaa.Hosting.Kernel\Suyaa.Hosting.Kernel.csproj" />
   </ItemGroup>
 

@@ -51,10 +51,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="MetaDatas\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\Suyaa.Hosting.Kernel\Suyaa.Hosting.Kernel.csproj" />
 	  <ProjectReference Include="..\Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWorks.csproj" />
 	</ItemGroup>

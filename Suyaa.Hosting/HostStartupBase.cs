@@ -4,10 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Suyaa.Hosting.Configures;
+using Suyaa.Hosting.Data;
+using Suyaa.Hosting.Data.Dependency;
 using Suyaa.Hosting.Implementations;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Dependency;
-using Suyaa.Hosting.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,9 +91,6 @@ namespace Suyaa.Hosting
                 });
             }
             #endregion
-
-            // 注册仓库
-            services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
 
             base.ConfigureServices(services);
         }

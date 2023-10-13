@@ -272,9 +272,10 @@ namespace Suyaa.DependencyInjection
                     if (type.IsInterface) continue;
                     // 条码抽象类
                     if (type.IsAbstract) continue;
-                    if (serviceType.IsAssignableFrom(type))
+                    if (type.HasInterface(serviceType))
                     {
                         manager.Register(serviceType, type, Lifetimes.Transient);
+                        manager.Register(type, type, Lifetimes.Transient);
                     }
                 }
             }
@@ -298,14 +299,22 @@ namespace Suyaa.DependencyInjection
         /// 注册所有的接口实现
         /// </summary>
         /// <param name="manager"></param>
-        public static void RegisterTransients<TService>(this IDependencyManager manager)
+        public static void RegisterTransients(this IDependencyManager manager, Type serviceType)
         {
-            Type serviceType = typeof(TService);
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (Assembly assembly in assemblies)
             {
                 manager.RegisterAssemblyTransients(serviceType, assembly);
             }
+        }
+
+        /// <summary>
+        /// 注册所有的接口实现
+        /// </summary>
+        /// <param name="manager"></param>
+        public static void RegisterTransients<TService>(this IDependencyManager manager)
+        {
+            manager.RegisterTransients(typeof(TService));
         }
 
         /// <summary>

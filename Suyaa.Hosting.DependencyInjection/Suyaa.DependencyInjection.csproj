@@ -8,4 +8,8 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Suyaa" Version="1.5.2310.29" />
+  </ItemGroup>
+
 </Project>

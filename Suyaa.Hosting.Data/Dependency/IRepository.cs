@@ -4,25 +4,19 @@ using System.Data.Common;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Suyaa.Hosting.Kernel.Dependency;
 
-namespace Suyaa.Hosting.Kernel.Dependency
+namespace Suyaa.Hosting.Data.Dependency
 {
     /// <summary>
     /// 数据仓库
     /// </summary>
     /// <typeparam name="TClass"></typeparam>
     /// <typeparam name="TId"></typeparam>
-    public interface IRepository<TClass, TId>
+    public interface IRepository<TClass, TId> : IQueryProvider<TClass, TId>, IInsertProvider<TClass, TId>, IUpdateProvider<TClass, TId>, IDeleteProvider<TClass, TId>
         where TClass : class, IEntity<TId>
         where TId : notnull
     {
-
-        /// <summary>
-        /// 获取仓库供应商
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        T GetRepositoryProvider<T>() where T : IRepositoryProvider;
 
         //#region [=====插入数据=====]
 

@@ -9,19 +9,25 @@ using System.Threading.Tasks;
 namespace SqlServerDemo.Entities
 {
     [Table("SystemObjects", Schema = "dbo")]
-    public class SystemObjects : Entity<long>
+    public class SystemObjects : Entity<decimal>
     {
         public SystemObjects() : base(0)
         {
         }
 
         /// <summary>
+        /// Id
+        /// </summary>
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public override decimal Id { get => base.Id; set => base.Id = value; }
+
+        /// <summary>
         /// Name
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
         /// <summary>
         /// Version
         /// </summary>
-        public string Version { get; set; } = string.Empty;
+        public string? Version { get; set; }
     }
 }

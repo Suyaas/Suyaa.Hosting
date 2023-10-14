@@ -5,6 +5,7 @@ using Suyaa.Configure.Cores.Users.Dto;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Configure.Basic.Jwt;
+using Suyaa.Hosting.Jwt.Dependency;
 
 namespace Suyaa.Configure.Cores.Users
 {
@@ -24,7 +25,8 @@ namespace Suyaa.Configure.Cores.Users
         /// </summary>
         public UserCore(
             IOptionConfig<UserConfigs> userConfigs,
-            IMultilingualManager i18n
+            IMultilingualManager i18n,
+            IJwtDataProvider jwtDataProvider
             )
         {
             _userConfigs = userConfigs.CurrentValue;
@@ -44,7 +46,7 @@ namespace Suyaa.Configure.Cores.Users
             var userConfig = _userConfigs.Where(d => d.Account == input.Account).FirstOrDefault();
             if (userConfig is null) throw new HostFriendlyException(_i18n.Content("Login fail."));
             if (userConfig.Password != input.Password) throw new HostFriendlyException(_i18n.Content("Login fail."));
-            var token = sy.Jwt.CreateToken(new JwtInfo() { UserId = userConfig.Id, UserAccount = userConfig.Account });
+            var token = sy.Jwt.CreateToken(new JwtInfo() { Uid = userConfig.Id.ToString(), UserAccount = userConfig.Account });
             return await Task.FromResult(new UserLoginOutput()
             {
                 Token = token,

@@ -1,9 +1,8 @@
-﻿using Suyaa.Data.Dependency;
-using Suyaa.Data.Dependency.Attributes;
+﻿using Suyaa.Data.Attributes;
+using Suyaa.Data.Enums;
 using Suyaa.Hosting.Entities;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Suyaa.Configure.Entity.ProjectCatalogs
 {

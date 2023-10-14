@@ -13,18 +13,18 @@ namespace Suyaa.Configure.App.Users
     public class UserApp : ServiceApp
     {
         private readonly IUserCore _userCore;
-        private readonly IServiceProvider _provider;
+        //private readonly IServiceProvider _provider;
 
         /// <summary>
         /// 用户
         /// </summary>
         public UserApp(
-            IUserCore userCore,
-            IServiceProvider provider
+            IUserCore userCore
+            //IServiceProvider provider
             )
         {
             _userCore = userCore;
-            _provider = provider;
+            //_provider = provider;
         }
 
         /// <summary>

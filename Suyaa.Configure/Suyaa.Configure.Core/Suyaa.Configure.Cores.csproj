@@ -8,8 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Suyaa.Hosting.EFCore\Suyaa.Hosting.EFCore.csproj" />
-    <ProjectReference Include="..\..\Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWorks.csproj" />
     <ProjectReference Include="..\Suyaa.Configure.Entity\Suyaa.Configure.Entities.csproj" />
   </ItemGroup>
 

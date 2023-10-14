@@ -8,20 +8,16 @@ namespace Suyaa.Configure.Basic.Jwt
     public class JwtInfo : IJwtData
     {
         /// <summary>
-        /// 用户Id
-        /// </summary>
-        public long UserId { get; set; }
-        /// <summary>
         /// 用户账户
         /// </summary>
         public string UserAccount { get; set; } = string.Empty;
         /// <summary>
         /// 用户标识
         /// </summary>
-        public string? Uid { get; set; }
+        public string Uid { get; set; } = string.Empty;
         /// <summary>
         /// 租户Id
         /// </summary>
-        public int? TenantId { get; set; }
+        public int TenantId { get; set; } = 0;
     }
 }

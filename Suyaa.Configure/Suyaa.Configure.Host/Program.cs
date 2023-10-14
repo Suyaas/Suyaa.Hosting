@@ -13,15 +13,17 @@ sy.Logger.GetCurrentLogger()
     });
 
 string key = "ASPNETCORE_ENVIRONMENT";
-if (Environment.GetEnvironmentVariable(key).IsNullOrWhiteSpace()) Environment.SetEnvironmentVariable(key, "Production");
+string env = Environment.GetEnvironmentVariable(key) ?? "Production";
+if (Environment.GetEnvironmentVariable(key).IsNullOrWhiteSpace()) Environment.SetEnvironmentVariable(key, env);
 var builder = new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+               .AddJsonFile($"appsettings.{env}.json", optional: false, reloadOnChange: true)
                .AddEnvironmentVariables(prefix: "ASPNETCORE_")
                .AddCommandLine(args);
 var config = builder.Build();
 
 // 启动器
-Startup startup = new Startup(config);
+//Startup startup = new Startup(config);
 
 sy.Hosting.CreateHost<Startup>(webBuilder => webBuilder.UseConfiguration(config), args).Run();

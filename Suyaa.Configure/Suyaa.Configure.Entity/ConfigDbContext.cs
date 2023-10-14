@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Suyaa.Configure.Basic.EFCore;
 using Suyaa.Configure.Entity.Projects;
-using Suyaa.EFCore;
 using Suyaa.EFCore.Helpers;
-using Suyaa.Hosting.EFCores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Suyaa.Hosting.EFCore.Dependency;
 
 namespace Suyaa.Configure.Entities
 {
@@ -27,8 +22,8 @@ namespace Suyaa.Configure.Entities
         /// <summary>
         /// 数据库连接上下文
         /// </summary>
-        /// <param name="options"></param>
-        public ConfigDbContext(HostDbContextOptions options) : base(options)
+        /// <param name="dbConnectionDescriptorFactory"></param>
+        public ConfigDbContext(IDbConnectionDescriptorFactory dbConnectionDescriptorFactory) : base(dbConnectionDescriptorFactory)
         {
         }
 

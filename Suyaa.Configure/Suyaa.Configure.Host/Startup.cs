@@ -4,12 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Suyaa.Data;
 using Suyaa.Configure.Basic.Configures;
-using Microsoft.EntityFrameworkCore;
-using Suyaa.Hosting.EFCores;
 using Suyaa.DependencyInjection;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting;
-using Suyaa.Data.Dependency;
+using Suyaa.Hosting.Multilingual.Helpers;
+using Suyaa.Hosting.Jwt.Helpers;
+using Suyaa.Configure.Basic.Jwt;
 
 namespace Suyaa.Configure.Host
 {
@@ -82,6 +82,10 @@ namespace Suyaa.Configure.Host
         /// <exception cref="HostException"></exception>
         protected override void OnConfigureDependency(IDependencyManager dependency)
         {
+            // 添加Jwt支持
+            dependency.AddJwt<JwtDataProvider>();
+            // 添加EFCore支持
+            dependency.AddEFCore();
             // 使用多语言支持
             //dependency.AddMultilingual();
             // 使用工作单元

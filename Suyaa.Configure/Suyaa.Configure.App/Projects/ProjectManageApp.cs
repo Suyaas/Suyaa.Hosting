@@ -51,7 +51,7 @@ namespace Suyaa.Configure.Apps.Projects
         [Get]
         public async Task<JwtInfo> GetJwtInfo()
         {
-            return await Task.FromResult((JwtInfo)_jwtManager.Current!);
+            return await Task.FromResult((JwtInfo)_jwtManager.GetCurrentData()!);
         }
 
         /// <summary>

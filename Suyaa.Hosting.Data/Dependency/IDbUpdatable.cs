@@ -8,11 +8,17 @@ using System.Threading.Tasks;
 namespace Suyaa.Hosting.Data.Dependency
 {
     /// <summary>
-    /// 数据插入供应商
+    /// 可更新
     /// </summary>
-    public interface IInsertProvider<TEntity, TId>: IDbInsertable<TEntity, TId>
+    public interface IDbUpdatable<TEntity, TId>
         where TEntity : class, IEntity<TId>
         where TId : notnull
     {
+        /// <summary>
+        /// 数据更新
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <returns></returns>
+        Task UpdateAsync(TEntity entity);
     }
 }

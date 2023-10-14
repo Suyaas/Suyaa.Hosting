@@ -11,18 +11,14 @@ namespace Suyaa.Hosting.Kernel.Dependency
     /// </summary>
     public interface IJwtManager
     {
-        /// <summary>
-        /// 获取当前数据
-        /// </summary>
-        IJwtData? Current { get; }
 
         /// <summary>
-        /// 数据
+        /// 获取数据
         /// </summary>
-        IJwtData? GetCurrentData();
+        IJwtData GetCurrentData();
 
         /// <summary>
-        /// 数据
+        /// 设置数据
         /// </summary>
         void SetCurrentData(IJwtData jwtData);
     }

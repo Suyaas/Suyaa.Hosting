@@ -13,7 +13,7 @@ namespace Suyaa.Hosting.Data.Dependency
     /// </summary>
     /// <typeparam name="TClass"></typeparam>
     /// <typeparam name="TId"></typeparam>
-    public interface IRepository<TClass, TId> : IQueryProvider<TClass, TId>, IInsertProvider<TClass, TId>, IUpdateProvider<TClass, TId>, IDeleteProvider<TClass, TId>
+    public interface IRepository<TClass, TId> : IDbQueryable<TClass, TId>, IDbInsertable<TClass, TId>, IDbUpdatable<TClass, TId>, IDbDeletable<TClass, TId>
         where TClass : class, IEntity<TId>
         where TId : notnull
     {

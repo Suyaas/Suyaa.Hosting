@@ -18,20 +18,20 @@ namespace Suyaa.Hosting.Data
         #region DI注入
 
         private readonly IDependencyManager _dependencyManager;
-        private readonly IQueryProvider<TEntity, TId> _queryProvider;
+        private readonly IDbQueryProvider<TEntity, TId> _queryProvider;
         private readonly IInsertProvider<TEntity, TId> _insertProvider;
-        private readonly IUpdateProvider<TEntity, TId> _updateProvider;
-        private readonly IDeleteProvider<TEntity, TId> _deleteProvider;
+        private readonly IDbUpdateProvider<TEntity, TId> _updateProvider;
+        private readonly IDbDeleteProvider<TEntity, TId> _deleteProvider;
 
         /// <summary>
         /// 数据仓库
         /// </summary>
         public Repository(
             IDependencyManager dependencyManager,
-            IQueryProvider<TEntity, TId> queryProvider,
+            IDbQueryProvider<TEntity, TId> queryProvider,
             IInsertProvider<TEntity, TId> insertProvider,
-            IUpdateProvider<TEntity, TId> updateProvider,
-            IDeleteProvider<TEntity, TId> deleteProvider
+            IDbUpdateProvider<TEntity, TId> updateProvider,
+            IDbDeleteProvider<TEntity, TId> deleteProvider
             )
         {
             _dependencyManager = dependencyManager;

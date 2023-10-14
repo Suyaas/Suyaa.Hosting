@@ -19,10 +19,10 @@ namespace Suyaa.Hosting.Multilingual.Helpers
             // 注册仓库
             dependency.Register(typeof(IRepository<,>), typeof(Repository<,>), Lifetimes.Transient);
             // 注册所有的供应商
-            dependency.RegisterTransients(typeof(IQueryProvider<,>));
+            dependency.RegisterTransients(typeof(IDbQueryProvider<,>));
             dependency.RegisterTransients(typeof(IInsertProvider<,>));
-            dependency.RegisterTransients(typeof(IUpdateProvider<,>));
-            dependency.RegisterTransients(typeof(IDeleteProvider<,>));
+            dependency.RegisterTransients(typeof(IDbUpdateProvider<,>));
+            dependency.RegisterTransients(typeof(IDbDeleteProvider<,>));
             return dependency;
         }
     }

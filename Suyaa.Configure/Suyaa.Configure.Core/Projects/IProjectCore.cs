@@ -15,7 +15,7 @@ namespace Suyaa.Configure.Cores.Projects
     /// <summary>
     /// 项目
     /// </summary>
-    public interface IProjectCore : IServiceCore
+    public interface IProjectCore
     {
         /// <summary>
         /// 获取查询

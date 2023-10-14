@@ -8,17 +8,11 @@ using System.Threading.Tasks;
 namespace Suyaa.Hosting.Data.Dependency
 {
     /// <summary>
-    /// 数据删除供应商
+    /// 数据更新供应商
     /// </summary>
-    public interface IDeleteProvider<TEntity, TId>
+    public interface IDbUpdateProvider<TEntity, TId>: IDbUpdatable<TEntity, TId>
         where TEntity : class, IEntity<TId>
         where TId : notnull
     {
-        /// <summary>
-        /// 数据更新
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <returns></returns>
-        Task DeleteAsync(TEntity entity);
     }
 }

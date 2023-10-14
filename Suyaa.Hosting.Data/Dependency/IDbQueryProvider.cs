@@ -10,15 +10,10 @@ namespace Suyaa.Hosting.Data.Dependency
     /// <summary>
     /// 查询供应商
     /// </summary>
-    public interface IQueryProvider<TEntity, TId>
+    public interface IDbQueryProvider<TEntity, TId>:IDbQueryable<TEntity,TId>
         where TEntity : class, IEntity<TId>
         where TId : notnull
     {
-        /// <summary>
-        /// 获取查询
-        /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <returns></returns>
-        IQueryable<TEntity> Query();
+
     }
 }

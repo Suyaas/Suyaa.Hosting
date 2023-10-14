@@ -1,4 +1,5 @@
 ﻿using Suyaa.DependencyInjection;
+using Suyaa.Hosting.Jwt.Dependency;
 using Suyaa.Hosting.Kernel.Dependency;
 
 namespace Suyaa.Hosting.Jwt
@@ -6,7 +7,7 @@ namespace Suyaa.Hosting.Jwt
     /// <summary>
     /// Jwt管理器
     /// </summary>
-    public class JwtManager : IJwtManager, IDependencyTransient, IDependencyExclusive
+    public class JwtManager : IJwtManager
     {
         // 异步数据对象
         private static readonly AsyncLocal<JwtDataWrapper> _asyncLocal = new AsyncLocal<JwtDataWrapper>();
@@ -30,15 +31,22 @@ namespace Suyaa.Hosting.Jwt
         /// <summary>
         /// 获取当前数据
         /// </summary>
-        public IJwtData? Current => GetCurrentData();
+        public IJwtData Current => GetCurrentData();
 
         /// <summary>
         /// 数据
         /// </summary>
-        public IJwtData? GetCurrentData()
+        public IJwtData GetCurrentData()
         {
             // 为空则返回空
-            if (_asyncLocal.Value is null) return null;
+            if (_asyncLocal.Value is null)
+            {
+                lock (_asyncLocal)
+                {
+                    var jwtDataProvider = _dependency.Resolve<IJwtDataProvider>();
+                    _asyncLocal.Value = new JwtDataWrapper(jwtDataProvider.CreateJwtData());
+                }
+            }
             return _asyncLocal.Value.JwtData;
         }
 
@@ -47,13 +55,10 @@ namespace Suyaa.Hosting.Jwt
         /// </summary>
         public void SetCurrentData(IJwtData jwtData)
         {
-            // 为空则创建
-            if (_asyncLocal.Value is null)
+            // 设置数据
+            lock (_asyncLocal)
             {
-                lock (_asyncLocal)
-                {
-                    _asyncLocal.Value = new JwtDataWrapper(jwtData);
-                }
+                _asyncLocal.Value = new JwtDataWrapper(jwtData);
             }
         }
 

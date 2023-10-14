@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 namespace Suyaa.Hosting.Data.Dependency
 {
     /// <summary>
-    /// 数据插入供应商
+    /// 数据删除供应商
     /// </summary>
-    public interface IInsertProvider<TEntity, TId>: IDbInsertable<TEntity, TId>
+    public interface IDbDeleteProvider<TEntity, TId> : IDbDeletable<TEntity, TId>
         where TEntity : class, IEntity<TId>
         where TId : notnull
     {
+
     }
 }

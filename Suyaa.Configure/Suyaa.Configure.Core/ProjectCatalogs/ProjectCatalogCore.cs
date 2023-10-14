@@ -25,7 +25,7 @@ namespace Suyaa.Configure.Cores.ProjectCatalogs
         #region DI注入
         private readonly IRepository<ProjectCatalog, string> _projectCatalogRepository;
         private readonly IObjectMapper _objectMapper;
-        private readonly IServiceProvider _provider;
+        //private readonly IServiceProvider _provider;
 
         //private readonly IProjectCore _projectCore;
 
@@ -39,13 +39,13 @@ namespace Suyaa.Configure.Cores.ProjectCatalogs
         /// </summary>
         public ProjectCatalogCore(
             IRepository<ProjectCatalog, string> projectCatalogRepository,
-            IObjectMapper objectMapper,
-            IServiceProvider provider
+            IObjectMapper objectMapper
+            //IServiceProvider provider
             )
         {
             _projectCatalogRepository = projectCatalogRepository;
             _objectMapper = objectMapper;
-            _provider = provider;
+            //_provider = provider;
             //_projectCore = projectCore;
         }
 
@@ -93,7 +93,8 @@ namespace Suyaa.Configure.Cores.ProjectCatalogs
         /// <returns></returns>
         public async Task Delete(string id)
         {
-            await _projectCatalogRepository.DeleteAsync(id);
+            //await _projectCatalogRepository.DeleteAsync(id);
+            await Task.CompletedTask;
         }
     }
 }

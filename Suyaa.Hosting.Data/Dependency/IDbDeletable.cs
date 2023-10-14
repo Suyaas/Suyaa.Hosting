@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Suyaa.Hosting.Data.Dependency
 {
     /// <summary>
-    /// 数据更新供应商
+    /// 可删除
     /// </summary>
-    public interface IUpdateProvider<TEntity, TId>
+    public interface IDbDeletable<TEntity, TId>
         where TEntity : class, IEntity<TId>
         where TId : notnull
     {
@@ -19,6 +19,6 @@ namespace Suyaa.Hosting.Data.Dependency
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        Task UpdateAsync(TEntity entity);
+        Task DeleteAsync(TEntity entity);
     }
 }

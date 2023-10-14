@@ -9,11 +9,11 @@
         /// <summary>
         /// 用户唯一标识
         /// </summary>
-        string? Uid { get; }
+        string Uid { get; }
 
         /// <summary>
         /// 租户Id
         /// </summary>
-        int? TenantId { get; }
+        int TenantId { get; }
     }
 }

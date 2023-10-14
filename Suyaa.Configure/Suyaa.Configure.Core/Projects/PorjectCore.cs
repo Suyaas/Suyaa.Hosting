@@ -10,6 +10,7 @@ using Suyaa.Hosting.Data.Dependency;
 using Suyaa.Hosting.Dependency;
 using Suyaa.Hosting.Helpers;
 using Suyaa.Hosting.Pages;
+using Suyaa.Hosting.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,13 @@ namespace Suyaa.Configure.Cores.Projects
     /// <summary>
     /// 项目
     /// </summary>
-    public class PorjectCore : IProjectCore
+    public class PorjectCore : ServiceCore, IProjectCore
     {
 
         #region DI注入
         private readonly IRepository<Project, string> _projectRepository;
         private readonly IObjectMapper _objectMapper;
-        private readonly IServiceProvider _provider;
+        //private readonly IServiceProvider _provider;
 
         //private readonly IProjectCore _projectCore;
 
@@ -37,13 +38,13 @@ namespace Suyaa.Configure.Cores.Projects
         /// </summary>
         public PorjectCore(
             IRepository<Project, string> projectRepository,
-            IObjectMapper objectMapper,
-            IServiceProvider provider
+            IObjectMapper objectMapper
+            //IServiceProvider provider
             )
         {
             _projectRepository = projectRepository;
             _objectMapper = objectMapper;
-            _provider = provider;
+            //_provider = provider;
             //_projectCore = projectCore;
         }
 
@@ -56,7 +57,7 @@ namespace Suyaa.Configure.Cores.Projects
         /// <returns></returns>
         public IQueryable<Project> GetQuery(Expression<Func<Project, bool>>? expression = null)
         {
-            var _projectRepository = _provider.GetRequiredService<IRepository<Project, string>>();
+            //var _projectRepository = _provider.GetRequiredService<IRepository<Project, string>>();
             var query = from p in _projectRepository.Query()
                             .WhereIf(expression != null, expression)
                         orderby p.Name

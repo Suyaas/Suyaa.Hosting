@@ -57,25 +57,21 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
             // 检测头部信息
             if (!request.Headers.ContainsKey(sy.Jwt.TokenName)) throw new HostFriendlyException($"Jwt invalid.");
             string token = request.Headers[sy.Jwt.TokenName].ToString();
-            // 数据类型
-            //var type = _jwtDataType.Type;
             // 检测Jwt信息
-            IJwtData info;
+            IJwtData jwtData = _jwtManager.GetCurrentData();
             try
             {
-                var types = _dependency.GetResolveTypes(typeof(IJwtData));
-                if (!types.Any()) throw new HostFriendlyException("Jwt data type missing.");
-                info = (IJwtData)sy.Jwt.GetData(token, types.First());
-                _jwtManager.SetCurrentData(info);
-                _session.Uid = info.Uid;
-                _session.TenantId = info.TenantId;
+                jwtData = (IJwtData)sy.Jwt.GetData(token, jwtData.GetType());
+                _jwtManager.SetCurrentData(jwtData);
+                _session.Uid = jwtData.Uid;
+                _session.TenantId = jwtData.TenantId;
                 _session.InvalidTime = DateTime.Now.AddHours(1);
             }
             catch (HostException ex)
             {
                 throw new HostFriendlyException(ex.Message);
             }
-            if (info.Uid.IsNullOrWhiteSpace()) throw new HostFriendlyException($"Jwt invalid.");
+            if (jwtData.Uid.IsNullOrWhiteSpace()) throw new HostFriendlyException($"Jwt invalid.");
             //_jwtDataManager.Data = info;
         }
     }

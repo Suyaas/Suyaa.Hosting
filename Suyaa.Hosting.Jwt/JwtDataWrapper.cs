@@ -1,4 +1,4 @@
-﻿using Suyaa.Hosting.Kernel.Dependency;
+﻿using Suyaa.Hosting.Jwt.Dependency;
 
 namespace Suyaa.Hosting.Jwt
 {

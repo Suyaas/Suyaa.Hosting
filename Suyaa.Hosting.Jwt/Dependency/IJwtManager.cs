@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Suyaa.Hosting.Kernel.Dependency
+namespace Suyaa.Hosting.Jwt.Dependency
 {
     /// <summary>
     /// Jwt管理器

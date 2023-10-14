@@ -5,7 +5,7 @@ using System.Text;
 using System.Security.Claims;
 using System.Reflection;
 using Suyaa.Hosting.Kernel;
-using Suyaa.Hosting.Kernel.Dependency;
+using Suyaa.Hosting.Jwt.Dependency;
 
 namespace sy
 {

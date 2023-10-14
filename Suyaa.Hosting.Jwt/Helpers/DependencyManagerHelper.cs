@@ -1,7 +1,6 @@
 ﻿using Suyaa.DependencyInjection;
 using Suyaa.Hosting.Jwt.ActionFilters;
 using Suyaa.Hosting.Jwt.Dependency;
-using Suyaa.Hosting.Kernel.Dependency;
 
 namespace Suyaa.Hosting.Jwt.Helpers
 {

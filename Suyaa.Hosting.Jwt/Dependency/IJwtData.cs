@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Kernel.Dependency
+﻿namespace Suyaa.Hosting.Jwt.Dependency
 {
 
     /// <summary>

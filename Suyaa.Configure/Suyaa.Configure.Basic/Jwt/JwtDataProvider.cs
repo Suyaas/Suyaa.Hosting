@@ -1,5 +1,4 @@
 ﻿using Suyaa.Hosting.Jwt.Dependency;
-using Suyaa.Hosting.Kernel.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;

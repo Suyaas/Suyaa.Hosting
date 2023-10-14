@@ -2,9 +2,9 @@
 using Suyaa.Configure.Cores.Users;
 using Suyaa.Hosting.Dependency;
 using Suyaa.Hosting.Jwt.Attributes;
+using Suyaa.Hosting.Jwt.Dependency;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Attributes;
-using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Services;
 
 namespace Suyaa.Configure.App.Users

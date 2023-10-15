@@ -37,7 +37,7 @@ namespace Suyaa.Configure.Apps.Infos
         public string GetJwt()
         {
             var jwtData = _jwtDataProvider.CreateJwtData();
-            return sy.Jwt.CreateToken(jwtData);
+            return sy.Jwt.CreateToken(jwtData).Token;
         }
     }
 }

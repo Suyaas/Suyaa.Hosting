@@ -49,7 +49,7 @@ namespace Suyaa.Configure.Cores.Users
             var token = sy.Jwt.CreateToken(new JwtInfo() { Uid = userConfig.Id.ToString(), UserAccount = userConfig.Account });
             return await Task.FromResult(new UserLoginOutput()
             {
-                Token = token,
+                Token = token.Token,
                 RenewalTime = sy.Time.Now.AddHours(1).ToUnixTimeSeconds(),
             });
         }

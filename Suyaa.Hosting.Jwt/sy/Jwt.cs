@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Reflection;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Jwt.Dependency;
+using Suyaa.Hosting.Jwt;
 
 namespace sy
 {
@@ -131,7 +132,7 @@ namespace sy
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>
-        public static string CreateToken<T>(T data) where T : IJwtData
+        public static JwtToken CreateToken<T>(T data, DateTime? expires = null) where T : IJwtData
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(TokenKey);
@@ -147,16 +148,22 @@ namespace sy
                 if (proValue != null) value = proValue.ToString().Fixed();
                 claims.Add(new Claim(pro.Name, value));
             }
-
+            // 处理失效时间，默认为1天
+            expires ??= DateTime.UtcNow.AddDays(1);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = expires,
                 SigningCredentials =
                     new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            // 返回令牌信息
+            return new JwtToken()
+            {
+                Token = tokenHandler.WriteToken(token),
+                Expires = expires.Value,
+            };
         }
     }
 }

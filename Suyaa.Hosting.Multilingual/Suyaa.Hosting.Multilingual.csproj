@@ -8,9 +8,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
     <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
-    <PackageProjectUrl>https://github.com/SuyaaUI/Suyaa.Hosting</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Suyaas/Suyaa.Hosting</PackageProjectUrl>
     <PackageIcon>suyaa_256.png</PackageIcon>
-    <RepositoryUrl>https://github.com/SuyaaUI/Suyaa.Hosting</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Suyaas/Suyaa.Hosting</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageTags>host,multilingual</PackageTags>

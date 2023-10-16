@@ -9,9 +9,9 @@
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
     <Description>舒雅套件中用于依赖注入的开发组件</Description>
     <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
-    <PackageProjectUrl>https://github.com/SuyaaUI/Suyaa.Hosting</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Suyaas/Suyaa.Hosting</PackageProjectUrl>
     <PackageIcon>suyaa_256.png</PackageIcon>
-    <RepositoryUrl>https://github.com/SuyaaUI/Suyaa.Hosting</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Suyaas/Suyaa.Hosting</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageTags>di,ioc,dependency</PackageTags>

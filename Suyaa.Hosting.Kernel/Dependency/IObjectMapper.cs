@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Dependency
+﻿namespace Suyaa.Hosting.Kernel.Dependency
 {
     /// <summary>
     /// 对象映射器

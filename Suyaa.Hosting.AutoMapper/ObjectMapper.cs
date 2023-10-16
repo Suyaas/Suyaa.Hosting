@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Suyaa.DependencyInjection;
-using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Kernel.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace Suyaa.Hosting.AutoMapper
     /// <summary>
     /// 对象映射器
     /// </summary>
-    public class ObjectMapper : IObjectMapper, IDependencyTransient, IDependencyExclusive
+    public class ObjectMapper : IObjectMapper, IDependencyTransient
     {
         #region DI注入
 

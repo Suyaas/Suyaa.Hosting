@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Suyaa.DependencyInjection;
 using Suyaa.DependencyInjection.ServiceCollection;
 using Suyaa.Hosting;
+using Suyaa.Hosting.AutoMapper.Helpers;
 using Suyaa.Hosting.Kernel.Helpers;
 using Suyaa.Hosting.Multilingual.Helpers;
 using System;
@@ -48,6 +49,8 @@ namespace SqlServerDemo
             dependency.AddModuler<ModuleStartup>();
             // 添加EFCore支持
             dependency.AddEFCore();
+            // 注册对象映射
+            dependency.AddAutoMapper();
             //throw new NotImplementedException();
         }
 

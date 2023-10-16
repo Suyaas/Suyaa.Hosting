@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Suyaa.DependencyInjection;
-using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Mappers;
 using System.Reflection;
 
@@ -63,7 +63,7 @@ namespace Suyaa.Hosting.AutoMapper.Helpers
             });
             var mapper = configuration.CreateMapper();
             dependency.Register<IMapper>(mapper);
-            dependency.Register<IObjectMapper>(typeof(ObjectMapper));
+            dependency.Register<IObjectMapper, ObjectMapper>(Lifetimes.Exclusive);
             return dependency;
         }
     }

@@ -31,7 +31,38 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
             {
                 BindingSource = BindingSource.Body
             };
-
+            // 方法属性
+            var method = action.ActionMethod;
+            // 将Get转为Post
+            var httpMethod = method.GetCustomAttribute<HttpMethodAttribute>();
+            // 兼容系统定义
+            if (httpMethod != null)
+            {
+                if (!httpMethod.Template.IsNullOrWhiteSpace()) return;
+            }
+            // 遍历选择器
+            foreach (var selector in action.Selectors)
+            {
+                if (selector.AttributeRouteModel is null) continue;
+                AttributeRouteModel routeModel= selector.AttributeRouteModel;
+                var httpMethodMetadata = (HttpMethodMetadata?)selector.EndpointMetadata.Where(d => d is HttpMethodMetadata).FirstOrDefault();
+                if (httpMethodMetadata is null) continue;
+                // 判断是否为GET
+                if(httpMethodMetadata.HttpMethods.Contains(Resources.String_Get_Upper))
+                {
+                    selector.EndpointMetadata.Clear();
+                    selector.ActionConstraints.Clear();
+                    // 添加Post方式
+                    selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.String_Post_Upper }));
+                    selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.String_Post_Upper }));
+                    continue;
+                }
+                // 判断是否定义了Route
+                routeModel = new AttributeRouteModel() { Template = method.Name };
+                selector.AttributeRouteModel = routeModel;
+                //selector.EndpointMetadata.Add(new HttpGetAttribute());
+                //selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { "GET" }));
+            }
         }
 
         // 应用方法接口

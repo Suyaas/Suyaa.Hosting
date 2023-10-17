@@ -36,7 +36,7 @@ namespace SqlServerDemo.Apps
             return await Task.FromResult(data);
         }
 
-        public async Task<SystemObjectsDto> Post(SystemObjects systemObjects)
+        public async Task<SystemObjectsDto> GetDto(SystemObjects systemObjects)
         {
             var data = _objectMapper.Map<SystemObjectsDto>(systemObjects);
             return await Task.FromResult(data);

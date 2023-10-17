@@ -1,4 +1,5 @@
-﻿using SqlServerDemo.Cores.Dto;
+﻿using Microsoft.AspNetCore.Mvc;
+using SqlServerDemo.Cores.Dto;
 using SqlServerDemo.Entities;
 using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Services;
@@ -24,13 +25,19 @@ namespace SqlServerDemo.Apps
             _objectMapper = objectMapper;
         }
 
-        public async Task<SystemObjectsDto> GetMapperData()
+        public async Task<SystemObjectsDto> GetMapperData(int count)
         {
             SystemObjects systemObjects = new SystemObjects()
             {
-                Name = "asd",
+                Name = "ass",
                 Version = "1.0.0",
             };
+            var data = _objectMapper.Map<SystemObjectsDto>(systemObjects);
+            return await Task.FromResult(data);
+        }
+
+        public async Task<SystemObjectsDto> Post(SystemObjects systemObjects)
+        {
             var data = _objectMapper.Map<SystemObjectsDto>(systemObjects);
             return await Task.FromResult(data);
         }

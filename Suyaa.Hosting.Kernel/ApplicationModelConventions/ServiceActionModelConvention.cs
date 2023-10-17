@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Routing;
 using System.Reflection;
 
@@ -11,11 +12,30 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
     /// </summary>
     public class ServiceActionModelConvention : IActionModelConvention
     {
-        /// <summary>
-        /// 生效
-        /// </summary>
-        /// <param name="action"></param>
-        public void Apply(ActionModel action)
+        // 应用参数处理
+        private void ApplyParameter(ActionModel action)
+        {
+            // 无参数，则退出
+            if (!action.Parameters.Any()) return;
+            // 非唯一参数，则退出
+            if (action.Parameters.Count > 1) return;
+            var parameter = action.Parameters.First();
+            // 已有绑定定义，则退出
+            if (parameter.BindingInfo != null) return;
+            var parameterType = parameter.ParameterType;
+            // 参数为类型，则退出
+            if (parameterType.IsValueType) return;
+            if (parameterType.IsBased<string>()) return;
+            // 默认使用Body方式绑定
+            parameter.BindingInfo = new BindingInfo()
+            {
+                BindingSource = BindingSource.Body
+            };
+
+        }
+
+        // 应用方法接口
+        private void ApplyMethod(ActionModel action)
         {
             // 方法属性
             var method = action.ActionMethod;
@@ -78,6 +98,18 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
                 //selector.EndpointMetadata.Add(new HttpGetAttribute());
                 //selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { "GET" }));
             }
+        }
+
+        /// <summary>
+        /// 生效
+        /// </summary>
+        /// <param name="action"></param>
+        public void Apply(ActionModel action)
+        {
+            // 应用方法接口
+            ApplyMethod(action);
+            // 应用参数处理
+            ApplyParameter(action);
         }
     }
 }

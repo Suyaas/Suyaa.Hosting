@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<OutputType>Library</OutputType>
-		<Version>1.9.2310.44</Version>
+		<Version>1.9.2310.45</Version>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<IsPackable>true</IsPackable>
 		<Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
@@ -17,6 +17,7 @@
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageTags>host,microservice,framework</PackageTags>
 		<Description>舒雅微服务组件中的核心实现</Description>
+		<Title>$(AssemblyName)</Title>
 	</PropertyGroup>
 
 	<ItemGroup>

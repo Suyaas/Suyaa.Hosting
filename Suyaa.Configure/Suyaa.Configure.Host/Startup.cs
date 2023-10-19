@@ -10,6 +10,8 @@ using Suyaa.Hosting;
 using Suyaa.Hosting.Multilingual.Helpers;
 using Suyaa.Hosting.Jwt.Helpers;
 using Suyaa.Configure.Basic.Jwt;
+using Suyaa.Hosting.Jwt.Options;
+using Suyaa.Configure.Basic.Dependency;
 
 namespace Suyaa.Configure.Host
 {
@@ -83,7 +85,8 @@ namespace Suyaa.Configure.Host
         protected override void OnConfigureDependency(IDependencyManager dependency)
         {
             // 添加Jwt支持
-            dependency.AddJwt<JwtDataProvider>();
+            dependency.AddJwt<JwtInfoProvider, JwtInfo>(new JwtOption());
+            dependency.Register<IJwtManager, JwtManager>(Lifetimes.Transient);
             // 添加EFCore支持
             dependency.AddEFCore();
             // 使用多语言支持

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Suyaa.Configure.Basic.Dependency;
+using Suyaa.Configure.Basic.Jwt;
 using Suyaa.Hosting.Jwt.Dependency;
 using Suyaa.Hosting.Services;
 
@@ -9,16 +11,16 @@ namespace Suyaa.Configure.Apps.Infos
     /// </summary>
     public sealed class InfoApp : ServiceApp
     {
-        private readonly IJwtDataProvider _jwtDataProvider;
+        private readonly IJwtManager _jwtManager;
 
         /// <summary>
         /// 信息
         /// </summary>
         public InfoApp(
-            IJwtDataProvider jwtDataProvider
+            IJwtManager jwtManager
             )
         {
-            _jwtDataProvider = jwtDataProvider;
+            _jwtManager = jwtManager;
         }
 
         /// <summary>
@@ -36,8 +38,8 @@ namespace Suyaa.Configure.Apps.Infos
         /// <returns></returns>
         public string GetJwt()
         {
-            var jwtData = _jwtDataProvider.CreateJwtData();
-            return sy.Jwt.CreateToken(jwtData).Token;
+            var jwtData = _jwtManager.Provider.CreateJwtData();
+            return _jwtManager.Provider.Builder.CreateToken(jwtData).Token;
         }
     }
 }

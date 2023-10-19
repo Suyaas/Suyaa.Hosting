@@ -9,12 +9,19 @@ namespace Suyaa.Hosting.Jwt.Dependency
     /// <summary>
     /// Jwt数据供应商
     /// </summary>
-    public interface IJwtDataProvider
+    public interface IJwtDataProvider<TData>
+        where TData : class, IJwtData
     {
         /// <summary>
         /// 创建一个Jwt数据
         /// </summary>
         /// <returns></returns>
-        IJwtData CreateJwtData();
+        TData CreateJwtData();
+
+        /// <summary>
+        /// 构建器
+        /// </summary>
+        /// <returns></returns>
+        IJwtBuilder<TData> Builder { get; }
     }
 }

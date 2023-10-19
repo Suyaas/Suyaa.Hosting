@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Suyaa.Configure.Basic.Jwt;
 using Suyaa.Configure.Cores.ProjectCatalogs;
 using Suyaa.Configure.Cores.ProjectCatalogs.Dto;
 using Suyaa.Configure.Cores.ProjectCatalogs.Sto;
 using Suyaa.Configure.Entity.ProjectCatalogs;
-using Suyaa.Hosting.Jwt.Attributes;
 using Suyaa.Hosting.Kernel.Attributes;
 using Suyaa.Hosting.Pages;
 using Suyaa.Hosting.Services;

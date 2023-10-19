@@ -10,6 +10,6 @@ namespace Suyaa.Hosting.Jwt.Attributes
         /// <summary>
         /// Jwt认证
         /// </summary>
-        public JwtAuthorizeAttribute() : base(typeof(JwtAuthorizeFilter)) { }
+        public JwtAuthorizeAttribute(Type type) : base(typeof(JwtAuthorizeFilter<>).MakeGenericType(type)) { }
     }
 }

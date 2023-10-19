@@ -1,7 +1,7 @@
-﻿using Suyaa.Configure.Entity.ProjectCatalogs;
+﻿using Suyaa.Configure.Basic.Jwt;
+using Suyaa.Configure.Entity.ProjectCatalogs;
 using Suyaa.Configure.Entity.Projects;
 using Suyaa.Data;
-using Suyaa.Hosting.Jwt.Attributes;
 using Suyaa.Hosting.Kernel.Attributes;
 using Suyaa.Hosting.Services;
 

@@ -1,32 +1,43 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Suyaa;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using System.Security.Claims;
-using System.Reflection;
-using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Jwt.Dependency;
-using Suyaa.Hosting.Jwt;
+using Suyaa.Hosting.Jwt.Options;
+using Suyaa.Hosting.Kernel;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Reflection;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
-namespace sy
+namespace Suyaa.Hosting.Jwt
 {
     /// <summary>
-    /// Jwt相关
+    /// Jwt构建器
     /// </summary>
-    public static class Jwt
+    public sealed class JwtBuilder<TData> : IJwtBuilder<TData>
+        where TData : class, IJwtData, new()
     {
+        // 配置项
+        private readonly JwtOption _option;
+        private readonly Type _type;
+
         /// <summary>
-        /// Jwt交互令牌密钥名称
+        /// Jwt构建器
         /// </summary>
-        public static string TokenName { get; set; } = "Jwt-Token";
+        /// <param name="option">配置项</param>
+        public JwtBuilder(JwtOption option)
+        {
+            _option = option;
+            _type = typeof(TData);
+        }
+
         /// <summary>
-        /// Jwt交互令牌密钥
+        /// 配置项
         /// </summary>
-        public static string TokenKey { get; set; } = "0b26efe2c64e4eb8ae8e97384935cb2c";
-        /// <summary>
-        /// Jwt交互令牌路由
-        /// </summary>
-        public static string RouteName { get; set; } = "Jwt";
+        public JwtOption Option => _option;
 
         /// <summary>
         /// 转化为Jwt对象
@@ -35,10 +46,10 @@ namespace sy
         /// <param name="type"></param>
         /// <returns></returns>
         /// <exception cref="HostException"></exception>
-        public static object GetData(string token, Type type)
+        public TData GetData(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(TokenKey);
+            var key = Encoding.ASCII.GetBytes(_option.TokenKey);
             JwtSecurityToken jwt;
             // 检验Token
             try
@@ -57,12 +68,12 @@ namespace sy
                 throw new HostException($"Jwt invalid.");
             }
             if (jwt is null) throw new HostException("Jwt invalid.");
-            var info = sy.Assembly.Create(type) ?? throw new HostException($"Type '{type.FullName}' instance fail.");
+            var info = new TData();
             //读取信息
             foreach (var claim in jwt.Claims)
             {
                 string name = claim.Type;
-                var pro = type.GetProperty(name);
+                var pro = _type.GetProperty(name);
                 if (pro is null) continue;
                 string value = claim.Value;
                 var typeCode = pro.PropertyType.GetTypeCode();
@@ -118,29 +129,18 @@ namespace sy
         }
 
         /// <summary>
-        /// 读取Token
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public static T GetData<T>(string token) where T : IJwtData, new()
-        {
-            return (T)GetData(token, typeof(T));
-        }
-
-        /// <summary>
         /// 创建一个Jwt令牌
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>
-        public static JwtToken CreateToken<T>(T data, DateTime? expires = null) where T : IJwtData
+        public JwtToken CreateToken(TData data, DateTime? expires = null)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(TokenKey);
+            var key = Encoding.ASCII.GetBytes(_option.TokenKey);
 
             // 组织内容
             var claims = new List<Claim>();
-            var type = typeof(T);
-            var pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var pros = _type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             foreach (var pro in pros)
             {
                 string value = "";

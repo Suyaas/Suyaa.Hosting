@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.DependencyInjection;
 using Suyaa.Hosting.Jwt.Dependency;
+using Suyaa.Hosting.Jwt.Options;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Dependency;
 
@@ -9,11 +10,13 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
     /// <summary>
     /// 应用认证数据
     /// </summary>
-    public class JwtAuthorizeFilter : IActionFilter, IFilterMetadata
+    public class JwtAuthorizeFilter<TData> : IActionFilter, IFilterMetadata
+        where TData : class, IJwtData, new()
     {
 
         #region DI注入
-        private readonly IJwtManager _jwtManager;
+        private readonly IJwtManager<TData> _jwtManager;
+        private readonly JwtOption _jwtOption;
         private readonly ISession _session;
         private readonly IDependencyManager _dependency;
 
@@ -23,13 +26,15 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
         /// 应用认证数据
         /// </summary>
         public JwtAuthorizeFilter(
-            IJwtManager jwtDataManager,
+            IJwtManager<TData> jwtDataManager,
+            JwtOption jwtOption,
             ISession session,
             //II18n i18n,
             IDependencyManager dependency
             )
         {
             _jwtManager = jwtDataManager;
+            _jwtOption = jwtOption;
             _session = session;
             _dependency = dependency;
             //_i18n = i18n;
@@ -57,21 +62,21 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
             if (request is null) throw new HostFriendlyException($"Jwt invalid.");
             // 优先检测头部信息
             string token = string.Empty;
-            if (request.Headers.ContainsKey(sy.Jwt.TokenName))
+            if (_jwtOption.IsHeaderSupported && request.Headers.ContainsKey(_jwtOption.TokenName))
             {
-                token = request.Headers[sy.Jwt.TokenName].ToString();
+                token = request.Headers[_jwtOption.TokenName].ToString();
             }
             // 头部信息中没有，则从Cookie中获取
-            if (request.Cookies.ContainsKey(sy.Jwt.TokenName))
+            if (_jwtOption.IsCookieSupported && request.Cookies.ContainsKey(_jwtOption.TokenName))
             {
-                token = request.Cookies[sy.Jwt.TokenName] ?? string.Empty;
+                token = request.Cookies[_jwtOption.TokenName] ?? string.Empty;
             }
-            if(token.IsNullOrWhiteSpace()) throw new HostFriendlyException($"Jwt invalid.");
+            if (token.IsNullOrWhiteSpace()) throw new HostFriendlyException($"Jwt invalid.");
             // 检测Jwt信息
-            IJwtData jwtData = _jwtManager.GetCurrentData();
+            TData jwtData = _jwtManager.GetCurrentData();
             try
             {
-                jwtData = (IJwtData)sy.Jwt.GetData(token, jwtData.GetType());
+                jwtData = _jwtManager.Provider.Builder.GetData(token);
                 _jwtManager.SetCurrentData(jwtData);
                 _session.Uid = jwtData.Uid;
                 _session.TenantId = jwtData.TenantId;

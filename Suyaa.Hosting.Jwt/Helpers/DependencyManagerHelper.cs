@@ -1,6 +1,7 @@
 ﻿using Suyaa.DependencyInjection;
 using Suyaa.Hosting.Jwt.ActionFilters;
 using Suyaa.Hosting.Jwt.Dependency;
+using Suyaa.Hosting.Jwt.Options;
 
 namespace Suyaa.Hosting.Jwt.Helpers
 {
@@ -15,9 +16,11 @@ namespace Suyaa.Hosting.Jwt.Helpers
         /// </summary>
         /// <param name="dependency"></param>
         /// <returns></returns>
-        public static IDependencyManager AddJwt(this IDependencyManager dependency)
+        public static IDependencyManager AddJwt(this IDependencyManager dependency, Action<JwtOption>? jwtOptionAction = null)
         {
-            dependency.AddJwt<JwtDataProvider>();
+            var option = new JwtOption();
+            jwtOptionAction?.Invoke(option);
+            dependency.AddJwt<JwtDataProvider, JwtData>(option);
             return dependency;
         }
 
@@ -26,15 +29,20 @@ namespace Suyaa.Hosting.Jwt.Helpers
         /// </summary>
         /// <param name="dependency"></param>
         /// <returns></returns>
-        public static IDependencyManager AddJwt<TProvider>(this IDependencyManager dependency)
-            where TProvider : class, IJwtDataProvider
+        public static IDependencyManager AddJwt<TProvider, TData>(this IDependencyManager dependency, JwtOption option)
+            where TProvider : class, IJwtDataProvider<TData>
+            where TData : class, IJwtData, new()
         {
+            // 注册配置
+            dependency.Register(option);
             // 注册管理器
-            dependency.Register<IJwtManager, JwtManager>(Lifetimes.Transient);
+            dependency.Register<IJwtManager<TData>, JwtManager<TData>>(Lifetimes.Transient);
             // 注册数据供应商
-            dependency.Register<IJwtDataProvider, TProvider>(Lifetimes.Transient);
+            dependency.Register<IJwtBuilder<TData>, JwtBuilder<TData>>(Lifetimes.Transient);
+            // 注册数据供应商
+            dependency.Register<IJwtDataProvider<TData>, TProvider>(Lifetimes.Transient);
             // 注册授权过滤器
-            dependency.Register<JwtAuthorizeFilter, JwtAuthorizeFilter>(Lifetimes.Transient);
+            dependency.Register<JwtAuthorizeFilter<TData>, JwtAuthorizeFilter<TData>>(Lifetimes.Transient);
             return dependency;
         }
     }

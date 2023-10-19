@@ -1,7 +1,7 @@
-﻿using Suyaa.Configure.Basic.Jwt;
+﻿using Suyaa.Configure.Basic.Dependency;
+using Suyaa.Configure.Basic.Jwt;
 using Suyaa.Configure.Cores.Users;
 using Suyaa.Hosting.Dependency;
-using Suyaa.Hosting.Jwt.Attributes;
 using Suyaa.Hosting.Jwt.Dependency;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Attributes;

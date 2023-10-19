@@ -55,9 +55,18 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
             // 检测头部信息
             var request = context.HttpContext.Request;
             if (request is null) throw new HostFriendlyException($"Jwt invalid.");
-            // 检测头部信息
-            if (!request.Headers.ContainsKey(sy.Jwt.TokenName)) throw new HostFriendlyException($"Jwt invalid.");
-            string token = request.Headers[sy.Jwt.TokenName].ToString();
+            // 优先检测头部信息
+            string token = string.Empty;
+            if (request.Headers.ContainsKey(sy.Jwt.TokenName))
+            {
+                token = request.Headers[sy.Jwt.TokenName].ToString();
+            }
+            // 头部信息中没有，则从Cookie中获取
+            if (request.Cookies.ContainsKey(sy.Jwt.TokenName))
+            {
+                token = request.Cookies[sy.Jwt.TokenName] ?? string.Empty;
+            }
+            if(token.IsNullOrWhiteSpace()) throw new HostFriendlyException($"Jwt invalid.");
             // 检测Jwt信息
             IJwtData jwtData = _jwtManager.GetCurrentData();
             try

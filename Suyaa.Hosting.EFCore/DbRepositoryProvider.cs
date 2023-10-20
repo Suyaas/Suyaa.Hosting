@@ -16,6 +16,9 @@ namespace Suyaa.Hosting.EFCore
         where TId : notnull
     {
 
+        // 缓存操作异步对象
+        private static readonly AsyncLocal<DbContentWrapper> _dbContentAsyncLocal = new AsyncLocal<DbContentWrapper>();
+
         #region DI注入
 
         private readonly IDependencyManager _dependencyManager;
@@ -45,7 +48,14 @@ namespace Suyaa.Hosting.EFCore
         // 获取实例描述
         private DbContextBase GetDbContext(DbEntityDescriptor descriptor)
         {
-            return (DbContextBase)_dependencyManager.Resolve(descriptor.Context);
+            if (_dbContentAsyncLocal.Value is null)
+            {
+                lock (_dbContentAsyncLocal)
+                {
+                    _dbContentAsyncLocal.Value = new DbContentWrapper((DbContextBase)_dependencyManager.Resolve(descriptor.Context));
+                }
+            }
+            return _dbContentAsyncLocal.Value.DbContext;
         }
 
         // 获取实例描述

@@ -1,5 +1,7 @@
-﻿using Suyaa.EFCore;
+﻿using Suyaa.Data;
+using Suyaa.EFCore;
 using Suyaa.EFCore.Dependency;
+using Suyaa.Hosting.EFCore.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +15,21 @@ namespace Suyaa.Hosting.EFCore
     /// </summary>
     public sealed class DbContentWrapper
     {
+
         /// <summary>
         /// 数据库上下文包裹层
         /// </summary>
-        public DbContentWrapper(DbContextBase dbContext)
+        public DbContentWrapper(IDbContextAsyncWork? dbContextAsyncWork)
         {
-            DbContext = dbContext;
+            DbContextAsyncWork = dbContextAsyncWork;
+
+            //DbContext = dbContext;
+            //dbContext.ConnectionDescriptor.ToConnectionString();
         }
 
         /// <summary>
-        /// 数据库上下文
+        /// 数据库上下文异步工作
         /// </summary>
-        public DbContextBase DbContext { get; }
+        public IDbContextAsyncWork? DbContextAsyncWork { get; }
     }
 }

@@ -1,24 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics;
-using System.IO;
 using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using static System.Net.WebRequestMethods;
-using Suyaa;
-using System.Runtime.Intrinsics.Arm;
-using System.Text;
-using System.Xml.XPath;
 using Suyaa.DependencyInjection;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
 using Suyaa.Hosting.Configures;
-using Suyaa.Logs.Loggers;
-using ILogger = Suyaa.Logs.ILogger;
+using ILogger = Suyaa.Logs.Dependency.ILogger;
 using Suyaa.Hosting.Kernel.Configures;
 using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Kernel.ActionFilters;
@@ -220,9 +205,12 @@ namespace Suyaa.Hosting.Kernel
                 if (hosting is null) throw new HostException(string.Format("Configuration section '{0}' not found.", "Hosting"));
                 _hostConfig = hosting.Get<HostConfig>();
                 // 注册日志
-                sy.Logger.GetCurrentLogger()
-                    .Use(new FileLogger(GetFullPath(_hostConfig.LogPath)))
-                    .Use((string message) => { Debug.WriteLine(message); });
+                sy.Logger.Factory
+                    .UseFile(GetFullPath(_hostConfig.LogPath))
+                    .UseStringAction(message => { Debug.WriteLine(message); });
+                //sy.Logger.GetCurrentLogger()
+                //    .Use(new FileLogger())
+                //    .Use((string message) => {  });
             }
             catch (Exception ex)
             {
@@ -359,7 +347,9 @@ namespace Suyaa.Hosting.Kernel
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                sy.Logger.GetCurrentLogger().Use<ConsoleLogger>();
+                sy.Logger.Factory.UseConsole();
+                sy.Logger.Create();
+                //sy.Logger.GetCurrentLogger().Use<ConsoleLogger>();
             }
             else
             {

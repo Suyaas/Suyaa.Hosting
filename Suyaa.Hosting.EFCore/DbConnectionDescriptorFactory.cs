@@ -46,7 +46,7 @@ namespace Suyaa.Hosting.EFCore
             {
                 var connectionName = section.Key;
                 var connectionDefine = section.Get<string>();
-                var info = new DbConnectionDescriptor(connectionDefine);
+                var info = new DbConnectionDescriptor(connectionName, connectionDefine);
                 _descriptors[connectionName] = info;
             }
         }

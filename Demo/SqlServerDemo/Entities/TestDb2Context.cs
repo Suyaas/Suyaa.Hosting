@@ -4,11 +4,11 @@ using Suyaa.Hosting.EFCore.Dependency;
 
 namespace SqlServerDemo.Entities
 {
-    public class TestDbContext : SqlServerContext
+    public class TestDb2Context : SqlServerContext
     {
         private readonly IDbConnectionDescriptorFactory _dbConnectionDescriptorFactory;
 
-        public TestDbContext(
+        public TestDb2Context(
             IDbConnectionDescriptorFactory dbConnectionDescriptorFactory
             ) : base(dbConnectionDescriptorFactory.DefaultConnection)
         {
@@ -17,6 +17,6 @@ namespace SqlServerDemo.Entities
             //this.Set<SystemTables>();
         }
 
-        public DbSet<SystemTables> SystemTableses { get; set; }
+        public DbSet<SystemObjects> SystemObjectses { get; set; }
     }
 }

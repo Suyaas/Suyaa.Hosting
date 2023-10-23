@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Suyaa.DependencyInjection;
+using Suyaa.EFCore;
 using Suyaa.EFCore.Dependency;
 using Suyaa.Hosting.EFCore.Dependency;
 using System;
@@ -42,6 +43,7 @@ namespace Suyaa.Hosting.EFCore
         // 添加数据库实例
         private void AddDbContextEntities(Type type)
         {
+            var dbContext = (IDbDescriptorContext)_dependencyManager.Resolve(type);
             var pros = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             foreach (var prop in pros)
             {
@@ -51,7 +53,7 @@ namespace Suyaa.Hosting.EFCore
                 var genericType = prop.PropertyType.GetGenericTypeDefinition();
                 if (_dbSetType.IsAssignableFrom(genericType))
                 {
-                    _dbEntities.Add(new DbEntityDescriptor(type, prop));
+                    _dbEntities.Add(new DbEntityDescriptor(type, prop, dbContext.ConnectionDescriptor));
                 }
             }
         }
@@ -59,7 +61,7 @@ namespace Suyaa.Hosting.EFCore
         // 添加数据库上下文
         private void AddDbContexts()
         {
-            var types = _dependencyManager.GetResolveTypes<IDbContext>();
+            var types = _dependencyManager.GetResolveTypes<IDbDescriptorContext>();
             foreach (var type in types) this.AddDbContextEntities(type);
         }
 
@@ -81,6 +83,17 @@ namespace Suyaa.Hosting.EFCore
         public DbEntityDescriptor? GetEntity<TEntity>()
         {
             return GetEntity(typeof(TEntity));
+        }
+
+        /// <summary>
+        /// 获取连接中的所有数据实例
+        /// </summary>
+        /// <param name="dbConnectionDescriptorName"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public IList<DbEntityDescriptor> GetEntities(string dbConnectionDescriptorName)
+        {
+            return _dbEntities.Where(d => d.ConnectionDescriptor.Name == dbConnectionDescriptorName).ToList();
         }
     }
 }

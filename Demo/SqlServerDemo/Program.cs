@@ -6,11 +6,10 @@ using Microsoft.Extensions.Hosting;
 using System.Diagnostics;
 using SqlServerDemo;
 
-sy.Logger.GetCurrentLogger()
-    .Use((string message) =>
-    {
-        Debug.WriteLine(message);
-    });
+sy.Logger.Factory.UseStringAction(message =>
+{
+    Debug.WriteLine(message);
+});
 
 string key = "ASPNETCORE_ENVIRONMENT";
 if (Environment.GetEnvironmentVariable(key).IsNullOrWhiteSpace()) Environment.SetEnvironmentVariable(key, "Production");

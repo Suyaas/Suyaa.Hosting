@@ -13,12 +13,15 @@ namespace SqlServerDemo.Apps
     public class SqlServerServiceApp : ServiceApp
     {
         private readonly IRepository<SystemObjects, decimal> _systemObjectsRepository;
+        private readonly IRepository<SystemTables, decimal> _systemTablesRepository;
 
         public SqlServerServiceApp(
-            IRepository<SystemObjects, decimal> systemObjectsRepository
+            IRepository<SystemObjects, decimal> systemObjectsRepository,
+            IRepository<SystemTables, decimal> systemTablesRepository
             )
         {
             _systemObjectsRepository = systemObjectsRepository;
+            _systemTablesRepository = systemTablesRepository;
         }
 
         /// <summary>
@@ -70,11 +73,12 @@ namespace SqlServerDemo.Apps
         /// 查询
         /// </summary>
         /// <returns></returns>
-        public async Task<List<SystemObjects>> GetList()
+        public async Task<List<SystemTables>> GetList()
         {
             var query = from so in _systemObjectsRepository.Query()
+                        join st in _systemTablesRepository.Query() on so.Id equals st.ObjectID
                         orderby so.Id descending
-                        select so;
+                        select st;
             var list = await query.AsNoTracking().Take(10).ToListAsync();
             return list;
         }

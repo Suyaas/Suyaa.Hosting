@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Suyaa.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,12 @@ namespace Suyaa.Hosting.EFCore.Dependency
         /// <param name="type"></param>
         /// <returns></returns>
         DbEntityDescriptor? GetEntity<TEntity>();
+
+        /// <summary>
+        /// 获取实例
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        IList<DbEntityDescriptor> GetEntities(string bbConnectionDescriptorName);
     }
 }

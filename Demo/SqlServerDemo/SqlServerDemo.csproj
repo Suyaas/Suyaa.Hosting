@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Suyaa.EFCore.SqlServer" Version="1.5.2310.28" />
+    <PackageReference Include="Suyaa.EFCore.SqlServer" Version="1.5.2310.30" />
   </ItemGroup>
 
 </Project>

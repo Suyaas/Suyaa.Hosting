@@ -47,6 +47,8 @@ namespace SqlServerDemo
         {
             // 添加模块注册
             dependency.AddModuler<ModuleStartup>();
+            // 注册切片
+            dependency.AddActionFilters();
             // 添加EFCore支持
             dependency.AddEFCore();
             // 注册对象映射

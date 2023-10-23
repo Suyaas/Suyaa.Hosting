@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Suyaa.Configure.Cores.Projects.Dto;
 using Suyaa.Configure.Cores.Projects.Sto;
 using Suyaa.Configure.Entity.Projects;
+using Suyaa.EFCore.Helpers;
 using Suyaa.Hosting.Data.Dependency;
 using Suyaa.Hosting.Helpers;
 using Suyaa.Hosting.Kernel.Dependency;

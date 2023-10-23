@@ -16,24 +16,24 @@ namespace Suyaa.Hosting.EFCore
         where TId : notnull
     {
 
-        // 缓存操作异步对象
-        private static readonly AsyncLocal<DbContentWrapper> _dbContentAsyncLocal = new AsyncLocal<DbContentWrapper>();
-
         #region DI注入
 
         private readonly IDependencyManager _dependencyManager;
         private readonly IDbContextFactory _dbContextFactory;
+        private readonly IDbContextAsyncProvider _dbContextAsyncProvider;
 
         /// <summary>
         /// 仓库供应商
         /// </summary>
         public DbRepositoryProvider(
             IDependencyManager dependencyManager,
-            IDbContextFactory dbContextFactory
+            IDbContextFactory dbContextFactory,
+            IDbContextAsyncProvider dbContextAsyncProvider
             )
         {
             _dependencyManager = dependencyManager;
             _dbContextFactory = dbContextFactory;
+            _dbContextAsyncProvider = dbContextAsyncProvider;
         }
         #endregion
 
@@ -46,24 +46,29 @@ namespace Suyaa.Hosting.EFCore
         }
 
         // 获取实例描述
-        private DbContextBase GetDbContext(DbEntityDescriptor descriptor)
+        private DbDescriptorContext GetDbContext(DbEntityDescriptor descriptor)
         {
-            if (_dbContentAsyncLocal.Value is null)
+            var work = _dbContextAsyncProvider.GetCurrentWork();
+            if (work is null) throw new HostException($"DbContextWork not found.");
+            var dbContext = work.GetDbContext(descriptor.ConnectionDescriptor);
+            if (dbContext is null)
             {
-                lock (_dbContentAsyncLocal)
-                {
-                    _dbContentAsyncLocal.Value = new DbContentWrapper((DbContextBase)_dependencyManager.Resolve(descriptor.Context));
-                }
+                //throw new HostException($"DbContext not found.");
+                dbContext = (DbDescriptorContext)_dependencyManager.Resolve(descriptor.Context);
+                work.SetDbContext(dbContext);
+                dbContext = work.GetDbContext(descriptor.ConnectionDescriptor);
+                if (dbContext is null) throw new HostException($"DbContext not found.");
             }
-            return _dbContentAsyncLocal.Value.DbContext;
+            return dbContext;
         }
 
         // 获取实例描述
-        private IQueryable<TEntity> GetDbSet(DbContextBase context, DbEntityDescriptor entity)
+        private IQueryable<TEntity> GetDbSet(DbDescriptorContext context, DbEntityDescriptor entity)
         {
-            var dbSet = entity.DbSet.GetValue(context);
-            if (dbSet is null) throw new HostException($"DbSet '{entity.Entity.FullName}' not in context '{entity.Context.FullName}'.");
-            return (IQueryable<TEntity>)dbSet;
+            //var dbSet = entity.DbSet.GetValue(context);
+            //if (dbSet is null) throw new HostException($"DbSet '{entity.Entity.FullName}' not in context '{entity.Context.FullName}'.");
+            //return (IQueryable<TEntity>)dbSet;
+            return context.Set<TEntity>();
         }
 
         /// <summary>
@@ -88,6 +93,7 @@ namespace Suyaa.Hosting.EFCore
         {
             var descriptor = GetDbEntity();
             var context = GetDbContext(descriptor);
+            context.Set<TEntity>();
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
             await context.SaveChangesAsync();
         }
@@ -102,6 +108,7 @@ namespace Suyaa.Hosting.EFCore
         {
             var descriptor = GetDbEntity();
             var context = GetDbContext(descriptor);
+            context.Set<TEntity>();
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Added;
             await context.SaveChangesAsync();
         }
@@ -116,6 +123,7 @@ namespace Suyaa.Hosting.EFCore
         {
             var descriptor = GetDbEntity();
             var context = GetDbContext(descriptor);
+            context.Set<TEntity>();
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await context.SaveChangesAsync();
         }

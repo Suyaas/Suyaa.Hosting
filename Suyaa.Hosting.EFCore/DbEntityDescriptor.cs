@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Suyaa.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -28,13 +29,19 @@ namespace Suyaa.Hosting.EFCore
         public PropertyInfo DbSet { get; }
 
         /// <summary>
+        /// 连接描述
+        /// </summary>
+        public DbConnectionDescriptor ConnectionDescriptor { get; }
+
+        /// <summary>
         /// 数据库实例描述器
         /// </summary>
-        public DbEntityDescriptor(Type context, PropertyInfo dbSet)
+        public DbEntityDescriptor(Type context, PropertyInfo dbSet, DbConnectionDescriptor connectionDescriptor)
         {
             this.Entity = dbSet.PropertyType.GenericTypeArguments[0];
             this.Context = context;
             this.DbSet = dbSet;
+            this.ConnectionDescriptor = connectionDescriptor;
         }
     }
 }

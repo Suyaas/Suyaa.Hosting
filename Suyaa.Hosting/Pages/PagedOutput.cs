@@ -34,5 +34,16 @@ namespace Suyaa.Hosting.Pages
         {
             Datas = datas;
         }
+
+        /// <summary>
+        /// 分页输出
+        /// </summary>
+        /// <param name="datas"></param>
+        /// <param name="rowCount"></param>
+        public PagedOutput(List<T> datas, int rowCount)
+        {
+            Datas = datas;
+            RowCount = rowCount;
+        }
     }
 }

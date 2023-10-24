@@ -21,7 +21,7 @@ namespace Suyaa.Hosting.Kernel.Helpers
                 case UserFriendlyException friendlyException:
                     return new ApiErrorResult()
                     {
-                        Message = string.Format(friendlyException.Message, friendlyException.MessageParams),
+                        Message = friendlyException.MessageParams.Any() ? string.Format(friendlyException.Message, friendlyException.MessageParams) : friendlyException.Message,
                         ErrorCode = friendlyException.ErrorCode,
                     };
                 default:

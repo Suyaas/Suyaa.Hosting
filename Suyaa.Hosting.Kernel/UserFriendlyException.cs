@@ -47,7 +47,7 @@ namespace Suyaa.Hosting.Kernel
         public UserFriendlyException(string message, params object?[] args) : base(message)
         {
             ErrorCode = 0;
-            MessageParams = new object?[0];
+            MessageParams = args;
         }
 
         /// <summary>

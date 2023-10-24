@@ -28,8 +28,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Suyaa.Configure" Version="1.5.2310.30" />
-		<PackageReference Include="Suyaa.Logs" Version="1.5.2310.30" />
+		<PackageReference Include="Suyaa.Configure" Version="1.5.2310.31" />
+		<PackageReference Include="Suyaa.Logs" Version="1.5.2310.31" />
 	</ItemGroup>
 
 	<ItemGroup>

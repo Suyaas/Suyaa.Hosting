@@ -27,7 +27,7 @@ namespace Suyaa.Hosting.Middlewares
         {
             switch (ex)
             {
-                case HostFriendlyException friendlyException:
+                case UserFriendlyException friendlyException:
                     ApiErrorResult errorResult = new ApiErrorResult()
                     {
                         Message = friendlyException.Message,

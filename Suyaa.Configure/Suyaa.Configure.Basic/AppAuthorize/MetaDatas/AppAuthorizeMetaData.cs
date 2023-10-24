@@ -57,9 +57,9 @@ namespace Suyaa.Configure.Basic.AppAuthorize.MetaDatas
         {
             // 检测头部信息
             var request = _accessor.HttpContext?.Request;
-            if (request is null) throw new HostFriendlyException($"App authorize invalid.");
-            if (!request.Headers.ContainsKey(APP_ID)) throw new HostFriendlyException($"App authorize invalid.");
-            if (!request.Headers.ContainsKey(APP_KEY)) throw new HostFriendlyException($"App authorize invalid.");
+            if (request is null) throw new UserFriendlyException($"App authorize invalid.");
+            if (!request.Headers.ContainsKey(APP_ID)) throw new UserFriendlyException($"App authorize invalid.");
+            if (!request.Headers.ContainsKey(APP_KEY)) throw new UserFriendlyException($"App authorize invalid.");
             string appId = request.Headers[APP_ID].ToString();
             string appKey = request.Headers[APP_KEY].ToString();
             _appInfo.AppId = appId;

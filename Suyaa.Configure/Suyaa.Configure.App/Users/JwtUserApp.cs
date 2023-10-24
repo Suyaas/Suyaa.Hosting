@@ -42,7 +42,7 @@ namespace Suyaa.Configure.App.Users
         public async Task<JwtInfo> GetJwtInfo()
         {
             var jwtData = _jwtManager.GetCurrentData();
-            if (jwtData is null) throw new HostFriendlyException(_i18n.Content("Jwt info not found."));
+            if (jwtData is null) throw new UserFriendlyException(_i18n.Content("Jwt info not found."));
             return await Task.FromResult((JwtInfo)jwtData);
         }
     }

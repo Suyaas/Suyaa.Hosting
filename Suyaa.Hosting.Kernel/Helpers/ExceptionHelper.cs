@@ -18,10 +18,10 @@ namespace Suyaa.Hosting.Kernel.Helpers
         {
             switch (ex)
             {
-                case HostFriendlyException friendlyException:
+                case UserFriendlyException friendlyException:
                     return new ApiErrorResult()
                     {
-                        Message = friendlyException.Message,
+                        Message = string.Format(friendlyException.Message, friendlyException.MessageParams),
                         ErrorCode = friendlyException.ErrorCode,
                     };
                 default:

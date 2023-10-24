@@ -31,7 +31,7 @@ namespace Suyaa.Hosting.EFCore
             _configuration = configuration;
             _descriptors = new Dictionary<string, DbConnectionDescriptor>();
             this.Initialize();
-            if (!_descriptors.Any()) throw new HostFriendlyException("ConnectionStrings config not found.");
+            if (!_descriptors.Any()) throw new UserFriendlyException("ConnectionStrings config not found.");
             DefaultConnection = _descriptors[_descriptors.Keys.First()];
         }
         #endregion
@@ -41,7 +41,7 @@ namespace Suyaa.Hosting.EFCore
         {
             // 添加数据库连接
             var connectionStrings = _configuration.GetSection("ConnectionStrings");//.GetSection("Configure").Get<string>();
-            if (connectionStrings is null) throw new HostFriendlyException("ConnectionStrings config not found.");
+            if (connectionStrings is null) throw new UserFriendlyException("ConnectionStrings config not found.");
             foreach (var section in connectionStrings.GetChildren())
             {
                 var connectionName = section.Key;
@@ -58,7 +58,7 @@ namespace Suyaa.Hosting.EFCore
         /// <returns></returns>
         public DbConnectionDescriptor GetConnection(string name)
         {
-            if (_descriptors.ContainsKey(name)) throw new HostFriendlyException($"DbContextOptions '{name}' not found.");
+            if (_descriptors.ContainsKey(name)) throw new UserFriendlyException($"DbContextOptions '{name}' not found.");
             return _descriptors[name];
         }
     }

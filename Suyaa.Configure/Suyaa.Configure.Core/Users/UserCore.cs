@@ -43,12 +43,12 @@ namespace Suyaa.Configure.Cores.Users
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        /// <exception cref="HostFriendlyException"></exception>
+        /// <exception cref="UserFriendlyException"></exception>
         public async Task<UserLoginOutput> Login(UserLoginInput input)
         {
             var userConfig = _userConfigs.Where(d => d.Account == input.Account).FirstOrDefault();
-            if (userConfig is null) throw new HostFriendlyException(_i18n.Content("Login fail."));
-            if (userConfig.Password != input.Password) throw new HostFriendlyException(_i18n.Content("Login fail."));
+            if (userConfig is null) throw new UserFriendlyException(_i18n.Content("Login fail."));
+            if (userConfig.Password != input.Password) throw new UserFriendlyException(_i18n.Content("Login fail."));
             var token = _jwtManager.Provider.Builder.CreateToken(new JwtInfo() { Uid = userConfig.Id.ToString(), UserAccount = userConfig.Account });
             return await Task.FromResult(new UserLoginOutput()
             {

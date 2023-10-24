@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
+using Suyaa.Hosting.Kernel.Enums;
 
 namespace Suyaa.Hosting.Kernel.Results
 {
@@ -15,7 +16,7 @@ namespace Suyaa.Hosting.Kernel.Results
         /// 错误代码
         /// </summary>
         [JsonPropertyName("errorCode")]
-        public virtual int ErrorCode { get; set; }
+        public virtual ErrorCode ErrorCode { get; set; }
 
         /// <summary>
         /// 对象实例化

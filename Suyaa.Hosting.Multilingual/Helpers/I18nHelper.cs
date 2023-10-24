@@ -16,9 +16,9 @@ namespace Suyaa.Hosting.Helpers
         /// <param name="message"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static HostFriendlyException FriendlyException(this IMultilingualManager multilingualManager, string message, params string[] args)
+        public static UserFriendlyException FriendlyException(this IMultilingualManager multilingualManager, string message, params string[] args)
         {
-            return new HostFriendlyException(multilingualManager.Content(message, args));
+            return new UserFriendlyException(multilingualManager.Content(message, args));
         }
 
         /// <summary>

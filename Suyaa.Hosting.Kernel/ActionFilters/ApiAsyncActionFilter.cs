@@ -34,7 +34,7 @@ namespace Suyaa.Hosting.Kernel.ActionFilters
         /// <param name="context"></param>
         /// <param name="next"></param>
         /// <returns></returns>
-        /// <exception cref="HostFriendlyException"></exception>
+        /// <exception cref="UserFriendlyException"></exception>
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             // 所有切片初始化
@@ -54,45 +54,6 @@ namespace Suyaa.Hosting.Kernel.ActionFilters
             {
                 provider.OnActionExecuted(contextExecuted);
             }
-            //try
-            //{
-            //    var result = context.Result;
-            //    if (result is null)
-            //    {
-            //        context.Result = new ApiResult();
-            //        return;
-            //    }
-            //    // 过滤标准类型
-            //    if (result is ApiResult) return;
-            //    var type = result.GetType();
-            //    if (type.IsAssignableFrom(typeof(ApiResult))) return;
-            //    // 空结果
-            //    if (result is EmptyResult)
-            //    {
-            //        context.Result = new ApiResult();
-            //        return;
-            //    }
-            //    // 对象结果
-            //    if (result is ObjectResult)
-            //    {
-            //        var obj = (ObjectResult)result;
-            //        if (obj.DeclaredType is null)
-            //        {
-            //            context.Result = new ApiResult();
-            //            return;
-            //        }
-            //        context.Result = new ApiResult<object>() { Data = obj.Value, DataType = obj.DeclaredType.Name };
-            //        return;
-            //    }
-            //    // 直接返回
-            //    context.Result = new ApiResult<object>() { Data = result, DataType = type.Name };
-            //}
-            //catch (Exception ex)
-            //{
-            //    // 错误记录
-            //    egg.Logger.Error(ex.ToString(), context.ActionDescriptor.DisplayName ?? string.Empty);
-            //    context.Result = ex.ToApiResult();
-            //}
         }
     }
 }

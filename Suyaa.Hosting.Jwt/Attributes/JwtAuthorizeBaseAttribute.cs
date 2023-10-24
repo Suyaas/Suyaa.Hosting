@@ -17,7 +17,7 @@ namespace Suyaa.Hosting.Jwt.Attributes
         /// <param name="type"></param>
         public CustomAttribute(Type type)
         {
-            if(!type.HasInterface<IFilterMetadata>()) throw new HostFriendlyException($"Custom attribute not implemented 'IFilterMetadata' interface.");
+            if(!type.HasInterface<IFilterMetadata>()) throw new UserFriendlyException($"Custom attribute not implemented 'IFilterMetadata' interface.");
             _type = type;
         }
 
@@ -31,11 +31,11 @@ namespace Suyaa.Hosting.Jwt.Attributes
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <returns></returns>
-        /// <exception cref="HostFriendlyException"></exception>
+        /// <exception cref="UserFriendlyException"></exception>
         public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
         {
             var metaData = serviceProvider.GetService(_type);
-            if (metaData is null) throw new HostFriendlyException($"Custom attribute '{_type.Name}' create fail.");
+            if (metaData is null) throw new UserFriendlyException($"Custom attribute '{_type.Name}' create fail.");
             return (IFilterMetadata)metaData;
         }
 

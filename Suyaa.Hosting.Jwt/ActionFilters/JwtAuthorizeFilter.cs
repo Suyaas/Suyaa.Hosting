@@ -54,12 +54,12 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
         /// 执行中
         /// </summary>
         /// <param name="context"></param>
-        /// <exception cref="HostFriendlyException"></exception>
+        /// <exception cref="UserFriendlyException"></exception>
         public void OnActionExecuting(ActionExecutingContext context)
         {
             // 检测头部信息
             var request = context.HttpContext.Request;
-            if (request is null) throw new HostFriendlyException($"Jwt invalid.");
+            if (request is null) throw new UserFriendlyException($"Jwt invalid.");
             // 优先检测头部信息
             string token = string.Empty;
             if (_jwtOption.IsHeaderSupported && request.Headers.ContainsKey(_jwtOption.TokenName))
@@ -71,7 +71,7 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
             {
                 token = request.Cookies[_jwtOption.TokenName] ?? string.Empty;
             }
-            if (token.IsNullOrWhiteSpace()) throw new HostFriendlyException($"Jwt invalid.");
+            if (token.IsNullOrWhiteSpace()) throw new UserFriendlyException($"Jwt invalid.");
             // 检测Jwt信息
             TData jwtData = _jwtManager.GetCurrentData();
             try
@@ -84,9 +84,9 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
             }
             catch (HostException ex)
             {
-                throw new HostFriendlyException(ex.Message);
+                throw new UserFriendlyException(ex.Message);
             }
-            if (jwtData.Uid.IsNullOrWhiteSpace()) throw new HostFriendlyException($"Jwt invalid.");
+            if (jwtData.Uid.IsNullOrWhiteSpace()) throw new UserFriendlyException($"Jwt invalid.");
             //_jwtDataManager.Data = info;
         }
     }

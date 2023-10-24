@@ -36,7 +36,7 @@ namespace Suyaa.Configure.Basic.AppAuthorize.Attributes
         public IFilterMetadata CreateInstance(IServiceProvider serviceProvider)
         {
             var metaData = serviceProvider.GetService<AppAuthorizeMetaData>();
-            if (metaData is null) throw new HostFriendlyException($"AppAuthorizeFilterMetaData create fail.");
+            if (metaData is null) throw new UserFriendlyException($"AppAuthorizeFilterMetaData create fail.");
             metaData.SetInfo();
             return metaData;
         }
@@ -45,13 +45,13 @@ namespace Suyaa.Configure.Basic.AppAuthorize.Attributes
         /// 接口执行
         /// </summary>
         /// <param name="context"></param>
-        /// <exception cref="HostFriendlyException"></exception>
+        /// <exception cref="UserFriendlyException"></exception>
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             // 检测头部信息
             var request = context.HttpContext.Request;
-            if (!request.Headers.ContainsKey(APP_ID)) throw new HostFriendlyException($"App authorize invalid.");
-            if (!request.Headers.ContainsKey(APP_KEY)) throw new HostFriendlyException($"App authorize invalid.");
+            if (!request.Headers.ContainsKey(APP_ID)) throw new UserFriendlyException($"App authorize invalid.");
+            if (!request.Headers.ContainsKey(APP_KEY)) throw new UserFriendlyException($"App authorize invalid.");
             string appId = request.Headers[APP_ID].ToString();
             string appKey = request.Headers[APP_KEY].ToString();
             //// 设置应用信息

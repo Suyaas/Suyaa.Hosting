@@ -18,6 +18,7 @@ namespace Suyaa.DependencyInjection
         /// <summary>
         /// 注册
         /// </summary>
+        /// <param name="manager"></param>
         /// <param name="serviceType"></param>
         /// <param name="implementationType"></param>
         /// <exception cref="DependencyException"></exception>
@@ -49,6 +50,7 @@ namespace Suyaa.DependencyInjection
         /// <summary>
         /// 注册
         /// </summary>
+        /// <param name="manager"></param>
         /// <param name="implementationType"></param>
         /// <exception cref="DependencyException"></exception>
         public static bool RegisterByInterface(this IDependencyManager manager, Type implementationType)
@@ -207,6 +209,7 @@ namespace Suyaa.DependencyInjection
         /// 按程序集注册
         /// </summary>
         /// <param name="manager"></param>
+        /// <param name="assembly"></param>
         public static void RegisterAssembly(this IDependencyManager manager, Assembly assembly)
         {
             try
@@ -252,6 +255,8 @@ namespace Suyaa.DependencyInjection
         /// 按程序集注册接口实现
         /// </summary>
         /// <param name="manager"></param>
+        /// <param name="assembly"></param>
+        /// <param name="predicate"></param>
         public static void RegisterAssemblyTransients<TService>(this IDependencyManager manager, Assembly assembly, Func<Type, bool> predicate)
         {
             manager.RegisterAssemblyTransients(typeof(TService), assembly, predicate);
@@ -261,6 +266,9 @@ namespace Suyaa.DependencyInjection
         /// 按程序集注册接口实现
         /// </summary>
         /// <param name="manager"></param>
+        /// <param name="serviceType"></param>
+        /// <param name="assembly"></param>
+        /// <param name="predicate"></param>
         public static void RegisterAssemblyTransients(this IDependencyManager manager, Type serviceType, Assembly assembly, Func<Type, bool> predicate)
         {
             try
@@ -300,6 +308,7 @@ namespace Suyaa.DependencyInjection
         /// 注册所有的接口实现
         /// </summary>
         /// <param name="manager"></param>
+        /// <param name="serviceType"></param>
         public static void RegisterTransients(this IDependencyManager manager, Type serviceType)
         {
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -313,6 +322,8 @@ namespace Suyaa.DependencyInjection
         /// 注册所有的接口实现
         /// </summary>
         /// <param name="manager"></param>
+        /// <param name="serviceType"></param>
+        /// <param name="predicate"></param>
         public static void RegisterTransients(this IDependencyManager manager, Type serviceType, Func<Type, bool> predicate)
         {
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -335,6 +346,7 @@ namespace Suyaa.DependencyInjection
         /// 注册所有的接口实现
         /// </summary>
         /// <param name="manager"></param>
+        /// <param name="predicate"></param>
         public static void RegisterTransients<TService>(this IDependencyManager manager, Func<Type, bool> predicate)
         {
             manager.RegisterTransients(typeof(TService), predicate);
@@ -343,7 +355,7 @@ namespace Suyaa.DependencyInjection
         /// <summary>
         /// 抽取
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="manager"></param>
         public static T Resolve<T>(this IDependencyManager manager)
         {
             return (T)manager.Resolve(typeof(T));
@@ -352,7 +364,7 @@ namespace Suyaa.DependencyInjection
         /// <summary>
         /// 获取服务类获取所有的可实现类
         /// </summary>
-        /// <param name="serviceType"></param>
+        /// <param name="manager"></param>
         /// <returns></returns>
         public static List<Type> GetResolveTypes<T>(this IDependencyManager manager)
         {

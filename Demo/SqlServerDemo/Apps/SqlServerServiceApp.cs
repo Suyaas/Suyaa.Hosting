@@ -33,7 +33,7 @@ namespace SqlServerDemo.Apps
             var systemObjects = await _systemObjectsRepository.Query()
                 .Where(d => d.Name == "SqlServerServiceApp")
                 .FirstOrDefaultAsync();
-            if (systemObjects != null) throw new HostFriendlyException($"已存在'SqlServerServiceApp'");
+            if (systemObjects != null) throw new UserFriendlyException($"已存在'SqlServerServiceApp'");
             systemObjects = new SystemObjects()
             {
                 Name = "SqlServerServiceApp",
@@ -51,7 +51,7 @@ namespace SqlServerDemo.Apps
             var systemObjects = await _systemObjectsRepository.Query()
                 .Where(d => d.Name == "SqlServerServiceApp")
                 .FirstOrDefaultAsync();
-            if (systemObjects is null) throw new HostFriendlyException($"未找到'SqlServerServiceApp'");
+            if (systemObjects is null) throw new UserFriendlyException($"未找到'SqlServerServiceApp'");
             systemObjects.Version = "1.1";
             await _systemObjectsRepository.UpdateAsync(systemObjects);
         }
@@ -65,7 +65,7 @@ namespace SqlServerDemo.Apps
             var systemObjects = await _systemObjectsRepository.Query()
                 .Where(d => d.Name == "SqlServerServiceApp")
                 .FirstOrDefaultAsync();
-            if (systemObjects is null) throw new HostFriendlyException($"未找到'SqlServerServiceApp'");
+            if (systemObjects is null) throw new UserFriendlyException($"未找到'SqlServerServiceApp'");
             await _systemObjectsRepository.DeleteAsync(systemObjects);
         }
 

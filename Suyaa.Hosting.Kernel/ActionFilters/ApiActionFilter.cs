@@ -82,7 +82,7 @@ namespace Suyaa.Hosting.Kernel.ActionFilters
             }
             catch (Exception ex)
             {
-                throw new HostFriendlyException(ex.Message);
+                throw new HostException(ex.Message);
             }
         }
 
@@ -92,7 +92,7 @@ namespace Suyaa.Hosting.Kernel.ActionFilters
         /// <param name="context"></param>
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            //sy.Logger.Debug(context.HttpContext.Request.Path);
+            sy.Logger.Debug(context.HttpContext.Request.Path);
         }
     }
 }

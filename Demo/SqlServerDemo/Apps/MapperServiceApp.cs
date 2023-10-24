@@ -5,6 +5,7 @@ using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,11 +26,22 @@ namespace SqlServerDemo.Apps
             _objectMapper = objectMapper;
         }
 
-        public async Task<SystemObjectsDto> GetMapperData(int count)
+        public async Task<SystemObjectsDto> GetMapperDataByName([Required] string name)
         {
             SystemObjects systemObjects = new SystemObjects()
             {
-                Name = "ass",
+                Name = name,
+                Version = "1.0.0",
+            };
+            var data = _objectMapper.Map<SystemObjectsDto>(systemObjects);
+            return await Task.FromResult(data);
+        }
+
+        public async Task<SystemObjectsDto> GetMapperData(MapperTestInput input)
+        {
+            SystemObjects systemObjects = new SystemObjects()
+            {
+                Name = input.Name,
                 Version = "1.0.0",
             };
             var data = _objectMapper.Map<SystemObjectsDto>(systemObjects);

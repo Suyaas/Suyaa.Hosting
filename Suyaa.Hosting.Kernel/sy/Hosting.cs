@@ -100,17 +100,16 @@ namespace sy
         }
 
         /// <summary>
-        /// 创建一个Web Application
+        /// 创建一个Web应用
         /// </summary>
         /// <typeparam name="TProvider"></typeparam>
+        /// <param name="builder"></param>
         /// <returns></returns>
-        public static WebApplication CreateWebApplication<TProvider>(string[] args)
+        public static WebApplication CreateWebApplication<TProvider>(WebApplicationBuilder builder)
             where TProvider : class, IWebApplicationProvider, new()
         {
             // 创建供应商
             var provider = new TProvider();
-            // 新建一个构建器
-            var builder = WebApplication.CreateBuilder(args);
             // 执行初始化
             provider.OnInitialize(builder);
             // 执行服务配置
@@ -121,6 +120,32 @@ namespace sy
             provider.OnConfigureApplication(app);
             // 应用配置
             return app;
+        }
+
+        /// <summary>
+        /// 创建一个Web应用
+        /// </summary>
+        /// <typeparam name="TProvider"></typeparam>
+        /// <returns></returns>
+        public static WebApplication CreateWebApplication<TProvider>(string[] args)
+            where TProvider : class, IWebApplicationProvider, new()
+        {
+            // 新建一个构建器
+            var builder = WebApplication.CreateBuilder(args);
+            return CreateWebApplication<TProvider>(builder);
+        }
+
+        /// <summary>
+        /// 创建一个Web应用
+        /// </summary>
+        /// <typeparam name="TProvider"></typeparam>
+        /// <returns></returns>
+        public static WebApplication CreateWebApplication<TProvider>(WebApplicationOptions options)
+            where TProvider : class, IWebApplicationProvider, new()
+        {
+            // 新建一个构建器
+            var builder = WebApplication.CreateBuilder(options);
+            return CreateWebApplication<TProvider>(builder);
         }
 
         /// <summary>

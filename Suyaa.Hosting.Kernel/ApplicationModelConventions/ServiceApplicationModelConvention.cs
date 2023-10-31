@@ -21,7 +21,6 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
         /// <summary>
         /// 服务应用模型提供商
         /// </summary>
-        /// <param name="route"></param>
         public ServiceApplicationModelConvention(ServiceOption option)
         {
             _option = option;

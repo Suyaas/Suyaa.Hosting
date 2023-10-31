@@ -74,7 +74,6 @@ namespace Suyaa.Hosting.EFCore
         /// <summary>
         /// 获取查询
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
         public IQueryable<TEntity> Query()
         {
@@ -86,7 +85,6 @@ namespace Suyaa.Hosting.EFCore
         /// <summary>
         /// 删除数据
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
         public async Task DeleteAsync(TEntity entity)
@@ -101,7 +99,6 @@ namespace Suyaa.Hosting.EFCore
         /// <summary>
         /// 添加数据
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
         public async Task InsertAsync(TEntity entity)
@@ -116,7 +113,6 @@ namespace Suyaa.Hosting.EFCore
         /// <summary>
         /// 更新数据
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
         public async Task UpdateAsync(TEntity entity)

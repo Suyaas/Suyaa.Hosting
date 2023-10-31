@@ -18,6 +18,7 @@
 		<PackageTags>host,microservice,framework</PackageTags>
 		<Description>舒雅微服务组件中的核心实现</Description>
 		<Title>$(AssemblyName)</Title>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

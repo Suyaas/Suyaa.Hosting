@@ -16,6 +16,7 @@
     <PackageTags>host,unitofwork</PackageTags>
     <Description>舒雅微服务组件中的工作单元支持插件</Description>
     <Title>$(AssemblyName)</Title>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

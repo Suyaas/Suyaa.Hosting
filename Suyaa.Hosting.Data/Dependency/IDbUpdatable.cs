@@ -17,7 +17,6 @@ namespace Suyaa.Hosting.Data.Dependency
         /// <summary>
         /// 数据更新
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
         Task UpdateAsync(TEntity entity);
     }

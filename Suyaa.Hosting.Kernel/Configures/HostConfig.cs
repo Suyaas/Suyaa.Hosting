@@ -43,6 +43,16 @@ namespace Suyaa.Hosting.Configures
         public List<HostSwaggerConfig> Swaggers { get; set; }
 
         /// <summary>
+        /// 是否支持页面
+        /// </summary>
+        public bool IsRazorPageSupport { get; set; }
+
+        /// <summary>
+        /// 是否支持控制器
+        /// </summary>
+        public bool IsControllerSupport { get; set; }
+
+        /// <summary>
         /// 舒雅服务配置
         /// </summary>
         public HostConfig()

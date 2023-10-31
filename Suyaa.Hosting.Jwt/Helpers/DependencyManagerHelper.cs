@@ -15,6 +15,7 @@ namespace Suyaa.Hosting.Jwt.Helpers
         /// 添加Jwt数据支持
         /// </summary>
         /// <param name="dependency"></param>
+        /// <param name="jwtOptionAction"></param>
         /// <returns></returns>
         public static IDependencyManager AddJwt(this IDependencyManager dependency, Action<JwtOption>? jwtOptionAction = null)
         {
@@ -28,6 +29,7 @@ namespace Suyaa.Hosting.Jwt.Helpers
         /// 添加Jwt数据支持
         /// </summary>
         /// <param name="dependency"></param>
+        /// <param name="option"></param>
         /// <returns></returns>
         public static IDependencyManager AddJwt<TProvider, TData>(this IDependencyManager dependency, JwtOption option)
             where TProvider : class, IJwtDataProvider<TData>

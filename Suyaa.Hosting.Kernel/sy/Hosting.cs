@@ -2,6 +2,7 @@
 using Suyaa.DependencyInjection;
 using Suyaa.Hosting;
 using Suyaa.Hosting.Kernel;
+using Suyaa.Hosting.Kernel.Dependency;
 
 namespace sy
 {
@@ -76,6 +77,7 @@ namespace sy
         /// 创建WehHost
         /// </summary>
         /// <typeparam name="TStartup"></typeparam>
+        /// <param name="configure"></param>
         /// <param name="configureBuilder"></param>
         /// <param name="args"></param>
         /// <returns></returns>
@@ -95,6 +97,96 @@ namespace sy
             // 设置服务服务供应商
             //_services = host.Services;
             return host;
+        }
+
+        /// <summary>
+        /// 创建一个Web Application
+        /// </summary>
+        /// <typeparam name="TProvider"></typeparam>
+        /// <returns></returns>
+        public static WebApplication CreateWebApplication<TProvider>(string[] args)
+            where TProvider : class, IWebApplicationProvider, new()
+        {
+            // 创建供应商
+            var provider = new TProvider();
+            // 新建一个构建器
+            var builder = WebApplication.CreateBuilder(args);
+            // 执行初始化
+            provider.OnInitialize(builder);
+            // 执行服务配置
+            provider.OnConfigureServices(builder.Services);
+            // 构建应用
+            var app = builder.Build();
+            // 配置应用
+            provider.OnConfigureApplication(app);
+            // 应用配置
+            return app;
+        }
+
+        /// <summary>
+        /// 执行并记录异常
+        /// </summary>
+        /// <param name="action"></param>
+        public static void LogInvoke(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                sy.Logger.Error(ex.ToString());
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 尝试执行并记录异常
+        /// </summary>
+        /// <param name="action"></param>
+        public static void TryLogInvoke(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception ex)
+            {
+                sy.Logger.Error(ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 执行并记录异常
+        /// </summary>
+        /// <param name="func"></param>
+        public static async void LogInvokeAsync(Func<Task> func)
+        {
+            try
+            {
+                await func();
+            }
+            catch (Exception ex)
+            {
+                sy.Logger.Error(ex.ToString());
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// 尝试执行并记录异常
+        /// </summary>
+        /// <param name="func"></param>
+        public static async void TryLogInvokeAsync(Func<Task> func)
+        {
+            try
+            {
+                await func();
+            }
+            catch (Exception ex)
+            {
+                sy.Logger.Error(ex.ToString());
+            }
         }
     }
 }

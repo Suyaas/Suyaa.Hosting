@@ -20,7 +20,7 @@ namespace Suyaa.Hosting.Kernel
     public abstract class StartupBase
     {
         // 私有变量
-        private readonly HostConfig _hostConfig;
+        private HostConfig? _hostConfig;
         // 服务集合
         private IServiceCollection? _services;
         //private readonly I18n _i18n;
@@ -96,7 +96,7 @@ namespace Suyaa.Hosting.Kernel
         /// <summary>
         /// 主机服务配置
         /// </summary>
-        public HostConfig HostConfig => _hostConfig;
+        public HostConfig HostConfig => _hostConfig ?? throw new HostException("Host configure not found");
 
         ///// <summary>
         ///// 多语言支持
@@ -197,45 +197,28 @@ namespace Suyaa.Hosting.Kernel
             this.Configuration = configuration;
             this.Assembles = new List<Assembly>();
             this.Filters = new List<Type>();
+            this.Paths = new List<string>();
+
+            #region 配置日志
             // 加载Suyaa配置
             sy.Logger.Debug("Load Hosting Config ...");
-            try
+            // 调试日志输出
+            sy.Logger.Factory.UseStringAction(message => { Debug.WriteLine(message); });
+            // 执行配置
+            sy.Hosting.LogInvoke(() =>
             {
-                var hosting = configuration.GetSection("Hosting");
-                if (hosting is null) throw new HostException(string.Format("Configuration section '{0}' not found.", "Hosting"));
-                _hostConfig = hosting.Get<HostConfig>();
-                // 注册日志
-                sy.Logger.Factory
-                    .UseFile(GetFullPath(_hostConfig.LogPath))
-                    .UseStringAction(message => { Debug.WriteLine(message); });
-                //sy.Logger.GetCurrentLogger()
-                //    .Use(new FileLogger())
-                //    .Use((string message) => {  });
-            }
-            catch (Exception ex)
-            {
-                sy.Logger.Error(ex.ToString());
-                throw;
-            }
-            //_suyaaConfig = configuration.GetValue<SuyaaConfig>("Suyaa");
-            //if (_suyaaConfig is null) throw new HostException(i18n.Content("Configuration section '{0}' not found.", "Suyaa"));
+                _hostConfig = configuration.GetHostConfig();
+                // 注册文件日志
+                sy.Logger.Factory.UseFile(sy.IO.GetFullPath(_hostConfig.LogPath));
+            });
+            if (_hostConfig is null) return;
+            // 更新日志记录器
+            sy.Logger.Create();
+            #endregion
 
-            //string suyaaPath = suyaa.GetValue<string>("Path");
-            //if (suyaa is null) throw new HostException($"未找到'Suyaa.Path'配置项");
-            //this.SuyaaConfigManager = new JsonConfigManager<SuyaaConfig>(GetFullPath(suyaaPath));
-            //_suyaaConfig = this.SuyaaConfigManager.Config;
-            //_hostConfig = suyaa.To(() =>
-            //{
-            //    HostConfig config = new HostConfig();
-            //    config.Default();
-            //    return config;
-            //});
             sy.Logger.Debug($"Server Start ...", LogEvents.Server);
             // 预处理寻址路径
-            this.Paths = new List<string>()
-            {
-                sy.Assembly.ExecutionDirectory
-            };
+            this.Paths.Add(sy.Assembly.ExecutionDirectory);
             foreach (var path in _hostConfig.Paths) this.Paths.Add(GetFullPath(path));
             // 触发初始化事件
             this.OnInitialize();
@@ -259,6 +242,7 @@ namespace Suyaa.Hosting.Kernel
             sy.Logger.Debug($"Services Configure Start ...", "Services");
 
             #region 添加跨域支持
+            if (_hostConfig is null) throw new HostException($"主机配置未找到");
             if (_hostConfig.IsCorsAll)
             {
                 services.AddCors(d =>
@@ -341,6 +325,7 @@ namespace Suyaa.Hosting.Kernel
             sy.Logger.Debug($"Apps Configure Start ...", "Apps");
 
             // 添加跨域支持
+            if (_hostConfig is null) throw new HostException($"主机配置未找到");
             if (_hostConfig.IsCorsAll) app.UseCors(CrosTypes.ALL);
 
             // 兼容开发模式
@@ -375,6 +360,7 @@ namespace Suyaa.Hosting.Kernel
             //app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                // 映射所有页面
                 //endpoints.MapRazorPages();
                 // 映射所有控制器
                 endpoints.MapControllers();

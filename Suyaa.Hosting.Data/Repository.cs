@@ -8,7 +8,7 @@ namespace Suyaa.Hosting.Data
     /// <summary>
     /// 数据仓库
     /// </summary>
-    /// <typeparam name="TClass"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TId"></typeparam>
     public class Repository<TEntity, TId> : IRepository<TEntity, TId>
         where TEntity : class, IEntity<TId>
@@ -46,7 +46,6 @@ namespace Suyaa.Hosting.Data
         /// <summary>
         /// 查询
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
         public IQueryable<TEntity> Query()
         {
@@ -56,7 +55,6 @@ namespace Suyaa.Hosting.Data
         /// <summary>
         /// 插入数据
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
         public async Task InsertAsync(TEntity entity)
@@ -67,7 +65,6 @@ namespace Suyaa.Hosting.Data
         /// <summary>
         /// 更新数据
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
         public async Task UpdateAsync(TEntity entity)
@@ -78,7 +75,6 @@ namespace Suyaa.Hosting.Data
         /// <summary>
         /// 删除数据
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
         public async Task DeleteAsync(TEntity entity)

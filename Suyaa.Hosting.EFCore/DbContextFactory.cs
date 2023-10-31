@@ -78,7 +78,6 @@ namespace Suyaa.Hosting.EFCore
         /// <summary>
         /// 获取实例
         /// </summary>
-        /// <param name="type"></param>
         /// <returns></returns>
         public DbEntityDescriptor? GetEntity<TEntity>()
         {

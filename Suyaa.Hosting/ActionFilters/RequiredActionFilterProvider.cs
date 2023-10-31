@@ -140,13 +140,8 @@ namespace Suyaa.Hosting.EFCore.ActionFilters
         {
             // 直接参数唯一性校验
             ActionArgumentRequiredVerify(context);
-            // 直接参数唯一性校验
+            // 对象参数唯一性校验
             ActionObjectArgumentRequiredVerify(context);
-            //var args = context.ActionArguments;
-            //foreach (var arg in args)
-            //{
-            //    ActionArgumentVerify(arg.Key, arg.Value);
-            //}
         }
 
         /// <summary>

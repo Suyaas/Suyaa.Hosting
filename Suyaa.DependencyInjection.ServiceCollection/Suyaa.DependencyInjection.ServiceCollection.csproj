@@ -16,6 +16,7 @@
     <PackageTags>di,ioc,dependency</PackageTags>
     <Description>舒雅套件中兼容微软ServiceCollection依赖注入的开发组件</Description>
     <Title>$(AssemblyName)</Title>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

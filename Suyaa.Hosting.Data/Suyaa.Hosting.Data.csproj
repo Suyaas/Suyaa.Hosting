@@ -16,6 +16,7 @@
     <PackageTags>host,orm</PackageTags>
     <Description>舒雅微服务组件中的数据库操作插件</Description>
     <Title>$(AssemblyName)</Title>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

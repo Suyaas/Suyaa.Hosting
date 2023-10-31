@@ -21,7 +21,6 @@ namespace Suyaa.Hosting.Kernel
         /// 主机友好错误
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="errorCode"></param>
         public UserFriendlyException(string message) : base(message)
         {
             ErrorCode = 0;
@@ -32,6 +31,7 @@ namespace Suyaa.Hosting.Kernel
         /// 主机友好错误
         /// </summary>
         /// <param name="message"></param>
+        /// <param name="args"></param>
         /// <param name="errorCode"></param>
         public UserFriendlyException(ErrorCode errorCode, string message, params object?[] args) : base(message)
         {
@@ -43,7 +43,7 @@ namespace Suyaa.Hosting.Kernel
         /// 主机友好错误
         /// </summary>
         /// <param name="message"></param>
-        /// <param name="errorCode"></param>
+        /// <param name="args"></param>
         public UserFriendlyException(string message, params object?[] args) : base(message)
         {
             ErrorCode = 0;

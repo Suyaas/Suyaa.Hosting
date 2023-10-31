@@ -43,7 +43,6 @@ namespace Suyaa.Hosting.Jwt
         /// 转化为Jwt对象
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="type"></param>
         /// <returns></returns>
         /// <exception cref="HostException"></exception>
         public TData GetData(string token)
@@ -131,8 +130,8 @@ namespace Suyaa.Hosting.Jwt
         /// <summary>
         /// 创建一个Jwt令牌
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>
+        /// <param name="expires"></param>
         public JwtToken CreateToken(TData data, DateTime? expires = null)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -10,7 +10,6 @@ namespace Suyaa.Hosting.Kernel.Dependency
         /// <summary>
         /// 配置依赖
         /// </summary>
-        /// <param name="services"></param>
         void ConfigureDependency(IDependencyManager dependency);
     }
 }

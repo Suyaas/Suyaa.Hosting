@@ -7,11 +7,11 @@ using Suyaa.Configure.Basic.Configures;
 using Suyaa.DependencyInjection;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting;
-using Suyaa.Hosting.Multilingual.Helpers;
 using Suyaa.Hosting.Jwt.Helpers;
 using Suyaa.Configure.Basic.Jwt;
 using Suyaa.Hosting.Jwt.Options;
 using Suyaa.Configure.Basic.Dependency;
+using Suyaa.Hosting.EFCore.Helpers;
 
 namespace Suyaa.Configure.Host
 {

@@ -12,7 +12,7 @@ namespace Suyaa.Hosting.Helpers
         /// <summary>
         /// 触发一个友好错误
         /// </summary>
-        /// <param name="i18n"></param>
+        /// <param name="multilingualManager"></param>
         /// <param name="message"></param>
         /// <param name="args"></param>
         /// <returns></returns>
@@ -24,7 +24,7 @@ namespace Suyaa.Hosting.Helpers
         /// <summary>
         /// 触发一个错误
         /// </summary>
-        /// <param name="i18n"></param>
+        /// <param name="multilingualManager"></param>
         /// <param name="message"></param>
         /// <param name="args"></param>
         /// <returns></returns>

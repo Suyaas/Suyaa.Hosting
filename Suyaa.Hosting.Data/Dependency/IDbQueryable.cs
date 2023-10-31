@@ -17,7 +17,6 @@ namespace Suyaa.Hosting.Data.Dependency
         /// <summary>
         /// 获取查询
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
         IQueryable<TEntity> Query();
     }

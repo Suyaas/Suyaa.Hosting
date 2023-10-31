@@ -28,7 +28,7 @@ namespace SqlServerDemo.Entities
         /// <summary>
         /// 显示名称
         /// </summary>
-        public string Text { get; set; }
+        public string Text { get; set; } = string.Empty;
         /// <summary>
         /// 对象Id
         /// </summary>

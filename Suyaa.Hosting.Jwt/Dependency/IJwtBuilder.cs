@@ -16,15 +16,14 @@ namespace Suyaa.Hosting.Jwt.Dependency
         /// 转化为Jwt对象
         /// </summary>
         /// <param name="token"></param>
-        /// <param name="type"></param>
         /// <returns></returns>
         TData GetData(string token);
 
         /// <summary>
         /// 创建一个Jwt令牌
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <param name="data"></param>
+        /// <param name="expires"></param>
         JwtToken CreateToken(TData data, DateTime? expires = null);
     }
 }

@@ -20,7 +20,7 @@ namespace Suyaa.Hosting.EFCore
         /// <summary>
         /// 创建DbContext实例
         /// </summary>
-        /// <param name="options"></param>
+        /// <param name="dbConnectionDescriptorFactory"></param>
         /// <returns></returns>
         public abstract T CreateDbContext(IDbConnectionDescriptorFactory dbConnectionDescriptorFactory);
 

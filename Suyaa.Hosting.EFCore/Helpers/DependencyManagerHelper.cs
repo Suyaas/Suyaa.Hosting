@@ -2,11 +2,11 @@
 using Suyaa.EFCore;
 using Suyaa.EFCore.Dependency;
 using Suyaa.Hosting.Data.Dependency;
-using Suyaa.Hosting.EFCore;
 using Suyaa.Hosting.EFCore.Dependency;
 using Suyaa.Hosting.Kernel.Helpers;
+using Suyaa.Hosting.Multilingual.Helpers;
 
-namespace Suyaa.Hosting.Multilingual.Helpers
+namespace Suyaa.Hosting.EFCore.Helpers
 {
     /// <summary>
     /// 容器扩展

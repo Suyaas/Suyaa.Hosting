@@ -22,6 +22,11 @@ namespace Suyaa.Hosting.Kernel.FeatureProviders
             _option = option;
         }
 
+        /// <summary>
+        /// 功能填充
+        /// </summary>
+        /// <param name="parts"></param>
+        /// <param name="feature"></param>
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
         {
             foreach (var type in _option.Types)

@@ -16,6 +16,7 @@
     <PackageTags>host,automapper</PackageTags>
     <Description>舒雅微服务组件中的AutoMapper插件</Description>
     <Title>$(AssemblyName)</Title>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

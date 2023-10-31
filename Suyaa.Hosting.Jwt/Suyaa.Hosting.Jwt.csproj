@@ -15,6 +15,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Description>舒雅微服务组件中的JWT支持插件</Description>
     <Title>$(AssemblyName)</Title>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -16,6 +16,7 @@ namespace Suyaa.Hosting.EFCore.Helpers
         /// 获取所有的实例类型
         /// </summary>
         /// <param name="dbContextFactory"></param>
+        /// <param name="dbConnectionDescriptorName"></param>
         /// <returns></returns>
         public static IList<Type> GetEntityTypes(this IDbContextFactory dbContextFactory, string dbConnectionDescriptorName)
         {

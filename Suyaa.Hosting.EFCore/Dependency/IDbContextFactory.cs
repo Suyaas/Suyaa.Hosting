@@ -22,15 +22,14 @@ namespace Suyaa.Hosting.EFCore.Dependency
         /// <summary>
         /// 获取实例
         /// </summary>
-        /// <param name="type"></param>
         /// <returns></returns>
         DbEntityDescriptor? GetEntity<TEntity>();
 
         /// <summary>
         /// 获取实例
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="dbConnectionDescriptorName"></param>
         /// <returns></returns>
-        IList<DbEntityDescriptor> GetEntities(string bbConnectionDescriptorName);
+        IList<DbEntityDescriptor> GetEntities(string dbConnectionDescriptorName);
     }
 }

@@ -17,7 +17,6 @@ namespace Suyaa.Hosting.Data.Dependency
         /// <summary>
         /// 数据插入
         /// </summary>
-        /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
         Task InsertAsync(TEntity entity);
     }

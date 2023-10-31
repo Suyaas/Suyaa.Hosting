@@ -18,6 +18,9 @@ namespace Suyaa.Hosting.AutoMapper
 
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// 对象映射器
+        /// </summary>
         public ObjectMapper(
             IMapper mapper
             )

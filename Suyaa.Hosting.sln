@@ -47,7 +47,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlServerDemo", "Demo\SqlSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.Data", "Suyaa.Hosting.Data\Suyaa.Hosting.Data.csproj", "{748DE1DF-18DA-456D-8E49-2193883F02CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicesDemo", "Demo\ServicesDemo\ServicesDemo.csproj", "{848B4771-E72C-4E6E-AF4F-9F242D607823}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServicesDemo", "Demo\ServicesDemo\ServicesDemo.csproj", "{848B4771-E72C-4E6E-AF4F-9F242D607823}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PagesDemo", "Demo\PagesDemo\PagesDemo.csproj", "{B295E270-E187-432E-A79E-BE29E9AF6566}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +137,10 @@ Global
 		{848B4771-E72C-4E6E-AF4F-9F242D607823}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{848B4771-E72C-4E6E-AF4F-9F242D607823}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{848B4771-E72C-4E6E-AF4F-9F242D607823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B295E270-E187-432E-A79E-BE29E9AF6566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B295E270-E187-432E-A79E-BE29E9AF6566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B295E270-E187-432E-A79E-BE29E9AF6566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B295E270-E187-432E-A79E-BE29E9AF6566}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,6 +156,7 @@ Global
 		{2F4CB806-3D15-45A9-AE12-806628D5C70A} = {33A40A39-EA9C-4199-8588-6CEE7B038C66}
 		{3E159C1D-EBDE-4577-A9E0-9E69FAEC695F} = {34DB06AB-CBE9-491C-8D82-0EE5C958C4FE}
 		{848B4771-E72C-4E6E-AF4F-9F242D607823} = {34DB06AB-CBE9-491C-8D82-0EE5C958C4FE}
+		{B295E270-E187-432E-A79E-BE29E9AF6566} = {34DB06AB-CBE9-491C-8D82-0EE5C958C4FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23FC978D-1BFE-4D83-8947-4484CE603405}

@@ -96,6 +96,8 @@ namespace Suyaa.Hosting.WebApplicationProviders
             dependency.Register(typeof(IOptionConfig<>), typeof(OptionConfig<>), Lifetimes.Singleton);
             dependency.Register(HostConfig);
             dependency.Register(Configuration);
+            // 添加程序集
+            dependency.Includes(_assemblies);
             // 先执行自动注册
             dependency.RegisterAll();
             // 注册所有的模块

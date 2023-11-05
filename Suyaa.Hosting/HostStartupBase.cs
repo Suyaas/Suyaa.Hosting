@@ -20,6 +20,7 @@ namespace Suyaa.Hosting
     /// <summary>
     /// 主机启动器
     /// </summary>
+    [Obsolete]
     public abstract class HostStartupBase : Kernel.StartupBase
     {
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,17 @@ namespace Suyaa.DependencyInjection
     /// </summary>
     public interface IDependencyManager
     {
+        /// <summary>
+        /// 包含程序集
+        /// </summary>
+        IEnumerable<Assembly> Assemblies { get; }
+
+        /// <summary>
+        /// 引入程序集
+        /// </summary>
+        /// <param name="assembly"></param>
+        void Include(Assembly assembly);
+
         /// <summary>
         /// 注册
         /// </summary>

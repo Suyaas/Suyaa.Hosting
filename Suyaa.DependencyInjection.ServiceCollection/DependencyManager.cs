@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -13,6 +14,7 @@ namespace Suyaa.DependencyInjection.ServiceCollection
         // DI容器
         private readonly IServiceCollection _services;
         private readonly Type _exclusive = typeof(IDependencyExclusive);
+        private readonly List<Assembly> _assemblies;
         // 异步上下文
         private readonly AsyncLocal<ServiceProviderWrapper> _asyncLocal = new AsyncLocal<ServiceProviderWrapper>();
 
@@ -22,12 +24,18 @@ namespace Suyaa.DependencyInjection.ServiceCollection
         public IServiceCollection Services => _services;
 
         /// <summary>
+        /// 包含程序集
+        /// </summary>
+        public IEnumerable<Assembly> Assemblies => _assemblies;
+
+        /// <summary>
         /// 依赖控制器
         /// </summary>
         public DependencyManager()
         {
             _services = new Microsoft.Extensions.DependencyInjection.ServiceCollection();
             _services.AddSingleton<IDependencyManager>(this);
+            _assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
         }
 
         /// <summary>
@@ -37,6 +45,7 @@ namespace Suyaa.DependencyInjection.ServiceCollection
         {
             _services = services;
             _services.AddSingleton<IDependencyManager>(this);
+            _assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
         }
 
         /// <summary>
@@ -173,6 +182,17 @@ namespace Suyaa.DependencyInjection.ServiceCollection
             var obj = provider.GetService(type);
             if (obj is null) throw new DependencyException(type);
             return obj;
+        }
+
+        /// <summary>
+        /// 引用程序集
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <exception cref="NotImplementedException"></exception>
+        public void Include(Assembly assembly)
+        {
+            if (_assemblies.Contains(assembly)) return;
+            _assemblies.Add(assembly);
         }
     }
 }

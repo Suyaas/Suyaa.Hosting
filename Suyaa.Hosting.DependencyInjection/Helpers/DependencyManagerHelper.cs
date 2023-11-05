@@ -294,42 +294,42 @@ namespace Suyaa.DependencyInjection
         /// <summary>
         /// 注册所有类
         /// </summary>
-        /// <param name="manager"></param>
-        public static void RegisterAll(this IDependencyManager manager)
+        /// <param name="dependency"></param>
+        public static void RegisterAll(this IDependencyManager dependency)
         {
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly assembly in assemblies)
+            //Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (Assembly assembly in dependency.Assemblies)
             {
-                manager.RegisterAssembly(assembly);
+                dependency.RegisterAssembly(assembly);
             }
         }
 
         /// <summary>
         /// 注册所有的接口实现
         /// </summary>
-        /// <param name="manager"></param>
+        /// <param name="dependency"></param>
         /// <param name="serviceType"></param>
-        public static void RegisterTransients(this IDependencyManager manager, Type serviceType)
+        public static void RegisterTransients(this IDependencyManager dependency, Type serviceType)
         {
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly assembly in assemblies)
+            //Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (Assembly assembly in dependency.Assemblies)
             {
-                manager.RegisterAssemblyTransients(serviceType, assembly, type => true);
+                dependency.RegisterAssemblyTransients(serviceType, assembly, type => true);
             }
         }
 
         /// <summary>
         /// 注册所有的接口实现
         /// </summary>
-        /// <param name="manager"></param>
+        /// <param name="dependency"></param>
         /// <param name="serviceType"></param>
         /// <param name="predicate"></param>
-        public static void RegisterTransients(this IDependencyManager manager, Type serviceType, Func<Type, bool> predicate)
+        public static void RegisterTransients(this IDependencyManager dependency, Type serviceType, Func<Type, bool> predicate)
         {
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly assembly in assemblies)
+            //Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (Assembly assembly in dependency.Assemblies)
             {
-                manager.RegisterAssemblyTransients(serviceType, assembly, predicate);
+                dependency.RegisterAssemblyTransients(serviceType, assembly, predicate);
             }
         }
 
@@ -369,6 +369,17 @@ namespace Suyaa.DependencyInjection
         public static List<Type> GetResolveTypes<T>(this IDependencyManager manager)
         {
             return manager.GetResolveTypes(typeof(T));
+        }
+
+        /// <summary>
+        /// 引用程序集
+        /// </summary>
+        /// <param name="dependency"></param>
+        /// <param name="assemblies"></param>
+        public static IDependencyManager Includes(this IDependencyManager dependency, IEnumerable<Assembly> assemblies)
+        {
+            foreach (var assembly in assemblies) dependency.Include(assembly);
+            return dependency;
         }
     }
 }

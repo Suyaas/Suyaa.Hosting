@@ -17,6 +17,7 @@ namespace Suyaa.Hosting.Kernel
     /// <summary>
     /// 启动器
     /// </summary>
+    [Obsolete]
     public abstract class StartupBase
     {
         // 私有变量

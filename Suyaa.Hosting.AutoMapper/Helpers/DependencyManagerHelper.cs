@@ -32,10 +32,10 @@ namespace Suyaa.Hosting.AutoMapper.Helpers
         }
 
         // 所有注册所有配置
-        private static void MapperProfileRegister(MapperProfile profile)
+        private static void MapperProfileRegister(IDependencyManager dependency, MapperProfile profile)
         {
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly assembly in assemblies)
+            //Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (Assembly assembly in dependency.Assemblies)
             {
                 try
                 {
@@ -55,7 +55,7 @@ namespace Suyaa.Hosting.AutoMapper.Helpers
             // 建立映射配置文件
             MapperProfile profile = new MapperProfile();
             // 注册所有配置
-            MapperProfileRegister(profile);
+            MapperProfileRegister(dependency, profile);
             // 添加AutoMapper
             var configuration = new MapperConfiguration(cfg =>
             {

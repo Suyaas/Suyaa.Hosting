@@ -4,13 +4,14 @@ using System.Reflection;
 using Suyaa;
 using Suyaa.Hosting.Kernel.WebApplicationProviders;
 using Suyaa.DependencyInjection.ServiceCollection;
+using Suyaa.Hosting.WebApplicationProviders;
 
 namespace PagesDemo
 {
     /// <summary>
     /// Demo应用供应商
     /// </summary>
-    public sealed class DemoApplicationProvider : WebApplicationProviderBase
+    public sealed class DemoApplicationProvider : WebAppliactionProvider
     {
         /// <summary>
         /// 依赖管理器创建
@@ -28,10 +29,11 @@ namespace PagesDemo
         /// <param name="dependency"></param>
         protected override void OnConfigureDependency(IDependencyManager dependency)
         {
+            base.OnConfigureDependency(dependency);
             // 添加模块注册
             //dependency.AddModuler<ModuleStartup>();
-            // 注册切片
-            //dependency.AddActionFilters();
+            // 注册切面
+            dependency.AddActionFilters();
             // 添加EFCore支持
             //dependency.AddEFCore();
             // 注册对象映射
@@ -51,6 +53,12 @@ namespace PagesDemo
                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                            .AddEnvironmentVariables(prefix: "ASPNETCORE_");
             base.OnInitialize(builder);
+        }
+
+        protected override void OnConfigureAssembly(IList<Assembly> assemblies)
+        {
+            base.OnConfigureAssembly(assemblies);
+            assemblies.Import<ModuleStartup>();
         }
 
     }

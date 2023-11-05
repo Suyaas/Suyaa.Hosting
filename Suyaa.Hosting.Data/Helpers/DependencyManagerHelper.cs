@@ -16,6 +16,8 @@ namespace Suyaa.Hosting.Multilingual.Helpers
         /// <returns></returns>
         public static IDependencyManager AddDatabase(this IDependencyManager dependency)
         {
+            // 注册程序集
+            dependency.Include(typeof(Repository<,>).Assembly);
             // 注册仓库
             dependency.Register(typeof(IRepository<,>), typeof(Repository<,>), Lifetimes.Transient);
             // 注册所有的供应商

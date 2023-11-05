@@ -16,6 +16,8 @@ namespace Suyaa.Hosting.Multilingual.Helpers
         /// <returns></returns>
         public static IDependencyManager AddMultilingual(this IDependencyManager dependency)
         {
+            // 注册程序集
+            dependency.Include<MultilingualManager>();
             // 注册多语言管理器
             dependency.Register<IMultilingualManager, MultilingualManager>(Lifetimes.Transient);
             return dependency;

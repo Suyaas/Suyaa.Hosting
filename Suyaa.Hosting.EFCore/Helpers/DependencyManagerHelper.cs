@@ -20,6 +20,8 @@ namespace Suyaa.Hosting.EFCore.Helpers
         /// <returns></returns>
         public static IDependencyManager AddEFCore(this IDependencyManager dependency)
         {
+            // 注册程序集
+            dependency.Include<DbContextFactory>();
             // 使用数据库
             dependency.AddDatabase();
             // 注册所有的数据库上下文

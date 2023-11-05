@@ -54,6 +54,8 @@ namespace Suyaa.Hosting.AutoMapper.Helpers
         {
             // 建立映射配置文件
             MapperProfile profile = new MapperProfile();
+            // 注册程序集
+            dependency.Include<MapperProfile>();
             // 注册所有配置
             MapperProfileRegister(dependency, profile);
             // 添加AutoMapper

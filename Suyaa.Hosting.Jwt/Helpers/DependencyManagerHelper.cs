@@ -35,6 +35,8 @@ namespace Suyaa.Hosting.Jwt.Helpers
             where TProvider : class, IJwtDataProvider<TData>
             where TData : class, IJwtData, new()
         {
+            // 注册程序集
+            dependency.Include<JwtData>();
             // 注册配置
             dependency.Register(option);
             // 注册管理器

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -273,7 +274,7 @@ namespace Suyaa.DependencyInjection
         {
             try
             {
-                Type[] types = assembly.GetTypes();
+                Type[] types = assembly.GetTypes();        
                 foreach (Type type in types)
                 {
                     // 跳过所有的接口
@@ -379,6 +380,17 @@ namespace Suyaa.DependencyInjection
         public static IDependencyManager Includes(this IDependencyManager dependency, IEnumerable<Assembly> assemblies)
         {
             foreach (var assembly in assemblies) dependency.Include(assembly);
+            return dependency;
+        }
+
+        /// <summary>
+        /// 导入程序集
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static IDependencyManager Include<T>(this IDependencyManager dependency) where T : class
+        {
+            dependency.Include(typeof(T).Assembly);
             return dependency;
         }
     }

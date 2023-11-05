@@ -46,5 +46,16 @@ namespace Suyaa.Hosting.Kernel.Helpers
         {
             return services.AddControllers(configure).AddAssemblyList(assemblies);
         }
+
+        /// <summary>
+        /// 添加控制器
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="assemblies"></param>
+        /// <returns></returns>
+        public static IMvcBuilder AddRazorPages(this IServiceCollection services, List<Assembly> assemblies)
+        {
+            return services.AddRazorPages().AddAssemblyList(assemblies);
+        }
     }
 }

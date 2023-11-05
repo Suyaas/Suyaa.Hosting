@@ -77,18 +77,6 @@ namespace Suyaa.Hosting.WebApplicationProviders
             app.UseEndpoints(endpoints =>
             {
                 // 映射所有页面
-                if (base.HostConfig.IsControllerSupport) endpoints.MapRazorPages();
-                // 映射所有控制器
-                if (base.HostConfig.IsControllerSupport) endpoints.MapControllers();
-            });
-            #endregion
-
-            #region 添加静态文件支持
-            // 使用静态文件
-            app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                // 映射所有页面
                 if (base.HostConfig.IsRazorPageSupport) endpoints.MapRazorPages();
                 // 映射所有控制器
                 if (base.HostConfig.IsControllerSupport) endpoints.MapControllers();
@@ -157,26 +145,37 @@ namespace Suyaa.Hosting.WebApplicationProviders
             option.AddAssemblies(_assemblies);
 
             // 根据配置添加所有的控制器
-            services.AddControllers(options =>
+            if (base.HostConfig.IsControllerSupport)
             {
-                // 添加过滤器
-                sy.Logger.Debug($"Add {typeof(ApiActionFilter).FullName}", LogEvents.Filter);
-                options.Filters.Add<ApiActionFilter>();
-                sy.Logger.Debug($"Add {typeof(ApiAsyncActionFilter).FullName}", LogEvents.Filter);
-                options.Filters.Add<ApiAsyncActionFilter>();
-                foreach (var filter in _filters)
+                services.AddControllers(options =>
                 {
-                    sy.Logger.Debug($"Add {filter.FullName}", LogEvents.Filter);
-                    options.Filters.Add(filter);
-                }
-                // 添加约定器
-                options.Conventions.Add(new ServiceApplicationModelConvention(option));
-                options.Conventions.Add(new ServiceActionModelConvention());
-            }, _assemblies).ConfigureApplicationPartManager(pm =>
+                    // 添加过滤器
+                    sy.Logger.Debug($"Add {typeof(ApiActionFilter).FullName}", LogEvents.Filter);
+                    options.Filters.Add<ApiActionFilter>();
+                    sy.Logger.Debug($"Add {typeof(ApiAsyncActionFilter).FullName}", LogEvents.Filter);
+                    options.Filters.Add<ApiAsyncActionFilter>();
+                    foreach (var filter in _filters)
+                    {
+                        sy.Logger.Debug($"Add {filter.FullName}", LogEvents.Filter);
+                        options.Filters.Add(filter);
+                    }
+                    // 添加约定器
+                    options.Conventions.Add(new ServiceApplicationModelConvention(option));
+                    options.Conventions.Add(new ServiceActionModelConvention());
+                }, _assemblies).ConfigureApplicationPartManager(pm =>
+                {
+                    // 添加自定义控制器
+                    pm.FeatureProviders.Add(new ServiceControllerFeatureProvider(option));
+                });
+            }
+            #endregion
+
+            #region 添加页面配置
+            // 根据配置添加所有的控制器
+            if (base.HostConfig.IsRazorPageSupport)
             {
-                // 添加自定义控制器
-                pm.FeatureProviders.Add(new ServiceControllerFeatureProvider(option));
-            });
+                services.AddRazorPages(_assemblies);
+            }
             #endregion
 
             #region 添加Swagger配置

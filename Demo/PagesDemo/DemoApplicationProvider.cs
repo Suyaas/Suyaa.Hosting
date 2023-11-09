@@ -11,7 +11,7 @@ namespace PagesDemo
     /// <summary>
     /// Demo应用供应商
     /// </summary>
-    public sealed class DemoApplicationProvider : WebAppliactionProvider
+    public sealed class DemoApplicationProvider : HostAppliactionProvider
     {
         /// <summary>
         /// 依赖管理器创建

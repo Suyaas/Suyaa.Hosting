@@ -21,7 +21,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
     /// <summary>
     /// Api应用供应商
     /// </summary>
-    public abstract class WebAppliactionProvider : NeatApplicationProvider
+    public abstract class HostAppliactionProvider : NeatApplicationProvider
     {
         // 私有变量定义
         private readonly List<Assembly> _assemblies;
@@ -31,7 +31,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
         /// <summary>
         /// Api应用供应商
         /// </summary>
-        public WebAppliactionProvider()
+        public HostAppliactionProvider()
         {
             _assemblies = new List<Assembly>();
             _paths = new List<string>();
@@ -54,6 +54,8 @@ namespace Suyaa.Hosting.WebApplicationProviders
         /// <param name="app"></param>
         public override void OnConfigureApplication(WebApplication app)
         {
+            base.OnConfigureApplication(app);
+
             #region 添加Swagger支持
             if (base.HostConfig.IsSwagger)
             {

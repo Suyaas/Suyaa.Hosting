@@ -21,7 +21,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
     /// <summary>
     /// 简洁应用供应商
     /// </summary>
-    public abstract class NeatApplicationProvider : WebApplicationProviderBase
+    public abstract class NeatApplicationProvider : KernelApplicationProvider
     {
 
         /// <summary>

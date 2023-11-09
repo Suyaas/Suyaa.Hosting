@@ -17,7 +17,7 @@ namespace Suyaa.Hosting.Kernel.WebApplicationProviders
     /// <summary>
     /// Web应用基础供应商
     /// </summary>
-    public abstract class WebApplicationProviderBase : IWebApplicationProvider
+    public abstract class KernelApplicationProvider : IWebApplicationProvider
     {
         // 变量定义
         private HostConfig? _hostConfig;
@@ -36,7 +36,7 @@ namespace Suyaa.Hosting.Kernel.WebApplicationProviders
         /// <summary>
         /// Web应用基础供应商
         /// </summary>
-        public WebApplicationProviderBase()
+        public KernelApplicationProvider()
         {
         }
 

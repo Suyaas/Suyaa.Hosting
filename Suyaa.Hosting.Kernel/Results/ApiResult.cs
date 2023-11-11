@@ -111,7 +111,11 @@ namespace Suyaa.Hosting.Kernel.Results
         /// <returns></returns>
         protected override async Task OnExecuteResultAsync(HttpContext context)
         {
-            var json = JsonSerializer.Serialize(this);
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            };
+            var json = JsonSerializer.Serialize(this, options);
             // 清理输出状态
             context.Response.Clear();
             context.Response.ContentType = "application/json";

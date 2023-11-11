@@ -19,5 +19,9 @@ namespace SqlServerDemo.Cores.Dto
         /// Version
         /// </summary>
         public string? Version { get; set; }
+        /// <summary>
+        /// Version
+        /// </summary>
+        public string? MiniVersion { get; set; }
     }
 }

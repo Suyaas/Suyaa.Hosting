@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Suyaa.Hosting.Kernel;
+using Suyaa.Hosting.Common;
 
 namespace Suyaa.Hosting.Jwt.Attributes
 {

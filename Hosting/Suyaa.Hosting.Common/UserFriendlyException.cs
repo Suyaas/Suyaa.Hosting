@@ -1,6 +1,7 @@
-﻿using Suyaa.Hosting.Kernel.Enums;
+﻿using Suyaa.Hosting.Kernel;
+using Suyaa.Hosting.Kernel.Enums;
 
-namespace Suyaa.Hosting.Kernel
+namespace Suyaa.Hosting.Common
 {
     /// <summary>
     /// 用户友好错误

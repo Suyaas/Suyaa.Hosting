@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Suyaa.Hosting.Common;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Jwt.Dependency;
 using Suyaa.Hosting.Jwt.Options;

@@ -1,4 +1,4 @@
-﻿using Suyaa.Hosting.Kernel.Dependency;
+﻿using Suyaa.Hosting.App.Dependency;
 using System.Reflection;
 
 namespace Suyaa.Hosting.Options
@@ -28,7 +28,7 @@ namespace Suyaa.Hosting.Options
             var types = assembly.GetTypes();
             foreach (var type in types)
             {
-                if (!type.HasInterface<IServiceApp>()) continue;
+                if (!type.HasInterface<IDomainServiceApp>()) continue;
                 this.Types.Add(type);
             }
             return this;

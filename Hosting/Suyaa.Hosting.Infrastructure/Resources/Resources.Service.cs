@@ -1,7 +1,7 @@
-﻿namespace Suyaa.Hosting.Kernel
+﻿namespace Suyaa.Hosting.Infrastructure
 {
     /* 内部资源 - 应用服务相关 */
-    internal static partial class Resources
+    public static partial class Resources
     {
         /// <summary>
         /// ServiceApp

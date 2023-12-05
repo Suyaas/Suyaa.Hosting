@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Suyaa.DependencyInjection;
-using Suyaa.Hosting.Dependency;
 using Suyaa.Hosting.Kernel.Dependency;
 
 namespace Suyaa.Hosting.Kernel.ActionFilters

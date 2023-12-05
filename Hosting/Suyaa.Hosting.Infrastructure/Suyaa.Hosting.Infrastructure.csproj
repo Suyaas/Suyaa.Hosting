@@ -33,8 +33,4 @@
 		<PackageReference Include="Suyaa.Logs" Version="1.7.2312.34" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Suyaa.Hosting.DependencyInjection\Suyaa.DependencyInjection.csproj" />
-	</ItemGroup>
-
 </Project>

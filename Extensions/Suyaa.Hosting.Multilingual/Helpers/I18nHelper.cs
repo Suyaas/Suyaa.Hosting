@@ -1,6 +1,7 @@
-﻿using Suyaa.Hosting.Configures;
-using Suyaa.Hosting.Dependency;
+﻿using Suyaa.Hosting.Common;
+using Suyaa.Hosting.Configures;
 using Suyaa.Hosting.Kernel;
+using Suyaa.Hosting.Multilingual.Dependency;
 
 namespace Suyaa.Hosting.Helpers
 {

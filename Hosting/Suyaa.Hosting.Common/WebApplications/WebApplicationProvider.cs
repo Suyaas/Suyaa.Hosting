@@ -1,23 +1,20 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Suyaa.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Configures;
-using Suyaa.Hosting.Kernel.ActionFilters;
-using Suyaa.Hosting.Kernel.ApplicationModelConventions;
-using Suyaa.Hosting.Kernel.Configures;
+using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Dependency;
-using Suyaa.Hosting.Kernel.FeatureProviders;
 using Suyaa.Hosting.Kernel.Helpers;
-using Suyaa.Hosting.Options;
 using System.Diagnostics;
-using System.Reflection;
 
-namespace Suyaa.Hosting.Kernel.WebApplicationProviders
+namespace Suyaa.Hosting.Common.WebApplications
 {
     /// <summary>
     /// Web应用基础供应商
     /// </summary>
-    public abstract class KernelApplicationProvider : IWebApplicationProvider
+    public abstract class WebApplicationProvider : IWebApplicationProvider
     {
         // 变量定义
         private HostConfig? _hostConfig;
@@ -36,7 +33,7 @@ namespace Suyaa.Hosting.Kernel.WebApplicationProviders
         /// <summary>
         /// Web应用基础供应商
         /// </summary>
-        public KernelApplicationProvider()
+        public WebApplicationProvider()
         {
         }
 
@@ -112,7 +109,7 @@ namespace Suyaa.Hosting.Kernel.WebApplicationProviders
             {
                 _hostConfig = _configuration.GetHostConfig();
                 // 注册文件日志
-                sy.Logger.Factory.UseFile(sy.IO.GetFullPath(_hostConfig.LogPath));
+                if (_hostConfig != null) sy.Logger.Factory.UseFile(sy.IO.GetFullPath(_hostConfig.LogPath));
             });
             if (_hostConfig is null) return;
             // 更新日志记录器

@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Hosting;
-using Suyaa.DependencyInjection;
-using Suyaa.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Dependency;
 

@@ -37,11 +37,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting", "Hosting\Su
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.Infrastructure", "Hosting\Suyaa.Hosting.Infrastructure\Suyaa.Hosting.Infrastructure.csproj", "{9E837619-42D1-462F-AA8B-E96F3607EE81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Hosting.Common", "Hosting\Suyaa.Hosting.Common\Suyaa.Hosting.Common.csproj", "{D9A3FD74-9A56-443D-8AB9-F3B5DC8F2981}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.Common", "Hosting\Suyaa.Hosting.Common\Suyaa.Hosting.Common.csproj", "{D9A3FD74-9A56-443D-8AB9-F3B5DC8F2981}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Hosting.Core", "Hosting\Suyaa.Hosting.Core\Suyaa.Hosting.Core.csproj", "{3A34BD2C-517A-4AE6-9279-81C435A21894}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.Core", "Hosting\Suyaa.Hosting.Core\Suyaa.Hosting.Core.csproj", "{3A34BD2C-517A-4AE6-9279-81C435A21894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Hosting.App", "Hosting\Suyaa.Hosting.App\Suyaa.Hosting.App.csproj", "{EB68B792-C9A3-46EA-929F-B425F4927F85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.App", "Hosting\Suyaa.Hosting.App\Suyaa.Hosting.App.csproj", "{EB68B792-C9A3-46EA-929F-B425F4927F85}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{DE8313FA-094C-4842-93FE-5271C5486F0E}"
 EndProject
@@ -56,6 +56,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.Multilingual", "Extensions\Suyaa.Hosting.Multilingual\Suyaa.Hosting.Multilingual.csproj", "{A7F8AFA0-D7FB-4736-B34C-BD1F0D3917EB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWorks", "Extensions\Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWorks.csproj", "{5F265A2B-733D-4601-B8E2-0FDD93A0AFEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniHosting", "Demo\MiniHosting\MiniHosting.csproj", "{AE613337-314E-4A32-A10B-3A8ED48BDBDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -151,6 +153,10 @@ Global
 		{5F265A2B-733D-4601-B8E2-0FDD93A0AFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F265A2B-733D-4601-B8E2-0FDD93A0AFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F265A2B-733D-4601-B8E2-0FDD93A0AFEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE613337-314E-4A32-A10B-3A8ED48BDBDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE613337-314E-4A32-A10B-3A8ED48BDBDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE613337-314E-4A32-A10B-3A8ED48BDBDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE613337-314E-4A32-A10B-3A8ED48BDBDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -178,6 +184,7 @@ Global
 		{67528C25-A572-4937-BBA6-AA0F37D2BA46} = {DE8313FA-094C-4842-93FE-5271C5486F0E}
 		{A7F8AFA0-D7FB-4736-B34C-BD1F0D3917EB} = {DE8313FA-094C-4842-93FE-5271C5486F0E}
 		{5F265A2B-733D-4601-B8E2-0FDD93A0AFEF} = {DE8313FA-094C-4842-93FE-5271C5486F0E}
+		{AE613337-314E-4A32-A10B-3A8ED48BDBDC} = {34DB06AB-CBE9-491C-8D82-0EE5C958C4FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23FC978D-1BFE-4D83-8947-4484CE603405}

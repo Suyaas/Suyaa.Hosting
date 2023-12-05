@@ -4,12 +4,12 @@ using Suyaa.Hosting.Kernel.Dependency;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Suyaa.Hosting;
-using Suyaa.Hosting.Kernel;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection.Metadata;
 using System;
 using Suyaa.Hosting.Kernel.Enums;
 using Microsoft.OpenApi.Models;
+using Suyaa.Hosting.Common;
 
 namespace Suyaa.Hosting.EFCore.ActionFilters
 {

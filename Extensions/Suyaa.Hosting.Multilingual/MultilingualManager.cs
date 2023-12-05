@@ -1,6 +1,6 @@
 ﻿using Suyaa.Configure;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Dependency;
+using Suyaa.Hosting.Multilingual.Dependency;
 
 namespace Suyaa.Hosting.Configures
 {

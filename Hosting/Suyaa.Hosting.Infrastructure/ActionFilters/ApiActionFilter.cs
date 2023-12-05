@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Suyaa.Hosting.Dependency;
-using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Attributes;
 using Suyaa.Hosting.Kernel.Helpers;
 using Suyaa.Hosting.Kernel.Results;
@@ -15,16 +13,12 @@ namespace Suyaa.Hosting.Kernel.ActionFilters
     {
         #region DI注入
 
-        private readonly IMultilingualManager _multilingualManager;
-
         /// <summary>
         /// Api执行过滤器
         /// </summary>
         public ApiActionFilter(
-            IMultilingualManager multilingualManager
             )
         {
-            _multilingualManager = multilingualManager;
         }
 
         #endregion

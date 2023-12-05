@@ -5,7 +5,6 @@ using Suyaa.Hosting.Kernel.ActionFilters;
 using Suyaa.Hosting.Kernel.ApplicationModelConventions;
 using Suyaa.Hosting.Kernel.FeatureProviders;
 using Suyaa.Hosting.Kernel;
-using Suyaa.Hosting.Kernel.WebApplicationProviders;
 using Suyaa.Hosting.Options;
 using System;
 using System.Collections.Generic;
@@ -15,13 +14,15 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Suyaa.Hosting.Configures;
+using Suyaa.Hosting.Common.WebApplications;
+using Suyaa.Hosting.Infrastructure.Resources;
 
 namespace Suyaa.Hosting.WebApplicationProviders
 {
     /// <summary>
     /// 简洁应用供应商
     /// </summary>
-    public abstract class NeatApplicationProvider : KernelApplicationProvider
+    public abstract class NeatApplicationProvider : WebApplicationProvider
     {
 
         /// <summary>

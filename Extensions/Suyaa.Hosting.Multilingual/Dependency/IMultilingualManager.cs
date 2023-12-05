@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Dependency
+﻿namespace Suyaa.Hosting.Multilingual.Dependency
 {
     /// <summary>
     /// 多语言支持

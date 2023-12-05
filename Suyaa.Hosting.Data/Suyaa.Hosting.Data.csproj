@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Suyaa.Data" Version="1.5.2310.31" />
+    <PackageReference Include="Suyaa.Data" Version="1.7.2312.35" />
   </ItemGroup>
 
   <ItemGroup>

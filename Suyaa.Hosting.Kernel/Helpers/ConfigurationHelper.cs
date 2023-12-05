@@ -1,6 +1,7 @@
 ﻿using Suyaa.Configure;
 using Suyaa.Hosting.Configures;
 using sy;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Suyaa.Hosting.Kernel.Helpers
 {
@@ -14,8 +15,7 @@ namespace Suyaa.Hosting.Kernel.Helpers
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="name"></param>
-        /// <returns></returns>
-        public static T GetConfig<T>(this IConfiguration configuration, string name)
+        public static T? GetConfig<T>(this IConfiguration configuration, string name)
             where T : class, IConfig
         {
             var hosting = configuration.GetSection(name);
@@ -29,7 +29,7 @@ namespace Suyaa.Hosting.Kernel.Helpers
         /// <param name="configuration"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static TConfig GetConfigOrDefault<TConfig>(this IConfiguration configuration, string name)
+        public static TConfig? GetConfigOrDefault<TConfig>(this IConfiguration configuration, string name)
             where TConfig : class, IConfig, new()
         {
             var hosting = configuration.GetSection(name);
@@ -47,7 +47,7 @@ namespace Suyaa.Hosting.Kernel.Helpers
         /// </summary>
         /// <param name="configuration"></param>
         /// <returns></returns>
-        public static HostConfig GetHostConfig(this IConfiguration configuration)
+        public static HostConfig? GetHostConfig(this IConfiguration configuration)
         {
             return configuration.GetConfig<HostConfig>("Hosting");
         }

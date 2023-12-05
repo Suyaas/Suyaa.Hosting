@@ -12,15 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Suyaa.DependencyInjection.ServiceCollection\Suyaa.DependencyInjection.ServiceCollection.csproj" />
-    <ProjectReference Include="..\..\Suyaa.Hosting.AutoMapper\Suyaa.Hosting.AutoMapper.csproj" />
-    <ProjectReference Include="..\..\Suyaa.Hosting.EFCore\Suyaa.Hosting.EFCore.csproj" />
-    <ProjectReference Include="..\..\Suyaa.Hosting.Jwt\Suyaa.Hosting.Jwt.csproj" />
-    <ProjectReference Include="..\..\Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWorks.csproj" />
-    <ProjectReference Include="..\..\Suyaa.Hosting\Suyaa.Hosting.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="appsettings.Development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

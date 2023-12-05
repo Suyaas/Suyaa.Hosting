@@ -24,9 +24,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Suyaa.DependencyInjection.ServiceCollection\Suyaa.DependencyInjection.ServiceCollection.csproj" />
-    <ProjectReference Include="..\..\Suyaa.Hosting\Suyaa.Hosting.csproj" />
-  </ItemGroup>
-
 </Project>

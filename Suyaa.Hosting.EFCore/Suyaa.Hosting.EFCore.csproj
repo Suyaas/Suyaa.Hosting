@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Suyaa.EFCore" Version="1.5.2310.31" />
+    <PackageReference Include="Suyaa.EFCore" Version="1.7.2312.34" />
   </ItemGroup>
 
   <ItemGroup>

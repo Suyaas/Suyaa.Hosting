@@ -1,4 +1,6 @@
-﻿using Suyaa.Hosting.Common.Configures.Helpers;
+﻿using Microsoft.Extensions.Configuration;
+using Suyaa.Configure;
+using Suyaa.Hosting.Common.Configures.Helpers;
 using Suyaa.Hosting.Kernel;
 
 namespace Suyaa.Hosting.Common.Configures.Helpers

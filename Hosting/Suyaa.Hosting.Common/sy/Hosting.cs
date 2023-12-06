@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
+using Suyaa.Hosting.Infrastructure.WebApplications.Dependency;
 using Suyaa.Hosting.Kernel;
-using Suyaa.Hosting.Kernel.Dependency;
 
 namespace sy
 {
@@ -107,18 +107,18 @@ namespace sy
         /// <param name="builder"></param>
         /// <returns></returns>
         public static WebApplication CreateWebApplication<TProvider>(WebApplicationBuilder builder)
-            where TProvider : class, IWebApplicationProvider, new()
+            where TProvider : class, Suyaa.Hosting.Infrastructure.WebApplications.Dependency.IWebApplicationStartup, new()
         {
             // 创建供应商
             var provider = new TProvider();
             // 执行初始化
-            provider.OnInitialize(builder);
+            provider.ConfigureBuilder(builder);
             // 执行服务配置
-            provider.OnConfigureServices(builder.Services);
+            provider.ConfigureServices(builder.Services);
             // 构建应用
             var app = builder.Build();
             // 配置应用
-            provider.OnConfigureApplication(app);
+            provider.ConfigureApplication(app);
             // 应用配置
             return app;
         }
@@ -129,7 +129,7 @@ namespace sy
         /// <typeparam name="TProvider"></typeparam>
         /// <returns></returns>
         public static WebApplication CreateWebApplication<TProvider>(string[] args)
-            where TProvider : class, IWebApplicationProvider, new()
+            where TProvider : class, Suyaa.Hosting.Infrastructure.WebApplications.Dependency.IWebApplicationStartup, new()
         {
             // 新建一个构建器
             var builder = WebApplication.CreateBuilder(args);
@@ -142,7 +142,7 @@ namespace sy
         /// <typeparam name="TProvider"></typeparam>
         /// <returns></returns>
         public static WebApplication CreateWebApplication<TProvider>(WebApplicationOptions options)
-            where TProvider : class, IWebApplicationProvider, new()
+            where TProvider : class, Suyaa.Hosting.Infrastructure.WebApplications.Dependency.IWebApplicationStartup, new()
         {
             // 新建一个构建器
             var builder = WebApplication.CreateBuilder(options);

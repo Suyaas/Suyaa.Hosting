@@ -4,7 +4,29 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Description>舒雅主机服务组件中的核心域处理</Description>
+    <Version>1.9.2310.55</Version>
+    <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
+    <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
+    <PackageProjectUrl>https://github.com/Suyaas/Suyaa.Hosting</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Suyaas/Suyaa.Hosting</RepositoryUrl>
+    <PackageIcon>Suyaa_red_128.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>host,core</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon\Suyaa_red_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Suyaa.Hosting.Common\Suyaa.Hosting.Common.csproj" />

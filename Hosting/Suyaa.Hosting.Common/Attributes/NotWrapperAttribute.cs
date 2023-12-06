@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Kernel.Attributes
+﻿namespace Suyaa.Hosting.Common.Attributes
 {
     /// <summary>
     /// 去除包裹层

@@ -1,5 +1,7 @@
 ﻿using Suyaa.Data;
+using Suyaa.Data.Dependency;
 using Suyaa.EFCore;
+using Suyaa.EFCore.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,12 +31,12 @@ namespace Suyaa.Hosting.EFCore.Dependency
         /// </summary>
         /// <param name="descriptor"></param>
         /// <returns></returns>
-        DbDescriptorContext? GetDbContext(DbConnectionDescriptor descriptor);
+        DescriptorDbContext? GetDbContext(IDbConnectionDescriptor descriptor);
 
         /// <summary>
         /// 设置数据库上下文
         /// </summary>
         /// <param name="dbContext"></param>
-        void SetDbContext(DbDescriptorContext dbContext);
+        void SetDbContext(DescriptorDbContext dbContext);
     }
 }

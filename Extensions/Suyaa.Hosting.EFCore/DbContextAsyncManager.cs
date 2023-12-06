@@ -1,4 +1,5 @@
 ﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
+using Suyaa.Hosting.Common.DependencyManager.Helpers;
 using Suyaa.Hosting.EFCore.Dependency;
 using System;
 using System.Collections.Generic;

@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Routing;
 using Suyaa.Hosting.Infrastructure;
 using System.Reflection;
 
-namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
+namespace Suyaa.Hosting.App.ModelConventions
 {
     /// <summary>
     /// 服务行为约定器
@@ -45,17 +46,17 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
             foreach (var selector in action.Selectors)
             {
                 if (selector.AttributeRouteModel is null) continue;
-                AttributeRouteModel routeModel= selector.AttributeRouteModel;
+                AttributeRouteModel routeModel = selector.AttributeRouteModel;
                 var httpMethodMetadata = (HttpMethodMetadata?)selector.EndpointMetadata.Where(d => d is HttpMethodMetadata).FirstOrDefault();
                 if (httpMethodMetadata is null) continue;
                 // 判断是否为GET
-                if(httpMethodMetadata.HttpMethods.Contains(Resources.String_Get_Upper))
+                if (httpMethodMetadata.HttpMethods.Contains(Resources.Strings.String_Get_Upper))
                 {
                     selector.EndpointMetadata.Clear();
                     selector.ActionConstraints.Clear();
                     // 添加Post方式
-                    selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.String_Post_Upper }));
-                    selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.String_Post_Upper }));
+                    selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.Strings.String_Post_Upper }));
+                    selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.Strings.String_Post_Upper }));
                     continue;
                 }
                 // 判断是否定义了Route
@@ -87,41 +88,41 @@ namespace Suyaa.Hosting.Kernel.ApplicationModelConventions
                 {
                     string methodName = method.Name.ToLower();
                     // 自动Get方式
-                    if (methodName.StartsWith(Resources.String_Get_Lower))
+                    if (methodName.StartsWith(Resources.Strings.String_Get_Lower))
                     {
-                        selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.String_Get_Upper }));
+                        selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.Strings.String_Get_Upper }));
                         //selector.EndpointMetadata.Add(new HttpGetAttribute("[action]"));
                         routeModel = new AttributeRouteModel(new HttpGetAttribute()) { Template = method.Name };
                         selector.AttributeRouteModel = routeModel;
-                        selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.String_Get_Upper }));
+                        selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.Strings.String_Get_Upper }));
                         continue;
                     }
                     // 自动Put方式
-                    if (methodName.StartsWith(Resources.String_Update_Lower))
+                    if (methodName.StartsWith(Resources.Strings.String_Update_Lower))
                     {
-                        selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.String_PUT_Upper }));
+                        selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.Strings.String_PUT_Upper }));
                         //selector.EndpointMetadata.Add(new HttpGetAttribute("[action]"));
                         routeModel = new AttributeRouteModel(new HttpGetAttribute()) { Template = method.Name };
                         selector.AttributeRouteModel = routeModel;
-                        selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.String_PUT_Upper }));
+                        selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.Strings.String_PUT_Upper }));
                         continue;
                     }
                     // 自动Delete方式
-                    if (methodName.StartsWith(Resources.String_Delete_Lower))
+                    if (methodName.StartsWith(Resources.Strings.String_Delete_Lower))
                     {
-                        selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.String_Delete_Upper }));
+                        selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.Strings.String_Delete_Upper }));
                         //selector.EndpointMetadata.Add(new HttpGetAttribute("[action]"));
                         routeModel = new AttributeRouteModel(new HttpGetAttribute()) { Template = method.Name };
                         selector.AttributeRouteModel = routeModel;
-                        selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.String_Delete_Upper }));
+                        selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.Strings.String_Delete_Upper }));
                         continue;
                     }
                     // 默认为Post方式
-                    selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.String_Post_Upper }));
+                    selector.EndpointMetadata.Add(new HttpMethodMetadata(new List<string>() { Resources.Strings.String_Post_Upper }));
                     //selector.EndpointMetadata.Add(new HttpGetAttribute("[action]"));
                     routeModel = new AttributeRouteModel(new HttpGetAttribute()) { Template = method.Name };
                     selector.AttributeRouteModel = routeModel;
-                    selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.String_Post_Upper }));
+                    selector.ActionConstraints.Add(new HttpMethodActionConstraint(new List<string>() { Resources.Strings.String_Post_Upper }));
                     continue;
                 }
                 // 判断是否定义了Route

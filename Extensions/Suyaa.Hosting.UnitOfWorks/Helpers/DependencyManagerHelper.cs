@@ -1,4 +1,4 @@
-﻿using Suyaa.DependencyInjection;
+﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
 
 namespace Suyaa.Hosting.Multilingual.Helpers
 {

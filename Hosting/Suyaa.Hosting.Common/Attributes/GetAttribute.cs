@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Suyaa.Hosting.Kernel.Attributes
+namespace Suyaa.Hosting.Common.Attributes
 {
     /// <summary>
     /// Get方法特性

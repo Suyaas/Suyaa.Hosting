@@ -1,4 +1,8 @@
-﻿using Suyaa.EFCore;
+﻿using Suyaa.Data.Dependency;
+using Suyaa.Data.Descriptors;
+using Suyaa.EFCore;
+using Suyaa.EFCore.Contexts;
+using Suyaa.EFCore.Descriptors;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Data.Dependency;
 using Suyaa.Hosting.EFCore.Dependency;
@@ -38,7 +42,7 @@ namespace Suyaa.Hosting.EFCore
         #endregion
 
         // 获取实例描述
-        private DbEntityDescriptor GetDbEntity()
+        private DbSetDescriptor GetDbEntity()
         {
             var descriptor = _dbContextFactory.GetEntity<TEntity>();
             if (descriptor is null) throw new HostException($"Entity '{typeof(TEntity).FullName}' not found.");
@@ -46,7 +50,7 @@ namespace Suyaa.Hosting.EFCore
         }
 
         // 获取实例描述
-        private DbDescriptorContext GetDbContext(DbEntityDescriptor descriptor)
+        private DescriptorDbContext GetDbContext(DbSetDescriptor descriptor)
         {
             var work = _dbContextAsyncProvider.GetCurrentWork();
             if (work is null) throw new HostException($"DbContextWork not found.");
@@ -54,7 +58,7 @@ namespace Suyaa.Hosting.EFCore
             if (dbContext is null)
             {
                 //throw new HostException($"DbContext not found.");
-                dbContext = (DbDescriptorContext)_dependencyManager.Resolve(descriptor.Context);
+                dbContext = (DescriptorDbContext)_dependencyManager.Resolve(descriptor.Context);
                 work.SetDbContext(dbContext);
                 dbContext = work.GetDbContext(descriptor.ConnectionDescriptor);
                 if (dbContext is null) throw new HostException($"DbContext not found.");
@@ -63,7 +67,7 @@ namespace Suyaa.Hosting.EFCore
         }
 
         // 获取实例描述
-        private IQueryable<TEntity> GetDbSet(DbDescriptorContext context, DbEntityDescriptor entity)
+        private IQueryable<TEntity> GetDbSet(DescriptorDbContext context, EntityDescriptor entity)
         {
             //var dbSet = entity.DbSet.GetValue(context);
             //if (dbSet is null) throw new HostException($"DbSet '{entity.Entity.FullName}' not in context '{entity.Context.FullName}'.");

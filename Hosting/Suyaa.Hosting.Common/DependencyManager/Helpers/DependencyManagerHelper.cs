@@ -360,7 +360,7 @@ namespace Suyaa.Hosting.Common.DependencyManager.Helpers
         /// <param name="manager"></param>
         public static T Resolve<T>(this IDependencyManager manager)
         {
-            return manager.Resolve(typeof(T));
+            return (T)manager.Resolve(typeof(T));
         }
 
         /// <summary>

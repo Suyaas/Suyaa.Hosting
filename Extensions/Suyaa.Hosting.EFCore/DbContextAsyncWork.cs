@@ -1,5 +1,6 @@
 ﻿using Suyaa.Data;
 using Suyaa.EFCore;
+using Suyaa.EFCore.Contexts;
 using Suyaa.Hosting.EFCore.Dependency;
 using Suyaa.Hosting.EFCore.Helpers;
 using System;
@@ -20,7 +21,7 @@ namespace Suyaa.Hosting.EFCore
 
         private readonly IDbContextAsyncProvider _dbContextAsyncProvider;
         private readonly IDbContextFactory _dbContextFactory;
-        private readonly Dictionary<string, DbDescriptorTypeContext> _dbContexts;
+        private readonly Dictionary<string, DescriptorTypeDbContext> _dbContexts;
         //private DynamicDbContext? _dbContext;
 
         /// <summary>
@@ -34,7 +35,7 @@ namespace Suyaa.Hosting.EFCore
             this.IsCompleted = false;
             _dbContextAsyncProvider = dbContextAsyncProvider;
             _dbContextFactory = dbContextFactory;
-            _dbContexts = new Dictionary<string, DbDescriptorTypeContext>();
+            _dbContexts = new Dictionary<string, DescriptorTypeDbContext>();
         }
 
         #endregion
@@ -44,7 +45,7 @@ namespace Suyaa.Hosting.EFCore
         /// </summary>
         /// <param name="descriptor"></param>
         /// <returns></returns>
-        public DbDescriptorContext? GetDbContext(DbConnectionDescriptor descriptor)
+        public DescriptorDbContext? GetDbContext(DbConnectionDescriptor descriptor)
         {
             if (_dbContexts.ContainsKey(descriptor.Name)) return _dbContexts[descriptor.Name];
             return null;
@@ -54,10 +55,10 @@ namespace Suyaa.Hosting.EFCore
         /// 设置数据库上下文
         /// </summary>
         /// <param name="dbContext"></param>
-        public void SetDbContext(DbDescriptorContext dbContext)
+        public void SetDbContext(DescriptorDbContext dbContext)
         {
             if (_dbContexts.ContainsKey(dbContext.ConnectionDescriptor.Name)) return;
-            _dbContexts.Add(dbContext.ConnectionDescriptor.Name, new DbDescriptorTypeContext(dbContext.ConnectionDescriptor, dbContext.Options, _dbContextFactory.GetEntityTypes(dbContext.ConnectionDescriptor.Name)));
+            _dbContexts.Add(dbContext.ConnectionDescriptor.Name, new DescriptorTypeDbContext(dbContext.ConnectionDescriptor, dbContext.Options, _dbContextFactory.GetEntityTypes(dbContext.ConnectionDescriptor.Name)));
         }
 
         /// <summary>

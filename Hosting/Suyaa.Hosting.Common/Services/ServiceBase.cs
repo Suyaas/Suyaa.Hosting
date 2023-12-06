@@ -1,6 +1,6 @@
 ﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
 
-namespace Suyaa.Hosting.Services
+namespace Suyaa.Hosting.Common.Services
 {
     /// <summary>
     /// 服务基础

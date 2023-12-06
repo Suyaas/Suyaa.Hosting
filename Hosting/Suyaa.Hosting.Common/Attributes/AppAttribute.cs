@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 
-namespace Suyaa.Hosting.Kernel.Attributes
+namespace Suyaa.Hosting.Common.Attributes
 {
     /// <summary>
     /// 服务应用特性

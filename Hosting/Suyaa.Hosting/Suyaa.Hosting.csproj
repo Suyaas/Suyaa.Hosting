@@ -7,16 +7,16 @@
 		<OutputType>Library</OutputType>
 		<Version>1.9.2310.55</Version>
 		<Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
-		<Description>舒雅套件中的微服务组件</Description>
+		<Description>舒雅主机服务组件</Description>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<IsPackable>true</IsPackable>
-		<PackageProjectUrl>https://github.com/SuyaaUI/Suyaa.Hosting</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/SuyaaUI/Suyaa.Hosting</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/Suyaas/Suyaa.Hosting</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Suyaas/Suyaa.Hosting</RepositoryUrl>
 		<PackAsTool>False</PackAsTool>
 		<Title>$(AssemblyName)</Title>
-		<PackageIcon>suyaa_256.png</PackageIcon>
+		<PackageIcon>Suyaa_red_128.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageTags>host,microservice,framework</PackageTags>
@@ -36,11 +36,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\icon\suyaa_256.png">
+		<None Include="..\..\icon\Suyaa_red_128.png">
 		  <Pack>True</Pack>
 		  <PackagePath>\</PackagePath>
 		</None>
-		<None Include="..\README.md">
+		<None Include="..\..\README.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>

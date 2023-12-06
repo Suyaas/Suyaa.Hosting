@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Hosting.Common.ActionFilters.Dependency;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
+using Suyaa.Hosting.Common.DependencyManager.Helpers;
 using Suyaa.Hosting.Common.Exceptions;
 
 namespace Suyaa.Hosting.Common.ActionFilters

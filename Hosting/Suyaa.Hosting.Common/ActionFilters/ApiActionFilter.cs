@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Hosting.Common.ActionFilters.Dependency;
+using Suyaa.Hosting.Common.Attributes;
 using Suyaa.Hosting.Common.Exceptions;
-using Suyaa.Hosting.Infrastructure.Dependency;
 using Suyaa.Hosting.Infrastructure.Results;
 using Suyaa.Hosting.Kernel;
-using Suyaa.Hosting.Kernel.Attributes;
 
 namespace Suyaa.Hosting.Common.ActionFilters
 {

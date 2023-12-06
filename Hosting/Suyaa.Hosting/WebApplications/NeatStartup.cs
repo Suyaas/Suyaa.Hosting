@@ -1,34 +1,23 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Suyaa.DependencyInjection;
-using Suyaa.Hosting.Kernel.ActionFilters;
-using Suyaa.Hosting.Kernel.ApplicationModelConventions;
-using Suyaa.Hosting.Kernel.FeatureProviders;
 using Suyaa.Hosting.Kernel;
-using Suyaa.Hosting.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using System.IO;
-using Suyaa.Hosting.Configures;
 using Suyaa.Hosting.Common.WebApplications;
+using Suyaa.Hosting.Infrastructure.Resources;
 
 namespace Suyaa.Hosting.WebApplicationProviders
 {
     /// <summary>
     /// 简洁应用供应商
     /// </summary>
-    public abstract class NeatApplicationProvider : WebApplicationProvider
+    public class NeatStartup : CommonStartup
     {
 
         /// <summary>
         /// 服务配置
         /// </summary>
         /// <param name="services"></param>
-        public override void OnConfigureServices(IServiceCollection services)
+        protected override void OnConfigureServices(IServiceCollection services)
         {
             base.OnConfigureServices(services);
 
@@ -61,7 +50,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
         /// </summary>
         /// <param name="app"></param>
         /// <exception cref="HostException"></exception>
-        public override void OnConfigureApplication(WebApplication app)
+        protected override void OnConfigureApplication(WebApplication app)
         {
             base.OnConfigureApplication(app);
             #region 跨域支持
@@ -74,9 +63,9 @@ namespace Suyaa.Hosting.WebApplicationProviders
         /// 初始化
         /// </summary>
         /// <param name="builder"></param>
-        public override void OnInitialize(WebApplicationBuilder builder)
+        protected override void OnConfigureBuilder(WebApplicationBuilder builder)
         {
-            base.OnInitialize(builder);
+            base.OnConfigureBuilder(builder);
 
             sy.Logger.Debug($"Neat server start ...", LogEvents.Server);
 
@@ -85,7 +74,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
             // 加载多语言配置
             var i18nSection = base.Configuration.GetSection("i18n");
             if (i18nSection is null) throw new HostException($"Configuration section 'i18n' not found.");
-            var i18nPath = i18nSection.GetValue<string>("path");
+            var i18nPath = i18nSection.GetValue<string>("path") ?? string.Empty;
             if (i18nPath.IsNullOrWhiteSpace()) throw new HostException($"Configuration setting 'i18n.path' not found.");
             string i18nFolder = i18nPath;
             if (i18nFolder.StartsWith("./"))

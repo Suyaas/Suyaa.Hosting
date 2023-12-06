@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Suyaa.Hosting;
 using Suyaa.Hosting.Kernel;
+using Suyaa.Hosting.Common.Exceptions;
 
 namespace Suyaa.Hosting.Helpers
 {

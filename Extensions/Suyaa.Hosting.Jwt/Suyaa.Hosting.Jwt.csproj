@@ -9,17 +9,22 @@
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
     <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
     <PackageProjectUrl>https://github.com/Suyaas/Suyaa.Hosting</PackageProjectUrl>
-    <PackageIcon>suyaa_256.png</PackageIcon>
+    <PackageIcon>Suyaa_red_128.png</PackageIcon>
     <RepositoryUrl>https://github.com/Suyaas/Suyaa.Hosting</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <Description>舒雅微服务组件中的JWT支持插件</Description>
     <Title>$(AssemblyName)</Title>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\icon\suyaa_256.png">
+    <None Include="..\..\icon\Suyaa_red_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

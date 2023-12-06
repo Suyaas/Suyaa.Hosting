@@ -1,6 +1,6 @@
-﻿using Suyaa.DependencyInjection;
-using Suyaa.Hosting.Common.ActionFilters.Dependency;
-using System.Reflection;
+﻿using Suyaa.Hosting.Common.ActionFilters.Dependency;
+using Suyaa.Hosting.Common.DependencyManager.Dependency;
+using Suyaa.Hosting.Common.DependencyManager.Helpers;
 
 namespace Suyaa.Hosting.Kernel.Helpers
 {

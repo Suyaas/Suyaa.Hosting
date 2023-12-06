@@ -3,17 +3,19 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Suyaa.Hosting.App.FeatureProviders;
+using Suyaa.Hosting.App.ModelConventions;
 using Suyaa.Hosting.App.Options;
 using Suyaa.Hosting.Common.ActionFilters;
 using Suyaa.Hosting.Common.Configures;
 using Suyaa.Hosting.Common.Configures.Dependency;
 using Suyaa.Hosting.Common.DependencyManager;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Configures;
-using Suyaa.Hosting.Kernel.ApplicationModelConventions;
-using Suyaa.Hosting.Kernel.FeatureProviders;
+using Suyaa.Hosting.Common.DependencyManager.Helpers;
+using Suyaa.Hosting.Common.Modules.Helpers;
+using Suyaa.Hosting.Core.Helpers;
+using Suyaa.Hosting.Infrastructure.Resources;
 using Suyaa.Hosting.Kernel.Helpers;
-using Suyaa.Hosting.Kernel.WebApplicationProviders;
 using System.Reflection;
 
 namespace Suyaa.Hosting.WebApplicationProviders
@@ -21,7 +23,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
     /// <summary>
     /// Api应用供应商
     /// </summary>
-    public abstract class HostAppliactionProvider : NeatApplicationProvider
+    public class HostStartup : NeatStartup
     {
         // 私有变量定义
         private readonly List<Assembly> _assemblies;
@@ -31,7 +33,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
         /// <summary>
         /// Api应用供应商
         /// </summary>
-        public HostAppliactionProvider()
+        public HostStartup()
         {
             _assemblies = new List<Assembly>();
             _paths = new List<string>();
@@ -52,7 +54,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
         /// 配置应用
         /// </summary>
         /// <param name="app"></param>
-        public override void OnConfigureApplication(WebApplication app)
+        protected override void OnConfigureApplication(WebApplication app)
         {
             base.OnConfigureApplication(app);
 
@@ -110,9 +112,9 @@ namespace Suyaa.Hosting.WebApplicationProviders
         /// 初始化
         /// </summary>
         /// <param name="builder"></param>
-        public override void OnInitialize(WebApplicationBuilder builder)
+        protected override void OnConfigureBuilder(WebApplicationBuilder builder)
         {
-            base.OnInitialize(builder);
+            base.OnConfigureBuilder(builder);
 
             #region 应用路径配置
             sy.Logger.Debug($"Server Start ...", LogEvents.Server);
@@ -135,7 +137,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
         /// 服务配置
         /// </summary>
         /// <param name="services"></param>
-        public override void OnConfigureServices(IServiceCollection services)
+        protected override void OnConfigureServices(IServiceCollection services)
         {
             base.OnConfigureServices(services);
 

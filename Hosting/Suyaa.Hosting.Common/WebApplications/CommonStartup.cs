@@ -3,18 +3,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Suyaa.Hosting.Common.Configures;
+using Suyaa.Hosting.Common.Configures.Helpers;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Infrastructure.Helpers;
+using Suyaa.Hosting.Infrastructure.WebApplications;
+using Suyaa.Hosting.Infrastructure.WebApplications.Dependency;
 using Suyaa.Hosting.Kernel;
-using Suyaa.Hosting.Kernel.Dependency;
 using System.Diagnostics;
 
 namespace Suyaa.Hosting.Common.WebApplications
 {
     /// <summary>
-    /// Web应用基础供应商
+    /// Web应用通用启动器
     /// </summary>
-    public abstract class WebApplicationProvider : IWebApplicationProvider
+    public class CommonStartup : BaseStartup
     {
         // 变量定义
         private HostConfig? _hostConfig;
@@ -33,7 +34,7 @@ namespace Suyaa.Hosting.Common.WebApplications
         /// <summary>
         /// Web应用基础供应商
         /// </summary>
-        public WebApplicationProvider()
+        public CommonStartup()
         {
         }
 
@@ -44,13 +45,13 @@ namespace Suyaa.Hosting.Common.WebApplications
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        protected abstract IDependencyManager OnDependencyManagerCreating(IServiceCollection services);
+        protected virtual IDependencyManager OnDependencyManagerCreating(IServiceCollection services) { throw new NotImplementedException(); }
 
         /// <summary>
         /// 依赖配置
         /// </summary>
         /// <param name="dependency"></param>
-        protected abstract void OnConfigureDependency(IDependencyManager dependency);
+        protected virtual void OnConfigureDependency(IDependencyManager dependency) { }
 
         #endregion
 
@@ -58,7 +59,7 @@ namespace Suyaa.Hosting.Common.WebApplications
         /// 服务配置
         /// </summary>
         /// <param name="app"></param>
-        public virtual void OnConfigureApplication(WebApplication app)
+        protected override void OnConfigureApplication(WebApplication app)
         {
             // 兼容开发模式
             if (app.Environment.IsDevelopment())
@@ -82,7 +83,7 @@ namespace Suyaa.Hosting.Common.WebApplications
         /// 服务配置
         /// </summary>
         /// <param name="services"></param>
-        public virtual void OnConfigureServices(IServiceCollection services)
+        protected override void OnConfigureServices(IServiceCollection services)
         {
             // 创建依赖管理器
             IDependencyManager dependency = OnDependencyManagerCreating(services);
@@ -92,10 +93,10 @@ namespace Suyaa.Hosting.Common.WebApplications
         }
 
         /// <summary>
-        /// 初始化
+        /// 构建器配置
         /// </summary>
         /// <param name="builder"></param>
-        public virtual void OnInitialize(WebApplicationBuilder builder)
+        protected override void OnConfigureBuilder(WebApplicationBuilder builder)
         {
             _configuration = builder.Configuration;
 

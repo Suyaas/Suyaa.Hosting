@@ -26,6 +26,12 @@ namespace Suyaa.Hosting.Common.Configures
         private readonly string _name;
         private readonly Type _type;
         private readonly Dictionary<string, string> _values;
+        private TConfig? _config;
+
+        /// <summary>
+        /// 配置信息
+        /// </summary>
+        public TConfig? Config => _config;
 
         /// <summary>
         /// 服务配置供应商
@@ -173,9 +179,9 @@ namespace Suyaa.Hosting.Common.Configures
                 sy.IO.WriteUtf8FileContent(path, json);
             }
             var content = sy.IO.ReadUtf8FileContent(path);
-            var config = sy.Json.Deserialize<TConfig>(content);
+            _config = sy.Json.Deserialize<TConfig>(content);
             // 添加值
-            AddValue(config, _name);
+            AddValue(_config, _name);
         }
 
         ///// <summary>

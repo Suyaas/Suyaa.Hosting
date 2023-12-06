@@ -1,7 +1,6 @@
 ﻿using Suyaa.Configure;
-using Suyaa;
 
-namespace Suyaa.Hosting.Configures
+namespace Suyaa.Hosting.Multilingual.Configures
 {
     /// <summary>
     /// 多语言配置信息
@@ -28,15 +27,15 @@ namespace Suyaa.Hosting.Configures
         /// </summary>
         public void Default()
         {
-            this.Name = "zh_cn";
-            this.Decription = "Simplified Chinese";
+            Name = "zh_cn";
+            Decription = "Simplified Chinese";
             I18nStatement statement = new I18nStatement()
             {
                 Content = "Notice: {0}",
                 Decription = "Notice: {0}",
             };
-            statement.Key = this.Decription.GetSha256();
-            this.Statements.Add(statement);
+            statement.Key = Decription.GetSha256();
+            Statements.Add(statement);
         }
     }
 

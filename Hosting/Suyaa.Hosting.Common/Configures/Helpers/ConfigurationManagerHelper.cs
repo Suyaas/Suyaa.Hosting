@@ -12,11 +12,12 @@ namespace Suyaa.Hosting.Common.Configures.Helpers
         /// 添加Kestrel配置
         /// </summary>
         /// <returns></returns>
-        public static ConfigurationManager AddConfigurationSource<TConfig>(this ConfigurationManager manager)
+        public static ConfigurationSource<TConfig> AddConfigurationSource<TConfig>(this ConfigurationManager manager)
             where TConfig : class, IConfig, new()
         {
-            manager.Sources.Add(new ConfigurationSource<TConfig>());
-            return manager;
+            var source = new ConfigurationSource<TConfig>();
+            manager.Sources.Add(source);
+            return source;
         }
     }
 }

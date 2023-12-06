@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Kernel.Dependency
+﻿namespace Suyaa.Hosting.Data.Dependency
 {
     /// <summary>
     /// 拥有租户

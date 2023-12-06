@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
-using Suyaa.Hosting.Infrastructure.Enums;
+using Suyaa.Hosting.Infrastructure.Exceptions.Enums;
 
 namespace Suyaa.Hosting.Infrastructure.Results
 {

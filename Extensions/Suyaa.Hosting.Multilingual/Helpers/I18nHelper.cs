@@ -1,6 +1,6 @@
 ﻿using Suyaa.Hosting.Common.Exceptions;
 using Suyaa.Hosting.Configures;
-using Suyaa.Hosting.Kernel;
+using Suyaa.Hosting.Infrastructure.Exceptions;
 using Suyaa.Hosting.Multilingual.Dependency;
 
 namespace Suyaa.Hosting.Helpers

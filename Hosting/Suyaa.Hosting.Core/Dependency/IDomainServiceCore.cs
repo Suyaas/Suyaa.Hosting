@@ -1,6 +1,4 @@
-﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
-
-namespace Suyaa.Hosting.Kernel.Dependency
+﻿namespace Suyaa.Hosting.Core.Dependency
 {
     /// <summary>
     /// 核心服务接口

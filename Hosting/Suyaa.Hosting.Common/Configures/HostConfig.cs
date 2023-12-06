@@ -1,10 +1,12 @@
 ﻿using Suyaa.Configure;
+using Suyaa.Hosting.Common.Configures.Attributes;
 
 namespace Suyaa.Hosting.Common.Configures
 {
     /// <summary>
     /// 主机服务配置
     /// </summary>
+    [Configuration("Hosting")]
     public class HostConfig : IConfig
     {
         /// <summary>
@@ -87,7 +89,7 @@ namespace Suyaa.Hosting.Common.Configures
     /// <summary>
     /// 主机服务Swagger配置
     /// </summary>
-    public class HostSwaggerConfig
+    public sealed class HostSwaggerConfig
     {
 
         /// <summary>

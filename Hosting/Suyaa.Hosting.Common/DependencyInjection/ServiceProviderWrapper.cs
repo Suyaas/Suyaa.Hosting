@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Suyaa.Hosting.Common.DependencyManager
+namespace Suyaa.Hosting.Common.DependencyInjection
 {
     /// <summary>
     /// 服务提供商包裹层

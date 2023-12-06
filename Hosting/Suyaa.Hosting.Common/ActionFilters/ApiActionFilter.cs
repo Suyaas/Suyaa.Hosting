@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Hosting.Common.ActionFilters.Dependency;
 using Suyaa.Hosting.Common.Attributes;
 using Suyaa.Hosting.Common.Exceptions;
+using Suyaa.Hosting.Infrastructure.Exceptions;
 using Suyaa.Hosting.Infrastructure.Results;
-using Suyaa.Hosting.Kernel;
 
 namespace Suyaa.Hosting.Common.ActionFilters
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using Suyaa.Hosting.Infrastructure.Exceptions;
 using Suyaa.Hosting.Jwt.Dependency;
 using Suyaa.Hosting.Jwt.Options;
-using Suyaa.Hosting.Kernel;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;

@@ -4,10 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Suyaa.Hosting.Common.Configures;
 using Suyaa.Hosting.Common.Configures.Helpers;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Infrastructure.Exceptions;
 using Suyaa.Hosting.Infrastructure.WebApplications;
-using Suyaa.Hosting.Infrastructure.WebApplications.Dependency;
-using Suyaa.Hosting.Kernel;
 using System.Diagnostics;
 
 namespace Suyaa.Hosting.Common.WebApplications
@@ -45,7 +45,10 @@ namespace Suyaa.Hosting.Common.WebApplications
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        protected virtual IDependencyManager OnDependencyManagerCreating(IServiceCollection services) { throw new NotImplementedException(); }
+        protected virtual IDependencyManager OnDependencyManagerCreating(IServiceCollection services)
+        {
+            return DependencyManager.Create(services);
+        }
 
         /// <summary>
         /// 依赖配置
@@ -87,7 +90,6 @@ namespace Suyaa.Hosting.Common.WebApplications
         {
             // 创建依赖管理器
             IDependencyManager dependency = OnDependencyManagerCreating(services);
-            sy.Hosting.DependencyManager = dependency;
             // 执行外部注册
             OnConfigureDependency(dependency);
         }
@@ -100,18 +102,21 @@ namespace Suyaa.Hosting.Common.WebApplications
         {
             _configuration = builder.Configuration;
 
+            // 添加所有配置信息
+            builder.AddConfigures();
+
             #region 配置日志
             // 加载Suyaa配置
             sy.Logger.Debug("Load Hosting Config ...");
             // 调试日志输出
             sy.Logger.Factory.UseStringAction(message => { Debug.WriteLine(message); });
             // 执行配置
-            sy.Hosting.LogInvoke(() =>
+            sy.Safety.Invoke(() =>
             {
                 _hostConfig = _configuration.GetHostConfig();
                 // 注册文件日志
                 if (_hostConfig != null) sy.Logger.Factory.UseFile(sy.IO.GetFullPath(_hostConfig.LogPath));
-            });
+            }, ex => { sy.Logger.Error(ex.ToString()); });
             if (_hostConfig is null) return;
             // 更新日志记录器
             sy.Logger.Create();

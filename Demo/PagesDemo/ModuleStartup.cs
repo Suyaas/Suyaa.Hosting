@@ -1,12 +1,6 @@
-﻿using Suyaa.DependencyInjection;
-using Suyaa.Hosting.Kernel.Attributes;
-using Suyaa.Hosting.Kernel.Dependency;
-using Suyaa.Hosting.Kernel.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Suyaa.Hosting.Common.Attributes;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.Modules.Dependency;
 
 [assembly: Module("demo")]
 namespace PagesDemo

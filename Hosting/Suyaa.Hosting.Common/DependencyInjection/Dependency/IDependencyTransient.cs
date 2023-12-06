@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Common.DependencyManager.Dependency
+﻿namespace Suyaa.Hosting.Common.DependencyInjection.Dependency
 {
     /// <summary>
     /// 瞬态依赖

@@ -1,5 +1,5 @@
 ﻿using Suyaa.Hosting.Common.Services;
-using Suyaa.Hosting.Kernel.Dependency;
+using Suyaa.Hosting.Core.Dependency;
 
 namespace Suyaa.Hosting.Core.Services
 {

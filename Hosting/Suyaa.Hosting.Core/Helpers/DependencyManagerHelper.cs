@@ -1,7 +1,7 @@
-﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Common.DependencyManager.Helpers;
+﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Hosting.Common.Modules.Dependency;
-using Suyaa.Hosting.Kernel.Dependency;
+using Suyaa.Hosting.Core.Dependency;
 using System.Reflection;
 
 namespace Suyaa.Hosting.Core.Helpers

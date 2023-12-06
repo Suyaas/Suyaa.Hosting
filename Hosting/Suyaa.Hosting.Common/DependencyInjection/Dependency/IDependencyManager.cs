@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Suyaa.Hosting.Common.DependencyInjection;
 
-namespace Suyaa.Hosting.Common.DependencyManager.Dependency
+namespace Suyaa.Hosting.Common.DependencyInjection.Dependency
 {
     /// <summary>
     /// 依赖管理器

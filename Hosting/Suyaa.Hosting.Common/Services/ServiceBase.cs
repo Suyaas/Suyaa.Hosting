@@ -1,4 +1,5 @@
-﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
+﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection;
 
 namespace Suyaa.Hosting.Common.Services
 {
@@ -10,6 +11,6 @@ namespace Suyaa.Hosting.Common.Services
         /// <summary>
         /// 获取服务供应商
         /// </summary>
-        public IDependencyManager DependencyManager => sy.Hosting.DependencyManager;
+        public IDependencyManager DependencyManager => DependencyInjection.DependencyManager.GetCurrent() ?? throw new NullException<IDependencyManager>();
     }
 }

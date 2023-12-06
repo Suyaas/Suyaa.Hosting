@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Kernel
+﻿namespace Suyaa.Hosting.Infrastructure.Exceptions
 {
     /// <summary>
     /// 主机专用异常

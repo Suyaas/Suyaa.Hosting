@@ -9,16 +9,16 @@ using Suyaa.Hosting.App.Options;
 using Suyaa.Hosting.Common.ActionFilters;
 using Suyaa.Hosting.Common.Configures;
 using Suyaa.Hosting.Common.Configures.Dependency;
-using Suyaa.Hosting.Common.DependencyManager;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Common.DependencyManager.Helpers;
+using Suyaa.Hosting.Common.DependencyInjection;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Hosting.Common.Modules.Helpers;
 using Suyaa.Hosting.Core.Helpers;
+using Suyaa.Hosting.Infrastructure.Assemblies.Helpers;
 using Suyaa.Hosting.Infrastructure.Resources;
-using Suyaa.Hosting.Kernel.Helpers;
 using System.Reflection;
 
-namespace Suyaa.Hosting.WebApplicationProviders
+namespace Suyaa.Hosting.WebApplications
 {
     /// <summary>
     /// Api应用供应商
@@ -59,13 +59,13 @@ namespace Suyaa.Hosting.WebApplicationProviders
             base.OnConfigureApplication(app);
 
             #region 添加Swagger支持
-            if (base.HostConfig.IsSwagger)
+            if (HostConfig.IsSwagger)
             {
                 // 使用Swagger
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
-                    foreach (var swagger in base.HostConfig.Swaggers)
+                    foreach (var swagger in HostConfig.Swaggers)
                     {
                         options.SwaggerEndpoint($"/swagger/{swagger.Name}/swagger.json", swagger.Description);
                     }
@@ -81,9 +81,9 @@ namespace Suyaa.Hosting.WebApplicationProviders
             app.UseEndpoints(endpoints =>
             {
                 // 映射所有页面
-                if (base.HostConfig.IsRazorPageSupport) endpoints.MapRazorPages();
+                if (HostConfig.IsRazorPageSupport) endpoints.MapRazorPages();
                 // 映射所有控制器
-                if (base.HostConfig.IsControllerSupport) endpoints.MapControllers();
+                if (HostConfig.IsControllerSupport) endpoints.MapControllers();
             });
             #endregion
         }
@@ -114,6 +114,11 @@ namespace Suyaa.Hosting.WebApplicationProviders
         /// <param name="builder"></param>
         protected override void OnConfigureBuilder(WebApplicationBuilder builder)
         {
+            // 设置配置地址
+            string configurePath = sy.IO.CombinePath(sy.Hosting.GetModulePath<HostStartup>(), "Configure/" + sy.Hosting.GetAspNetCoreEnvironment());
+            sy.IO.CreateFolder(configurePath);
+            builder.Configuration.SetBasePath(configurePath);
+
             base.OnConfigureBuilder(builder);
 
             #region 应用路径配置
@@ -151,7 +156,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
             option.AddAssemblies(_assemblies);
 
             // 根据配置添加所有的控制器
-            if (base.HostConfig.IsControllerSupport)
+            if (HostConfig.IsControllerSupport)
             {
                 services.AddControllers(options =>
                 {
@@ -178,18 +183,18 @@ namespace Suyaa.Hosting.WebApplicationProviders
 
             #region 添加页面配置
             // 根据配置添加所有的控制器
-            if (base.HostConfig.IsRazorPageSupport)
+            if (HostConfig.IsRazorPageSupport)
             {
                 services.AddRazorPages(_assemblies);
             }
             #endregion
 
             #region 添加Swagger配置
-            if (base.HostConfig.IsSwagger)
+            if (HostConfig.IsSwagger)
             {
                 services.AddSwaggerGen(options =>
                 {
-                    foreach (var swagger in base.HostConfig.Swaggers)
+                    foreach (var swagger in HostConfig.Swaggers)
                     {
                         options.SwaggerDoc(swagger.Name, new OpenApiInfo { Title = swagger.Description, Version = swagger.Name });
                     }
@@ -204,7 +209,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
                     }
                     options.DocInclusionPredicate((docName, description) =>
                     {
-                        var swagger = base.HostConfig.Swaggers.Where(d => d.Name == docName).FirstOrDefault();
+                        var swagger = HostConfig.Swaggers.Where(d => d.Name == docName).FirstOrDefault();
                         if (swagger is null) return false;
                         if (swagger.Keyword == "*") return true;
                         if (description.RelativePath is null) return false;
@@ -219,7 +224,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
             #endregion
 
             #region 配置Razor页面
-            if (base.HostConfig.IsRazorPageSupport) services.AddRazorPages();
+            if (HostConfig.IsRazorPageSupport) services.AddRazorPages();
             #endregion
 
             // 输出服务注册日志

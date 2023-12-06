@@ -1,28 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Suyaa.Hosting.Infrastructure.Assemblies.Helpers;
 using System.Reflection;
 
-namespace Suyaa.Hosting.Kernel.Helpers
+namespace Suyaa.Hosting.Infrastructure.Assemblies.Helpers
 {
-    /* 容器扩展 - 程序集相关 */
-    public static partial class ServiceCollectionHelper
+    /// <summary>
+    /// 容器扩展
+    /// </summary>
+    public static class ServiceCollectionHelper
     {
-
-        /// <summary>
-        /// 添加程序集列表
-        /// </summary>
-        /// <param name="builder"></param>
-        /// <param name="assemblies"></param>
-        /// <returns></returns>
-        public static IMvcBuilder AddAssemblyList(this IMvcBuilder builder, List<Assembly> assemblies)
-        {
-            // 添加程序集
-            foreach (var ass in assemblies)
-            {
-                builder.AddApplicationPart(ass);
-            }
-            return builder;
-        }
 
         /// <summary>
         /// 添加控制器

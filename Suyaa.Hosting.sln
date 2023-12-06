@@ -57,7 +57,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.Multilingual"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWorks", "Extensions\Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWorks.csproj", "{5F265A2B-733D-4601-B8E2-0FDD93A0AFEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniHosting", "Demo\MiniHosting\MiniHosting.csproj", "{AE613337-314E-4A32-A10B-3A8ED48BDBDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniHosting", "Demo\MiniHosting\MiniHosting.csproj", "{AE613337-314E-4A32-A10B-3A8ED48BDBDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleHosting", "Demo\SimpleHosting\SimpleHosting.csproj", "{8160F53D-4503-4EB8-BE8C-5B4AE22A58A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,6 +159,10 @@ Global
 		{AE613337-314E-4A32-A10B-3A8ED48BDBDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE613337-314E-4A32-A10B-3A8ED48BDBDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE613337-314E-4A32-A10B-3A8ED48BDBDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8160F53D-4503-4EB8-BE8C-5B4AE22A58A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8160F53D-4503-4EB8-BE8C-5B4AE22A58A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8160F53D-4503-4EB8-BE8C-5B4AE22A58A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8160F53D-4503-4EB8-BE8C-5B4AE22A58A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -185,6 +191,7 @@ Global
 		{A7F8AFA0-D7FB-4736-B34C-BD1F0D3917EB} = {DE8313FA-094C-4842-93FE-5271C5486F0E}
 		{5F265A2B-733D-4601-B8E2-0FDD93A0AFEF} = {DE8313FA-094C-4842-93FE-5271C5486F0E}
 		{AE613337-314E-4A32-A10B-3A8ED48BDBDC} = {34DB06AB-CBE9-491C-8D82-0EE5C958C4FE}
+		{8160F53D-4503-4EB8-BE8C-5B4AE22A58A7} = {34DB06AB-CBE9-491C-8D82-0EE5C958C4FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23FC978D-1BFE-4D83-8947-4484CE603405}

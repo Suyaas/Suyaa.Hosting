@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Suyaa.Hosting.Common.DependencyManager
+namespace Suyaa.Hosting.Common.DependencyInjection
 {
     /// <summary>
     /// 生命周期

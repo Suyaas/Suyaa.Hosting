@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Suyaa.Hosting.Kernel;
 using Microsoft.Extensions.Configuration;
 using Suyaa.Hosting.Common.WebApplications;
 using Suyaa.Hosting.Infrastructure.Resources;
+using Suyaa.Hosting.Infrastructure.Exceptions;
 
-namespace Suyaa.Hosting.WebApplicationProviders
+namespace Suyaa.Hosting.WebApplications
 {
     /// <summary>
     /// 简洁应用供应商
@@ -55,7 +55,7 @@ namespace Suyaa.Hosting.WebApplicationProviders
             base.OnConfigureApplication(app);
             #region 跨域支持
             // 添加跨域支持
-            if (base.HostConfig.IsCorsAll) app.UseCors(CrosTypes.ALL);
+            if (HostConfig.IsCorsAll) app.UseCors(CrosTypes.ALL);
             #endregion
         }
 
@@ -72,22 +72,22 @@ namespace Suyaa.Hosting.WebApplicationProviders
             #region 多语言配置
             sy.Logger.Debug("Load i18n ...");
             // 加载多语言配置
-            var i18nSection = base.Configuration.GetSection("i18n");
-            if (i18nSection is null) throw new HostException($"Configuration section 'i18n' not found.");
-            var i18nPath = i18nSection.GetValue<string>("path") ?? string.Empty;
-            if (i18nPath.IsNullOrWhiteSpace()) throw new HostException($"Configuration setting 'i18n.path' not found.");
-            string i18nFolder = i18nPath;
-            if (i18nFolder.StartsWith("./"))
-            {
-                i18nFolder = sy.IO.GetExecutionPath(i18nPath.Substring(2));
-            }
-            if (i18nFolder.StartsWith("~/"))
-            {
-                i18nFolder = sy.IO.GetWorkPath(i18nPath.Substring(2));
-            }
-            sy.IO.CreateFolder(i18nFolder);
-            var i18nName = i18nSection.GetValue<string>("language");
-            if (i18nName.IsNullOrWhiteSpace()) throw new HostException($"Configuration setting 'i18n.language' not found.");
+            //var i18nSection = Configuration.GetSection("i18n");
+            //if (i18nSection is null) throw new HostException($"Configuration section 'i18n' not found.");
+            //var i18nPath = i18nSection.GetValue<string>("path") ?? string.Empty;
+            //if (i18nPath.IsNullOrWhiteSpace()) throw new HostException($"Configuration setting 'i18n.path' not found.");
+            //string i18nFolder = i18nPath;
+            //if (i18nFolder.StartsWith("./"))
+            //{
+            //    i18nFolder = sy.IO.GetExecutionPath(i18nPath.Substring(2));
+            //}
+            //if (i18nFolder.StartsWith("~/"))
+            //{
+            //    i18nFolder = sy.IO.GetWorkPath(i18nPath.Substring(2));
+            //}
+            //sy.IO.CreateFolder(i18nFolder);
+            //var i18nName = i18nSection.GetValue<string>("language");
+            //if (i18nName.IsNullOrWhiteSpace()) throw new HostException($"Configuration setting 'i18n.language' not found.");
             #endregion
 
             sy.Logger.Debug($"Neat server completed.", LogEvents.Server);

@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Kernel.Dependency
+﻿namespace Suyaa.Hosting.Common.Sessions.Dependency
 {
     /// <summary>
     /// 交互信息

@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Kernel.Dependency
+﻿namespace Suyaa.Hosting.Data.Dependency
 {
     /// <summary>
     /// 拥有带审计的删除信息

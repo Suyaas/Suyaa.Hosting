@@ -23,4 +23,8 @@
     <PackageReference Include="Suyaa.EFCore.SqlServer" Version="1.5.2310.30" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Hosting\Suyaa.Hosting\Suyaa.Hosting.csproj" />
+  </ItemGroup>
+
 </Project>

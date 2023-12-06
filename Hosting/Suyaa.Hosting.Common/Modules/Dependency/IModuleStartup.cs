@@ -1,4 +1,4 @@
-﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
+﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 
 namespace Suyaa.Hosting.Common.Modules.Dependency
 {

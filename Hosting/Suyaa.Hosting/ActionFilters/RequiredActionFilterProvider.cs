@@ -7,9 +7,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection.Metadata;
 using System;
 using Microsoft.OpenApi.Models;
-using Suyaa.Hosting.Infrastructure.Enums;
-using Suyaa.Hosting.Common.ActionFilters.Dependency;
 using Suyaa.Hosting.Common.Exceptions;
+using Suyaa.Hosting.Infrastructure.Exceptions.Enums;
+using Suyaa.Hosting.Common.ActionFilters.Dependency;
 
 namespace Suyaa.Hosting.EFCore.ActionFilters
 {

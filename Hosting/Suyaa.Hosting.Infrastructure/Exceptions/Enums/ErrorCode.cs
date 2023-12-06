@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Suyaa.Hosting.Infrastructure.Enums
+namespace Suyaa.Hosting.Infrastructure.Exceptions.Enums
 {
     /// <summary>
     /// 错误码

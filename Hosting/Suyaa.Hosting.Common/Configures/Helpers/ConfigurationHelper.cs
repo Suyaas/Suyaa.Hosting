@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Suyaa.Configure;
-using Suyaa.Hosting.Common.Configures.Helpers;
-using Suyaa.Hosting.Kernel;
+using Suyaa.Hosting.Infrastructure.Exceptions;
 
 namespace Suyaa.Hosting.Common.Configures.Helpers
 {

@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Threading;
 
-namespace Suyaa.Hosting.Common.DependencyManager
+namespace Suyaa.Hosting.Common.DependencyInjection
 {
     /// <summary>
     /// 依赖控制器
@@ -18,6 +16,32 @@ namespace Suyaa.Hosting.Common.DependencyManager
         private readonly List<Assembly> _assemblies;
         // 异步上下文
         private readonly AsyncLocal<ServiceProviderWrapper> _asyncLocal = new AsyncLocal<ServiceProviderWrapper>();
+
+        #region 静态方法
+
+        // 当前依赖管理器
+        private static IDependencyManager? _dependencyManager;
+
+        /// <summary>
+        /// 获取当前依赖管理器
+        /// </summary>
+        /// <returns></returns>
+        public static IDependencyManager? GetCurrent()
+        {
+            return _dependencyManager;
+        }
+
+        /// <summary>
+        /// 创建一个依赖管理器
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static IDependencyManager Create(IServiceCollection services)
+        {
+            _dependencyManager = new DependencyManager(services);
+            return _dependencyManager;
+        }
+        #endregion
 
         /// <summary>
         /// 服务集合

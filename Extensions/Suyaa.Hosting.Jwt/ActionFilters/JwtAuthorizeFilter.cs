@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Common.Exceptions;
+using Suyaa.Hosting.Common.Sessions.Dependency;
+using Suyaa.Hosting.Infrastructure.Exceptions;
 using Suyaa.Hosting.Jwt.Dependency;
 using Suyaa.Hosting.Jwt.Options;
-using Suyaa.Hosting.Kernel;
-using Suyaa.Hosting.Kernel.Dependency;
 
 namespace Suyaa.Hosting.Jwt.ActionFilters
 {

@@ -1,11 +1,6 @@
-﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 
-namespace Suyaa.Hosting.Common.DependencyManager
+namespace Suyaa.Hosting.Common.DependencyInjection
 {
     /// <summary>
     /// 类型集合

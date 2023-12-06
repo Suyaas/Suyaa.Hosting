@@ -1,5 +1,6 @@
 ﻿using Suyaa.EFCore;
 using Suyaa.EFCore.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyManager;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Data.Dependency;

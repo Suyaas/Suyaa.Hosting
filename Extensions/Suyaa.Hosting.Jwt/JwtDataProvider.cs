@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Jwt.Dependency;
 using Suyaa.Hosting.Jwt.Options;

@@ -1,4 +1,5 @@
-﻿using Suyaa.Hosting.Common.DependencyManager;
+﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.DependencyManager;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Configures;
 using Suyaa.Hosting.Multilingual.Dependency;

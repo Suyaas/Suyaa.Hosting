@@ -1,8 +1,8 @@
 ﻿using Suyaa.Hosting.Common.ActionFilters.Dependency;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Common.DependencyManager.Helpers;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 
-namespace Suyaa.Hosting.Kernel.Helpers
+namespace Suyaa.Hosting.Common.ActionFilters.Helpers
 {
     /// <summary>
     /// 容器扩展

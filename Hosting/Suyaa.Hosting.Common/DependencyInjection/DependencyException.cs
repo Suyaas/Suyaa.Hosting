@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Suyaa.Hosting.Common.DependencyManager
+namespace Suyaa.Hosting.Common.DependencyInjection
 {
     /// <summary>
     /// 依赖异常

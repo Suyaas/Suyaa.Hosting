@@ -1,26 +1,18 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Suyaa.DependencyInjection;
-using Suyaa.DependencyInjection.ServiceCollection;
-using Suyaa.Hosting.Kernel.Helpers;
-using Suyaa.Hosting.WebApplicationProviders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Suyaa.Hosting.AutoMapper.Helpers;
-using Suyaa.Hosting.EFCore.Helpers;
 using Microsoft.Extensions.Configuration;
 using Suyaa;
+using Suyaa.Hosting.WebApplications;
+using Suyaa.Hosting.Common.DependencyInjection;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 
 namespace SqlServerDemo
 {
     /// <summary>
     /// Demo应用供应商
     /// </summary>
-    public sealed class DemoApplicationProvider : HostAppliactionProvider
+    public sealed class DemoApplicationProvider : HostStartup
     {
         /// <summary>
         /// 依赖管理器创建
@@ -29,7 +21,7 @@ namespace SqlServerDemo
         /// <returns></returns>
         protected override IDependencyManager OnDependencyManagerCreating(IServiceCollection services)
         {
-            return new DependencyManager(services);
+            return DependencyManager.Create(services);
         }
 
         /// <summary>
@@ -40,14 +32,14 @@ namespace SqlServerDemo
         {
             // 配置基础依赖
             base.OnConfigureDependency(dependency);
-            // 添加模块注册
-            dependency.AddModuler<ModuleStartup>();
-            // 注册切片
-            dependency.AddActionFilters();
-            // 添加EFCore支持
-            dependency.AddEFCore();
-            // 注册对象映射
-            dependency.AddAutoMapper();
+            //// 添加模块注册
+            //dependency.AddModuler<ModuleStartup>();
+            //// 注册切片
+            //dependency.AddActionFilters();
+            //// 添加EFCore支持
+            //dependency.AddEFCore();
+            //// 注册对象映射
+            //dependency.AddAutoMapper();
         }
 
         /// <summary>
@@ -57,16 +49,16 @@ namespace SqlServerDemo
         protected override void OnConfigureAssembly(IList<Assembly> assemblies)
         {
             base.OnConfigureAssembly(assemblies);
-            assemblies.Import<ModuleStartup>();
+            //assemblies.Import<ModuleStartup>();
         }
 
         /// <summary>
         /// 初始化
         /// </summary>
         /// <param name="builder"></param>
-        public override void OnInitialize(WebApplicationBuilder builder)
+        protected override void OnConfigureBuilder(WebApplicationBuilder builder)
         {
-            base.OnInitialize(builder);
+            base.OnConfigureBuilder(builder);
             string key = "ASPNETCORE_ENVIRONMENT";
             if (Environment.GetEnvironmentVariable(key).IsNullOrWhiteSpace()) Environment.SetEnvironmentVariable(key, "Production");
             builder.Configuration

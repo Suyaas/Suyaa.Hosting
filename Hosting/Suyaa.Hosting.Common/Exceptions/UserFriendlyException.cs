@@ -1,5 +1,4 @@
-﻿using Suyaa.Hosting.Infrastructure.Enums;
-using Suyaa.Hosting.Kernel;
+﻿using Suyaa.Hosting.Infrastructure.Exceptions.Enums;
 
 namespace Suyaa.Hosting.Common.Exceptions
 {

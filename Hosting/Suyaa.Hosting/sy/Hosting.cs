@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Infrastructure.WebApplications.Dependency;
-using Suyaa.Hosting.Kernel;
+using Suyaa;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Infrastructure.Exceptions;
+using System.Diagnostics;
 
 namespace sy
 {
@@ -13,7 +14,7 @@ namespace sy
     public static class Hosting
     {
         // 依赖管理器
-        private static IDependencyManager? _dependency = null;
+        //private static IDependencyManager? _dependency = null;
 
         /// <summary>
         /// 依赖管理器
@@ -22,82 +23,42 @@ namespace sy
         {
             get
             {
-                if (_dependency is null) throw new HostException("Services not found! Please check if \"sy.Hosting.CreateHost\" was called");
-                return _dependency;
+                var dependencyManager = Suyaa.Hosting.Common.DependencyInjection.DependencyManager.GetCurrent();
+                if (dependencyManager is null) throw new NotExistException<IDependencyManager>();
+                //return _dependency;
+                return dependencyManager;
             }
-            internal set
-            {
-                _dependency = value;
-            }
+            //internal set
+            //{
+            //    _dependency = value;
+            //}
         }
 
         /// <summary>
-        /// 创建WehHost
+        /// 获取AspNetCore环境变量
         /// </summary>
-        /// <typeparam name="TStartup"></typeparam>
-        /// <param name="args"></param>
         /// <returns></returns>
-        public static IHost CreateHost<TStartup>(string[]? args = null)
-            where TStartup : class
+        public static string GetAspNetCoreEnvironment()
         {
-            var host = Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(
-                webBuilder =>
-                {
-                    webBuilder.UseStartup<TStartup>();
-                }).Build();
-            // 设置服务服务供应商
-            //_services = host.Services;
-            return host;
+            string key = "ASPNETCORE_ENVIRONMENT";
+            string env = System.Environment.GetEnvironmentVariable(key) ?? "Prod";
+            if (env == "Development") env = "Dev";
+            if (System.Environment.GetEnvironmentVariable(key).IsNullOrWhiteSpace()) System.Environment.SetEnvironmentVariable(key, env);
+            return env;
         }
 
-
         /// <summary>
-        /// 创建WehHost
+        /// 获取模块基目录
         /// </summary>
-        /// <typeparam name="TStartup"></typeparam>
-        /// <param name="configure"></param>
-        /// <param name="args"></param>
+        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static IHost CreateHost<TStartup>(Action<IWebHostBuilder> configure, string[]? args = null)
-            where TStartup : class
+        public static string GetModulePath<T>()
+            where T : class
         {
-            var host = Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(
-                webBuilder =>
-                {
-                    // 执行配置
-                    configure(webBuilder);
-                    webBuilder.UseStartup<TStartup>();
-                }).Build();
-            // 设置服务服务供应商
-            //_services = host.Services;
-            return host;
-        }
-
-
-        /// <summary>
-        /// 创建WehHost
-        /// </summary>
-        /// <typeparam name="TStartup"></typeparam>
-        /// <param name="configure"></param>
-        /// <param name="configureBuilder"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static IHost CreateHost<TStartup>(Action<IWebHostBuilder> configure, Action<IHostBuilder> configureBuilder, string[]? args = null)
-            where TStartup : class
-        {
-            var builder = Host.CreateDefaultBuilder(args).ConfigureWebHostDefaults(
-                webBuilder =>
-                {
-                    // 执行配置
-                    configure(webBuilder);
-                    webBuilder.UseStartup<TStartup>();
-                });
-            // 配置
-            configureBuilder(builder);
-            var host = builder.Build();
-            // 设置服务服务供应商
-            //_services = host.Services;
-            return host;
+            using var processModule = Process.GetCurrentProcess().MainModule;
+            var filePath = typeof(T).Assembly.Location;
+            var folder = sy.IO.GetFolderPath(filePath);
+            return folder;
         }
 
         /// <summary>

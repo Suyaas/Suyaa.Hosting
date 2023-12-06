@@ -3,6 +3,7 @@ using Suyaa.Data.Descriptors;
 using Suyaa.EFCore;
 using Suyaa.EFCore.Contexts;
 using Suyaa.EFCore.Descriptors;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Data.Dependency;
 using Suyaa.Hosting.EFCore.Dependency;

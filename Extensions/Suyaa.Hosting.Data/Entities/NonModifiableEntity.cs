@@ -1,7 +1,7 @@
 ﻿using Suyaa.Data.Attributes;
 using Suyaa.Data.Entities;
 using Suyaa.Data.Enums;
-using Suyaa.Hosting.Kernel.Dependency;
+using Suyaa.Hosting.Data.Dependency;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

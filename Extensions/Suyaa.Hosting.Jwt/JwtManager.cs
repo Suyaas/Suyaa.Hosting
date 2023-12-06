@@ -1,4 +1,5 @@
-﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
+﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Jwt.Dependency;
 using System.Runtime;
 using System.Xml.Linq;

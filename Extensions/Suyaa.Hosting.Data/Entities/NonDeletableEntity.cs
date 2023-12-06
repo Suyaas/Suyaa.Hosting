@@ -1,6 +1,5 @@
 ﻿using Suyaa.Data.Attributes;
 using Suyaa.Data.Enums;
-using Suyaa.Hosting.Kernel.Dependency;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Suyaa.Hosting.Data.Dependency;
 
 namespace Suyaa.Hosting.Data.Entities
 {

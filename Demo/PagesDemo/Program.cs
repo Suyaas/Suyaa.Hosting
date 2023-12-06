@@ -2,4 +2,4 @@
 //Console.WriteLine("Hello, World!");
 using PagesDemo;
 
-sy.Hosting.CreateWebApplication<DemoApplicationProvider>(args).Run();
+sy.Hosting.CreateWebApplication<DemoStartup>(args).Run();

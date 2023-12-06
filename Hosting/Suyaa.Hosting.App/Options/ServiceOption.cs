@@ -1,6 +1,5 @@
 ﻿using Suyaa.Hosting.App.Dependency;
 using Suyaa.Hosting.Common.Attributes;
-using Suyaa.Hosting.Kernel.Dependency;
 using System.Reflection;
 
 namespace Suyaa.Hosting.App.Options

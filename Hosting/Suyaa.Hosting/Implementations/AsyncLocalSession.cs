@@ -1,10 +1,5 @@
-﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Kernel.Dependency;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.Sessions.Dependency;
 
 namespace Suyaa.Hosting.Implementations
 {

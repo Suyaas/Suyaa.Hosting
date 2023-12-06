@@ -1,17 +1,16 @@
-﻿using Suyaa.DependencyInjection;
-using Suyaa.Hosting.Kernel.Helpers;
-using System.Reflection;
+﻿using System.Reflection;
 using Suyaa;
-using Suyaa.Hosting.Kernel.WebApplicationProviders;
-using Suyaa.DependencyInjection.ServiceCollection;
-using Suyaa.Hosting.WebApplicationProviders;
+using Suyaa.Hosting.WebApplications;
+using Suyaa.Hosting.Common.ActionFilters.Helpers;
+using Suyaa.Hosting.Common.DependencyInjection;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 
 namespace PagesDemo
 {
     /// <summary>
     /// Demo应用供应商
     /// </summary>
-    public sealed class DemoApplicationProvider : HostAppliactionProvider
+    public sealed class DemoStartup : HostStartup
     {
         /// <summary>
         /// 依赖管理器创建
@@ -20,7 +19,7 @@ namespace PagesDemo
         /// <returns></returns>
         protected override IDependencyManager OnDependencyManagerCreating(IServiceCollection services)
         {
-            return new DependencyManager(services);
+            return DependencyManager.Create(services);
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace PagesDemo
         /// 初始化
         /// </summary>
         /// <param name="builder"></param>
-        public override void OnInitialize(WebApplicationBuilder builder)
+        protected override void OnConfigureBuilder(WebApplicationBuilder builder)
         {
             string key = "ASPNETCORE_ENVIRONMENT";
             if (Environment.GetEnvironmentVariable(key).IsNullOrWhiteSpace()) Environment.SetEnvironmentVariable(key, "Production");
@@ -52,13 +51,13 @@ namespace PagesDemo
                            .SetBasePath(Directory.GetCurrentDirectory())
                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                            .AddEnvironmentVariables(prefix: "ASPNETCORE_");
-            base.OnInitialize(builder);
+            base.OnConfigureBuilder(builder);
         }
 
         protected override void OnConfigureAssembly(IList<Assembly> assemblies)
         {
             base.OnConfigureAssembly(assemblies);
-            assemblies.Import<ModuleStartup>();
+            //assemblies.Import<ModuleStartup>();
         }
 
     }

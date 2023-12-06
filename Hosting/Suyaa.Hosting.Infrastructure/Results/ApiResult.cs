@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Suyaa.Hosting.Kernel.Dependency;
+using Suyaa.Hosting.Infrastructure.Results.Dependency;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Suyaa.Hosting.Kernel.Results
+namespace Suyaa.Hosting.Infrastructure.Results
 {
     /// <summary>
     /// API输出结果
@@ -29,7 +29,7 @@ namespace Suyaa.Hosting.Kernel.Results
         /// </summary>
         public ApiResult()
         {
-            this.Success = true;
+            Success = true;
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Suyaa.Hosting.Kernel.Results
         /// </summary>
         public ApiResult()
         {
-            this.DataType = typeof(T).Name;
+            DataType = typeof(T).Name;
         }
 
         /// <summary>

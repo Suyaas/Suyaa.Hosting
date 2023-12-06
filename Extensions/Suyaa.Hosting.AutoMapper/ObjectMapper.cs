@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Suyaa.Hosting.AutoMapper.Dependency;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Kernel.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;

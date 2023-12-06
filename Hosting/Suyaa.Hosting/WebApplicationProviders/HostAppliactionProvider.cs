@@ -3,18 +3,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Suyaa.Hosting.App.Options;
+using Suyaa.Hosting.Common.ActionFilters;
+using Suyaa.Hosting.Common.Configures;
+using Suyaa.Hosting.Common.Configures.Dependency;
 using Suyaa.Hosting.Common.DependencyManager;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Configures;
-using Suyaa.Hosting.Kernel;
-using Suyaa.Hosting.Kernel.ActionFilters;
 using Suyaa.Hosting.Kernel.ApplicationModelConventions;
-using Suyaa.Hosting.Kernel.Configures;
-using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Kernel.FeatureProviders;
 using Suyaa.Hosting.Kernel.Helpers;
 using Suyaa.Hosting.Kernel.WebApplicationProviders;
-using Suyaa.Hosting.Options;
 using System.Reflection;
 
 namespace Suyaa.Hosting.WebApplicationProviders

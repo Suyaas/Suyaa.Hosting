@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Suyaa.Hosting.Common.ActionFilters.Dependency;
 using Suyaa.Hosting.EFCore.Dependency;
-using Suyaa.Hosting.Kernel.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;

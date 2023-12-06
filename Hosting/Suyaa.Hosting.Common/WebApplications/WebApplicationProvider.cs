@@ -2,11 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Suyaa.Hosting.Common.Configures;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Configures;
+using Suyaa.Hosting.Infrastructure.Helpers;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Dependency;
-using Suyaa.Hosting.Kernel.Helpers;
 using System.Diagnostics;
 
 namespace Suyaa.Hosting.Common.WebApplications

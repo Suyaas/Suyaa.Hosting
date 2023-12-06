@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using Suyaa.Hosting.AutoMapper.Dependency;
 using Suyaa.Hosting.Common.DependencyManager;
 using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Kernel.Dependency;
 using Suyaa.Hosting.Mappers;
 using System.Reflection;
 

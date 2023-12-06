@@ -1,21 +1,27 @@
-﻿namespace Suyaa.Hosting.Kernel.Enums
+﻿using System.ComponentModel;
+
+namespace Suyaa.Hosting.Infrastructure.Enums
 {
     /// <summary>
     /// 错误码
     /// </summary>
+    [Description("错误码")]
     public enum ErrorCode : int
     {
         /// <summary>
-        /// 自定义
+        /// 未定义
         /// </summary>
-        Custom = 0,
-        /// <summary>
-        /// 为空
-        /// </summary>
-        Null = 1,
+        [Description("未定义")]
+        Undefined = 0,
         /// <summary>
         /// 必填
         /// </summary>
-        Required=0x11,
+        [Description("必填")]
+        Required = 0x11,
+        /// <summary>
+        /// 自定义
+        /// </summary>
+        [Description("自定义")]
+        Custom = 0xffff,
     }
 }

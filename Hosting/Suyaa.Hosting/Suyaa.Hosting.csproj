@@ -53,7 +53,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Suyaa.Hosting.App\Suyaa.Hosting.App.csproj" />
 	  <ProjectReference Include="..\Suyaa.Hosting.Core\Suyaa.Hosting.Core.csproj" />
-	  <ProjectReference Include="..\Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWorks.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Common.DependencyManager.Helpers;
 
 namespace Suyaa.Hosting.Common.DependencyManager.Helpers

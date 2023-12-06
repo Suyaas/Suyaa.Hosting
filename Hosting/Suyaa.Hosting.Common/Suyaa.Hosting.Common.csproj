@@ -10,4 +10,13 @@
     <ProjectReference Include="..\Suyaa.Hosting.Infrastructure\Suyaa.Hosting.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Suyaa.Configure" Version="1.7.2312.34" />
+    <PackageReference Include="Suyaa.Logs" Version="1.7.2312.34" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="新文件夹\" />
+  </ItemGroup>
+
 </Project>

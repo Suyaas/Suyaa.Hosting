@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Suyaa.Hosting.Kernel.Results;
-using Suyaa.Hosting.Common;
+using Suyaa.Hosting.Common.Exceptions;
+using Suyaa.Hosting.Infrastructure.Results;
 
 namespace Suyaa.Hosting.Middlewares
 {

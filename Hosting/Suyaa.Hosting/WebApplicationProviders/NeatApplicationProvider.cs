@@ -15,7 +15,6 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using Suyaa.Hosting.Configures;
 using Suyaa.Hosting.Common.WebApplications;
-using Suyaa.Hosting.Infrastructure.Resources;
 
 namespace Suyaa.Hosting.WebApplicationProviders
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Suyaa.Hosting.Common;
+using Suyaa.Hosting.Common.Exceptions;
 
 namespace Suyaa.Hosting.Jwt.Attributes
 {

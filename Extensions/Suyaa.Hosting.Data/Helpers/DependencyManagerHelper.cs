@@ -23,7 +23,7 @@ namespace Suyaa.Hosting.Multilingual.Helpers
             dependency.Register(typeof(IRepository<,>), typeof(Repository<,>), Lifetimes.Transient);
             // 注册所有的供应商
             dependency.RegisterTransients(typeof(IDbQueryProvider<,>));
-            dependency.RegisterTransients(typeof(IInsertProvider<,>));
+            dependency.RegisterTransients(typeof(IDbInsertProvider<,>));
             dependency.RegisterTransients(typeof(IDbUpdateProvider<,>));
             dependency.RegisterTransients(typeof(IDbDeleteProvider<,>));
             return dependency;

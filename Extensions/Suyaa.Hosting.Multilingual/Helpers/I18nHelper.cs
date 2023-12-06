@@ -1,4 +1,4 @@
-﻿using Suyaa.Hosting.Common;
+﻿using Suyaa.Hosting.Common.Exceptions;
 using Suyaa.Hosting.Configures;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Multilingual.Dependency;

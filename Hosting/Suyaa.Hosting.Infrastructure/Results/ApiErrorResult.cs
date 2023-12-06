@@ -3,9 +3,9 @@ using System.Text.Json;
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
-using Suyaa.Hosting.Kernel.Enums;
+using Suyaa.Hosting.Infrastructure.Enums;
 
-namespace Suyaa.Hosting.Kernel.Results
+namespace Suyaa.Hosting.Infrastructure.Results
 {
     /// <summary>
     /// 错误结果
@@ -23,7 +23,7 @@ namespace Suyaa.Hosting.Kernel.Results
         /// </summary>
         public ApiErrorResult()
         {
-            this.Success = false;
+            Success = false;
         }
 
         /// <summary>

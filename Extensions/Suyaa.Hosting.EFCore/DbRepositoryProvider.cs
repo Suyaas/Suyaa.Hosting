@@ -11,7 +11,7 @@ namespace Suyaa.Hosting.EFCore
     /// <summary>
     /// 仓库供应商
     /// </summary>
-    public class DbRepositoryProvider<TEntity, TId> : IDbQueryProvider<TEntity, TId>, IInsertProvider<TEntity, TId>, IDbUpdateProvider<TEntity, TId>, IDbDeleteProvider<TEntity, TId>
+    public class DbRepositoryProvider<TEntity, TId> : IDbQueryProvider<TEntity, TId>, IDbInsertProvider<TEntity, TId>, IDbUpdateProvider<TEntity, TId>, IDbDeleteProvider<TEntity, TId>
         where TEntity : class, IEntity<TId>
         where TId : notnull
     {

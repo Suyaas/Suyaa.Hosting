@@ -1,7 +1,9 @@
-﻿using Suyaa.Hosting.Common.DependencyManager.Dependency;
+﻿using Suyaa.Data.Dependency;
+using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Data.Dependency;
 using Suyaa.Hosting.Kernel;
 using Suyaa.Hosting.Kernel.Dependency;
+using System.Linq.Expressions;
 
 namespace Suyaa.Hosting.Data
 {
@@ -11,7 +13,7 @@ namespace Suyaa.Hosting.Data
     /// <typeparam name="TEntity"></typeparam>
     /// <typeparam name="TId"></typeparam>
     public class Repository<TEntity, TId> : IRepository<TEntity, TId>
-        where TEntity : class, IEntity<TId>
+        where TEntity : class, IEntity<TId>, new()
         where TId : notnull
     {
 
@@ -19,7 +21,7 @@ namespace Suyaa.Hosting.Data
 
         private readonly IDependencyManager _dependencyManager;
         private readonly IDbQueryProvider<TEntity, TId> _queryProvider;
-        private readonly IInsertProvider<TEntity, TId> _insertProvider;
+        private readonly IDbInsertProvider<TEntity, TId> _insertProvider;
         private readonly IDbUpdateProvider<TEntity, TId> _updateProvider;
         private readonly IDbDeleteProvider<TEntity, TId> _deleteProvider;
 
@@ -29,7 +31,7 @@ namespace Suyaa.Hosting.Data
         public Repository(
             IDependencyManager dependencyManager,
             IDbQueryProvider<TEntity, TId> queryProvider,
-            IInsertProvider<TEntity, TId> insertProvider,
+            IDbInsertProvider<TEntity, TId> insertProvider,
             IDbUpdateProvider<TEntity, TId> updateProvider,
             IDbDeleteProvider<TEntity, TId> deleteProvider
             )
@@ -80,6 +82,41 @@ namespace Suyaa.Hosting.Data
         public async Task DeleteAsync(TEntity entity)
         {
             await _deleteProvider.DeleteAsync(entity);
+        }
+
+        public void Insert(TEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Expression<Func<TEntity, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(TEntity entity, Expression<Func<TEntity, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(TEntity entity, Expression<Func<TEntity, object>> selector, Expression<Func<TEntity, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(TEntity entity, Expression<Func<TEntity, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(TEntity entity, Expression<Func<TEntity, object>> selector, Expression<Func<TEntity, bool>> predicate)
+        {
+            throw new NotImplementedException();
         }
     }
 }

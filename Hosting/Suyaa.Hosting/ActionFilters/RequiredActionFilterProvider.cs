@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Suyaa.Hosting.Kernel.Dependency;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Suyaa.Hosting;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection.Metadata;
 using System;
-using Suyaa.Hosting.Kernel.Enums;
 using Microsoft.OpenApi.Models;
-using Suyaa.Hosting.Common;
+using Suyaa.Hosting.Infrastructure.Enums;
+using Suyaa.Hosting.Common.ActionFilters.Dependency;
+using Suyaa.Hosting.Common.Exceptions;
 
 namespace Suyaa.Hosting.EFCore.ActionFilters
 {

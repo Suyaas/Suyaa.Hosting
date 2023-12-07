@@ -9,13 +9,18 @@ namespace Suyaa.Hosting.Common.DependencyInjection
     /// <summary>
     /// 依赖异常
     /// </summary>
-    public class DependencyException : Exception
+    public class DependencyException : KeyException
     {
+        /// <summary>
+        /// 依赖
+        /// </summary>
+        public const string KEY_DEPENDENCY = "Dependency";
+
         /// <summary>
         /// 依赖异常
         /// </summary>
         /// <param name="type"></param>
-        public DependencyException(Type type) : base($"Type '{type.FullName}' dependency error.")
+        public DependencyException(Type type) : base(KEY_DEPENDENCY, "Type '{0}' dependency error.", type.FullName ?? string.Empty)
         {
             Type = type;
         }
@@ -25,7 +30,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         /// </summary>
         /// <param name="type"></param>
         /// <param name="message"></param>
-        public DependencyException(Type type, string message) : base($"Type '{type.FullName}' dependency error: {message}")
+        public DependencyException(Type type, string key, string message) : base(KEY_DEPENDENCY + "." + key, "Type '{0}' dependency error: " + message, type.FullName ?? string.Empty)
         {
             Type = type;
         }

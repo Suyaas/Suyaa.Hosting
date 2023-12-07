@@ -1,4 +1,5 @@
 ﻿using Suyaa.Hosting.Common.ActionFilters.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 
@@ -16,7 +17,8 @@ namespace Suyaa.Hosting.Common.ActionFilters.Helpers
         /// <returns></returns>
         public static IDependencyManager AddActionFilters(this IDependencyManager dependency)
         {
-            dependency.RegisterTransients<IActionFilterProvider>();
+            dependency.RegisterTransientImplementations<IActionFilterProvider>();
+            dependency.Register<IApiExecutedProvider, ApiExecutedProvider>(Lifetimes.Transient);
             return dependency;
         }
     }

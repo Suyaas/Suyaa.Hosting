@@ -14,7 +14,7 @@ namespace Suyaa.Hosting.Common.ActionFilters
         #region DI注入
 
         private readonly IDependencyManager _dependencyManager;
-        private readonly List<Type> _types;
+        private readonly IEnumerable<Type> _types;
 
         /// <summary>
         /// Api执行过滤器
@@ -24,7 +24,7 @@ namespace Suyaa.Hosting.Common.ActionFilters
             )
         {
             _dependencyManager = dependencyManager;
-            _types = _dependencyManager.GetResolveTypes<IActionFilterProvider>();
+            _types = _dependencyManager.GetImplementationTypes<IActionFilterProvider>();
         }
 
         #endregion

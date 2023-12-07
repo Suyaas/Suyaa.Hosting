@@ -27,13 +27,6 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Dependency
         /// <summary>
         /// 注册
         /// </summary>
-        /// <param name="implementationType"></param>
-        /// <param name="lifeCycle"></param>
-        void Register(Type implementationType, Lifetimes lifeCycle);
-
-        /// <summary>
-        /// 注册
-        /// </summary>
         /// <param name="serviceType"></param>
         /// <param name="implementationType"></param>
         /// <param name="lifeCycle"></param>
@@ -44,7 +37,13 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Dependency
         /// </summary>
         /// <param name="serviceType"></param>
         /// <param name="implementationInstance"></param>
-        void Register(Type serviceType, object implementationInstance);
+        void RegisterInstance(Type serviceType, object implementationInstance);
+
+        /// <summary>
+        /// 移除
+        /// </summary>
+        /// <param name="serviceType"></param>
+        void Remove(Type serviceType);
 
         /// <summary>
         /// 抽取
@@ -57,6 +56,6 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Dependency
         /// </summary>
         /// <param name="serviceType"></param>
         /// <returns></returns>
-        List<Type> GetResolveTypes(Type serviceType);
+        IEnumerable<Type> GetImplementationTypes(Type serviceType);
     }
 }

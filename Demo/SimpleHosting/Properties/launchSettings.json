@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SimpleHosting": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Dev"
+      }
+    }
+  }
+}

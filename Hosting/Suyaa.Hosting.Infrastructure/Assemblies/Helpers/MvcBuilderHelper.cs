@@ -13,7 +13,7 @@ namespace Suyaa.Hosting.Infrastructure.Assemblies.Helpers
         /// <param name="builder"></param>
         /// <param name="assemblies"></param>
         /// <returns></returns>
-        public static IMvcBuilder AddAssemblyList(this IMvcBuilder builder, List<Assembly> assemblies)
+        public static IMvcBuilder AddAssemblyList(this IMvcBuilder builder, IEnumerable<Assembly> assemblies)
         {
             // 添加程序集
             foreach (var ass in assemblies)

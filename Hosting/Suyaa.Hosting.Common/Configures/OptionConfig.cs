@@ -18,7 +18,7 @@ namespace Suyaa.Hosting.Common.Configures
         /// <param name="type"></param>
         public OptionConfig(IDependencyManager dependencyManager, Type type)
         {
-            var types = dependencyManager.GetResolveTypes(type);
+            var types = dependencyManager.GetImplementationTypes(type);
             if (types.Any())
             {
                 _value = dependencyManager.Resolve(types.First());
@@ -30,6 +30,10 @@ namespace Suyaa.Hosting.Common.Configures
             }
         }
 
+        /// <summary>
+        /// 获取值
+        /// </summary>
+        /// <returns></returns>
         public object GetValue()
         {
             return _value;
@@ -50,7 +54,7 @@ namespace Suyaa.Hosting.Common.Configures
         /// <summary>
         /// 主机配置
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="dependencyManager"></param>
         public OptionConfig(IDependencyManager dependencyManager) : base(dependencyManager, typeof(T))
         {
         }

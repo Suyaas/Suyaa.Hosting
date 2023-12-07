@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using Suyaa.Hosting;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection.Metadata;
 using System;
@@ -11,7 +10,7 @@ using Suyaa.Hosting.Common.Exceptions;
 using Suyaa.Hosting.Infrastructure.Exceptions.Enums;
 using Suyaa.Hosting.Common.ActionFilters.Dependency;
 
-namespace Suyaa.Hosting.EFCore.ActionFilters
+namespace Suyaa.Hosting.ActionFilters
 {
     /// <summary>
     /// EFCore切片供应商

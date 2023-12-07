@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Infrastructure.Resources
+﻿namespace Suyaa.Hosting.Resources
 {
     /// <summary>
     /// 跨域类型

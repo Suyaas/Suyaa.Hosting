@@ -1,4 +1,6 @@
-﻿using Suyaa.Hosting.Infrastructure.WebApplications.Dependency;
+﻿using Microsoft.Extensions.Configuration;
+using Suyaa.Hosting.Infrastructure.Exceptions;
+using Suyaa.Hosting.Infrastructure.WebApplications.Dependency;
 
 namespace Suyaa.Hosting.Infrastructure.WebApplications
 {
@@ -7,6 +9,13 @@ namespace Suyaa.Hosting.Infrastructure.WebApplications
     /// </summary>
     public class BaseStartup : IWebApplicationStartup
     {
+        private IConfiguration? _configuration;
+
+        /// <summary>
+        /// 主机配置
+        /// </summary>
+        public IConfiguration Configuration => _configuration ?? throw new HostException("Configuration not found.");
+
         /// <summary>
         /// 应用配置
         /// </summary>
@@ -26,7 +35,9 @@ namespace Suyaa.Hosting.Infrastructure.WebApplications
         /// 构建器配置
         /// </summary>
         /// <param name="builder"></param>
-        protected virtual void OnConfigureBuilder(WebApplicationBuilder builder) { }
+        protected virtual void OnConfigureBuilder(WebApplicationBuilder builder) {
+            _configuration = builder.Configuration;
+        }
 
         /// <summary>
         /// 构建器配置

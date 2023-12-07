@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 
 namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
@@ -8,263 +9,194 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
     /// </summary>
     public static class DependencyManagerHelper
     {
-        #region 按接口注册
+
+        #region 注册单个类型
 
         /// <summary>
-        /// 注册
+        /// 注册一个接口与关联实现类
         /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="serviceType"></param>
-        /// <param name="implementationType"></param>
-        /// <exception cref="DependencyException"></exception>
-        public static bool RegisterByInterface(this IDependencyManager manager, Type serviceType, Type implementationType)
+        public static IDependencyManager Register<TService, TImplementation>(this IDependencyManager dependencyManager, Lifetimes lifetimes)
         {
-            // 是否实现了单例
-            if (Types.Singleton.IsAssignableFrom(implementationType))
-            {
-                manager.Register(serviceType, implementationType, Lifetimes.Singleton);
-                return true;
-            }
-            // 是否实现了瞬态
-            if (Types.Transient.IsAssignableFrom(implementationType))
-            {
-                // 是否实现了独占
-                if (Types.Exclusive.IsAssignableFrom(implementationType))
-                {
-                    manager.Register(serviceType, implementationType, Lifetimes.Exclusive);
-                }
-                else
-                {
-                    manager.Register(serviceType, implementationType, Lifetimes.Transient);
-                }
-                return true;
-            }
-            return false;
+            dependencyManager.Register(typeof(TService), typeof(TImplementation), lifetimes);
+            return dependencyManager;
         }
 
         /// <summary>
-        /// 注册
+        /// 注册一个接口与关联实现类
         /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="implementationType"></param>
-        /// <exception cref="DependencyException"></exception>
-        public static bool RegisterByInterface(this IDependencyManager manager, Type implementationType)
+        public static IDependencyManager Register<TService>(this IDependencyManager dependencyManager, Type implementationType, Lifetimes lifetimes)
         {
-            // 是否实现了单例
-            if (Types.Singleton.IsAssignableFrom(implementationType))
-            {
-                manager.Register(implementationType, Lifetimes.Singleton);
-                return true;
-            }
-            // 是否实现了瞬态
-            if (Types.Transient.IsAssignableFrom(implementationType))
-            {
-                manager.Register(implementationType, Lifetimes.Transient);
-                return true;
-            }
-            return false;
-        }
-
-        #endregion
-
-        #region 自动判断接口注册
-
-        /// <summary>
-        /// 自动判断生命周期并注册
-        /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="serviceType"></param>
-        /// <param name="implementationType"></param>
-        public static bool RegisterAuto(this IDependencyManager manager, Type serviceType, Type implementationType)
-        {
-            // 优先按接口注册
-            if (manager.RegisterByInterface(serviceType, implementationType)) return true;
-            return false;
+            dependencyManager.Register(typeof(TService), implementationType, lifetimes);
+            return dependencyManager;
         }
 
         /// <summary>
-        /// 自动判断生命周期并注册
+        /// 注册一个实现类
         /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="implementationType"></param>
-        public static bool RegisterAuto(this IDependencyManager manager, Type implementationType)
+        public static IDependencyManager Register(this IDependencyManager dependencyManager, Type implementationType, Lifetimes lifetimes)
         {
-            // 优先按接口注册
-            if (manager.RegisterByInterface(implementationType)) return true;
-            return false;
+            if (implementationType.IsInterface) return dependencyManager;
+            dependencyManager.Register(implementationType, implementationType, lifetimes);
+            return dependencyManager;
+        }
+
+        /// <summary>
+        /// 注册一个实现类
+        /// </summary>
+        public static IDependencyManager Register<TImplementation>(this IDependencyManager dependencyManager, Lifetimes lifetimes)
+        {
+            return dependencyManager.Register(typeof(TImplementation), lifetimes);
+        }
+
+        /// <summary>
+        /// 注册一个实例
+        /// </summary>
+        public static IDependencyManager RegisterInstance<TService>(this IDependencyManager dependencyManager, object implementationInstance)
+        {
+            dependencyManager.RegisterInstance(typeof(TService), implementationInstance);
+            return dependencyManager;
+        }
+
+        /// <summary>
+        /// 注册一个实例
+        /// </summary>
+        public static IDependencyManager RegisterInstance(this IDependencyManager dependencyManager, object implementationInstance)
+        {
+            dependencyManager.RegisterInstance(implementationInstance.GetType(), implementationInstance);
+            return dependencyManager;
         }
 
         #endregion
 
-        /// <summary>
-        /// 注册
-        /// </summary>
-        public static void Register<TService, TImplementation>(this IDependencyManager manager, Lifetimes lifetimes)
-        {
-            manager.Register(typeof(TService), typeof(TImplementation), lifetimes);
-        }
+        #region 批量注册
 
         /// <summary>
-        /// 注册
+        /// 按程序集注册接口的所有瞬态实现类(不注册其他接口实现)
         /// </summary>
-        public static void Register<TService>(this IDependencyManager manager, Type type, Lifetimes lifetimes)
-        {
-            manager.Register(typeof(TService), type, lifetimes);
-        }
-
-        /// <summary>
-        /// 注册
-        /// </summary>
-        public static void Register<T>(this IDependencyManager manager, object implementationInstance)
-        {
-            manager.Register(typeof(T), implementationInstance);
-        }
-
-        /// <summary>
-        /// 注册
-        /// </summary>
-        public static void Register(this IDependencyManager manager, object implementationInstance)
-        {
-            manager.Register(implementationInstance.GetType(), implementationInstance);
-        }
-
-        /// <summary>
-        /// 注册所有接口到单例
-        /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="type"></param>
-        public static void RegisterSingletonInterfaces(this IDependencyManager manager, Type type)
-        {
-            // 过滤类型
-            List<Type> interfaces = new List<Type> {
-                Types.Transient,
-                Types.Exclusive,
-                Types.Singleton,
-            };
-            // 获取所有接口
-            var ifs = type.GetInterfaces();
-            foreach (var ifc in ifs)
-            {
-                // 过滤类型
-                if (interfaces.Contains(ifc)) continue;
-                // 注册类
-                manager.Register(ifc, type, Lifetimes.Singleton);
-            }
-        }
-
-        /// <summary>
-        /// 注册所有接口到瞬态
-        /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="type"></param>
-        public static void RegisterTransientInterfaces(this IDependencyManager manager, Type type)
-        {
-            // 过滤类型
-            List<Type> interfaces = new List<Type> {
-                Types.Transient,
-                Types.Exclusive,
-                Types.Singleton,
-            };
-            // 获取所有接口
-            var ifs = type.GetInterfaces();
-            foreach (var ifc in ifs)
-            {
-                // 过滤类型
-                if (interfaces.Contains(ifc)) continue;
-                // 注册类
-                manager.Register(ifc, type, Lifetimes.Transient);
-            }
-        }
-
-        /// <summary>
-        /// 注册所有接口到独占瞬态
-        /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="type"></param>
-        public static void RegisterExclusiveInterfaces(this IDependencyManager manager, Type type)
-        {
-            // 过滤类型
-            List<Type> interfaces = new List<Type> {
-                Types.Transient,
-                Types.Exclusive,
-                Types.Singleton,
-            };
-            // 获取所有接口
-            var ifs = type.GetInterfaces();
-            foreach (var ifc in ifs)
-            {
-                // 过滤类型
-                if (interfaces.Contains(ifc)) continue;
-                // 注册类
-                manager.Register(ifc, type, Lifetimes.Exclusive);
-            }
-        }
-
-        /// <summary>
-        /// 按程序集注册
-        /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="assembly"></param>
-        public static void RegisterAssembly(this IDependencyManager manager, Assembly assembly)
-        {
-            try
-            {
-                Type[] types = assembly.GetTypes();
-                foreach (Type type in types)
-                {
-                    // 跳过所有的接口
-                    if (type.IsInterface) continue;
-                    // 条码抽象类
-                    if (type.IsAbstract) continue;
-                    // 是否实现了单例
-                    if (Types.Singleton.IsAssignableFrom(type))
-                    {
-                        // 注册所有单例接口
-                        manager.RegisterSingletonInterfaces(type);
-                        manager.Register(type, type, Lifetimes.Singleton);
-                        continue;
-                    }
-                    // 是否实现了瞬态
-                    if (Types.Transient.IsAssignableFrom(type))
-                    {
-                        if (Types.Exclusive.IsAssignableFrom(type))
-                        {
-                            // 注册所有独占接口
-                            manager.RegisterSingletonInterfaces(type);
-                            manager.Register(type, type, Lifetimes.Exclusive);
-                        }
-                        else
-                        {
-                            // 注册所有瞬态接口
-                            manager.RegisterTransientInterfaces(type);
-                            manager.Register(type, type, Lifetimes.Transient);
-                        }
-                        continue;
-                    }
-                }
-            }
-            catch { }
-        }
-
-        /// <summary>
-        /// 按程序集注册接口实现
-        /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="assembly"></param>
-        /// <param name="predicate"></param>
-        public static void RegisterAssemblyTransients<TService>(this IDependencyManager manager, Assembly assembly, Func<Type, bool> predicate)
-        {
-            manager.RegisterAssemblyTransients(typeof(TService), assembly, predicate);
-        }
-
-        /// <summary>
-        /// 按程序集注册接口实现
-        /// </summary>
-        /// <param name="manager"></param>
+        /// <param name="dependencyManager"></param>
         /// <param name="serviceType"></param>
         /// <param name="assembly"></param>
         /// <param name="predicate"></param>
-        public static void RegisterAssemblyTransients(this IDependencyManager manager, Type serviceType, Assembly assembly, Func<Type, bool> predicate)
+        /// <returns></returns>
+        public static IDependencyManager RegisterTransientImplementations(this IDependencyManager dependencyManager, Type serviceType, Assembly assembly, Func<Type, bool> predicate)
+        {
+            if (!serviceType.IsInterface) return dependencyManager;
+            Type[] types = assembly.GetTypes();
+            foreach (Type type in types)
+            {
+                if (type.HasInterface(serviceType))
+                {
+                    if (!predicate(type)) continue;
+                    dependencyManager.Register(serviceType, type, Lifetimes.Transient);
+                    dependencyManager.Register(type, type, Lifetimes.Transient);
+                }
+            }
+            return dependencyManager;
+        }
+
+        /// <summary>
+        /// 按程序集注册接口的所有瞬态实现类(不注册其他接口实现)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dependencyManager"></param>
+        /// <param name="assembly"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static IDependencyManager RegisterTransientImplementations<T>(this IDependencyManager dependencyManager, Assembly assembly, Func<Type, bool> predicate)
+        {
+            return dependencyManager.RegisterTransientImplementations(typeof(T), assembly, predicate);
+        }
+
+        /// <summary>
+        /// 按程序集注册接口的所有瞬态实现类(不注册其他接口实现)
+        /// </summary>
+        /// <param name="dependencyManager"></param>
+        /// <param name="serviceType"></param>
+        /// <param name="assembly"></param>
+        /// <returns></returns>
+        public static IDependencyManager RegisterTransientImplementations(this IDependencyManager dependencyManager, Type serviceType, Assembly assembly)
+        {
+            return dependencyManager.RegisterTransientImplementations(serviceType, assembly, tp => true);
+        }
+
+        /// <summary>
+        /// 按程序集注册接口的所有瞬态实现类(不注册其他接口实现)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dependencyManager"></param>
+        /// <param name="assembly"></param>
+        /// <returns></returns>
+        public static IDependencyManager RegisterTransientImplementations<T>(this IDependencyManager dependencyManager, Assembly assembly)
+        {
+            return dependencyManager.RegisterTransientImplementations(typeof(T), assembly);
+        }
+
+        /// <summary>
+        /// 注册接口的所有瞬态实现类(不注册其他接口实现)
+        /// </summary>
+        /// <param name="dependencyManager"></param>
+        /// <param name="serviceType"></param>
+        /// <returns></returns>
+        public static IDependencyManager RegisterTransientImplementations(this IDependencyManager dependencyManager, Type serviceType)
+        {
+            foreach (Assembly assembly in dependencyManager.Assemblies)
+            {
+                dependencyManager.RegisterTransientImplementations(serviceType, assembly);
+            }
+            return dependencyManager;
+        }
+
+        /// <summary>
+        /// 注册接口的所有瞬态实现类(不注册其他接口实现)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dependencyManager"></param>
+        /// <returns></returns>
+        public static IDependencyManager RegisterTransientImplementations<T>(this IDependencyManager dependencyManager)
+        {
+            return dependencyManager.RegisterTransientImplementations(typeof(T));
+        }
+
+        #endregion
+
+        #region 全量注册
+
+        // 依赖专用接口
+        private static List<Type> dependencyInterfaces = new List<Type> {
+            Types.Transient,
+            Types.Exclusive,
+            Types.Singleton,
+        };
+
+        /// <summary>
+        /// 注册实现类的所有接口
+        /// </summary>
+        /// <param name="dependencyManager"></param>
+        /// <param name="implementationType"></param>
+        /// <param name="lifetime"></param>
+        public static IDependencyManager RegisterImplementationInterfaces(this IDependencyManager dependencyManager, Type implementationType, Lifetimes lifetime)
+        {
+            // 获取所有接口
+            var ifcs = implementationType.GetInterfaces();
+            foreach (var ifc in ifcs)
+            {
+                // 过滤类型
+                if (dependencyInterfaces.Contains(ifc)) continue;
+                // 注册类
+                dependencyManager.Register(ifc, implementationType, lifetime);
+            }
+            return dependencyManager;
+        }
+
+        /// <summary>
+        /// 按程序集注册接口实现类相关的所有接口
+        /// </summary>
+        /// <param name="dependencyManager"></param>
+        /// <param name="serviceType"></param>
+        /// <param name="lifetime"></param>
+        /// <param name="assembly"></param>
+        /// <param name="predicate"></param>
+        public static IDependencyManager RegisterAssemblyImplementationInterfaces(this IDependencyManager dependencyManager, Type serviceType, Lifetimes lifetime, Assembly assembly, Func<Type, bool> predicate)
         {
             try
             {
@@ -278,74 +210,54 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
                     if (type.HasInterface(serviceType))
                     {
                         if (!predicate(type)) continue;
-                        manager.Register(serviceType, type, Lifetimes.Transient);
-                        manager.Register(type, type, Lifetimes.Transient);
+                        // 注册所有接口
+                        dependencyManager.RegisterImplementationInterfaces(type, lifetime);
+                        dependencyManager.Register(type, lifetime);
                     }
                 }
             }
             catch { }
+            return dependencyManager;
         }
 
         /// <summary>
-        /// 注册所有类
+        /// 按程序集注册接口实现类相关的所有接口
         /// </summary>
-        /// <param name="dependency"></param>
-        public static void RegisterAll(this IDependencyManager dependency)
+        /// <param name="dependencyManager"></param>
+        /// <param name="lifetime"></param>
+        /// <param name="assembly"></param>
+        public static IDependencyManager RegisterAssemblyImplementationInterfaces<TService>(this IDependencyManager dependencyManager, Lifetimes lifetime, Assembly assembly)
         {
-            //Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly assembly in dependency.Assemblies)
-            {
-                dependency.RegisterAssembly(assembly);
-            }
+            return dependencyManager.RegisterAssemblyImplementationInterfaces(typeof(TService), lifetime, assembly, tp => true);
         }
 
         /// <summary>
-        /// 注册所有的接口实现
+        /// 注册接口实现类相关的所有接口
         /// </summary>
-        /// <param name="dependency"></param>
+        /// <param name="dependencyManager"></param>
         /// <param name="serviceType"></param>
-        public static void RegisterTransients(this IDependencyManager dependency, Type serviceType)
-        {
-            //Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly assembly in dependency.Assemblies)
-            {
-                dependency.RegisterAssemblyTransients(serviceType, assembly, type => true);
-            }
-        }
-
-        /// <summary>
-        /// 注册所有的接口实现
-        /// </summary>
-        /// <param name="dependency"></param>
-        /// <param name="serviceType"></param>
+        /// <param name="lifetime"></param>
         /// <param name="predicate"></param>
-        public static void RegisterTransients(this IDependencyManager dependency, Type serviceType, Func<Type, bool> predicate)
+        public static IDependencyManager RegisterImplementationInterfaces(this IDependencyManager dependencyManager, Type serviceType, Lifetimes lifetime, Func<Type, bool> predicate)
         {
-            //Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly assembly in dependency.Assemblies)
+            foreach (Assembly assembly in dependencyManager.Assemblies)
             {
-                dependency.RegisterAssemblyTransients(serviceType, assembly, predicate);
+                dependencyManager.RegisterAssemblyImplementationInterfaces(serviceType, lifetime, assembly, predicate);
             }
+            return dependencyManager;
         }
 
         /// <summary>
-        /// 注册所有的接口实现
+        /// 注册所有的单例实现
         /// </summary>
-        /// <param name="manager"></param>
-        public static void RegisterTransients<TService>(this IDependencyManager manager)
+        /// <param name="dependencyManager"></param>
+        /// <param name="lifetime"></param>
+        public static IDependencyManager RegisterImplementationInterfaces<TService>(this IDependencyManager dependencyManager, Lifetimes lifetime)
         {
-            manager.RegisterTransients(typeof(TService));
+            return dependencyManager.RegisterImplementationInterfaces(typeof(TService), lifetime, tp => true);
         }
 
-        /// <summary>
-        /// 注册所有的接口实现
-        /// </summary>
-        /// <param name="manager"></param>
-        /// <param name="predicate"></param>
-        public static void RegisterTransients<TService>(this IDependencyManager manager, Func<Type, bool> predicate)
-        {
-            manager.RegisterTransients(typeof(TService), predicate);
-        }
+        #endregion
 
         /// <summary>
         /// 抽取
@@ -361,10 +273,12 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
         /// </summary>
         /// <param name="manager"></param>
         /// <returns></returns>
-        public static List<Type> GetResolveTypes<T>(this IDependencyManager manager)
+        public static IEnumerable<Type> GetImplementationTypes<T>(this IDependencyManager manager)
         {
-            return manager.GetResolveTypes(typeof(T));
+            return manager.GetImplementationTypes(typeof(T));
         }
+
+        #region 引入程序集
 
         /// <summary>
         /// 引用程序集
@@ -387,5 +301,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
             dependency.Include(typeof(T).Assembly);
             return dependency;
         }
+
+        #endregion 
     }
 }

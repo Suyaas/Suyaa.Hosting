@@ -55,7 +55,7 @@ namespace Suyaa.Hosting.App.Options
         /// </summary>
         /// <param name="assemblies"></param>
         /// <returns></returns>
-        public ServiceOption AddAssemblies(List<Assembly> assemblies)
+        public ServiceOption AddAssemblies(IEnumerable<Assembly> assemblies)
         {
             foreach (var assembly in assemblies) AddAssembly(assembly);
             return this;

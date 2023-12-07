@@ -1,17 +1,11 @@
-﻿using Suyaa.Hosting.Common.Configures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
-namespace Suyaa.Hosting.Common.Modules.Helpers
+namespace Suyaa.Hosting.Infrastructure.Assemblies.Helpers
 {
     /// <summary>
     /// 字符串列表助手
     /// </summary>
-    public static class StringListHelper
+    public static class AssemblyListHelper
     {
         /// <summary>
         /// 导入程序集
@@ -58,8 +52,13 @@ namespace Suyaa.Hosting.Common.Modules.Helpers
             return assemblies.Import(typeof(T).Assembly);
         }
 
-        // 加载库文件
-        private static void ImportLibrary(IList<Assembly> assemblies, IList<string> paths, string library)
+        /// <summary>
+        /// 从目录集合中查找并加载动态库文件
+        /// </summary>
+        /// <param name="assemblies"></param>
+        /// <param name="paths"></param>
+        /// <param name="library"></param>
+        public static void ImportFromFile(this IList<Assembly> assemblies, IList<string> paths, string library)
         {
             // 所有所有路径
             for (int i = 0; i < paths.Count; i++)
@@ -71,23 +70,6 @@ namespace Suyaa.Hosting.Common.Modules.Helpers
                     continue;
                 }
             }
-        }
-
-        /// <summary>
-        /// 获取主机配置
-        /// </summary>
-        /// <param name="assemblies"></param>
-        /// <param name="hostConfig"></param>
-        /// <param name="paths"></param>
-        /// <returns></returns>
-        public static IList<Assembly> AddFromHostConfig(this IList<Assembly> assemblies, HostConfig hostConfig, IList<string> paths)
-        {
-            // 加载所有的程序集
-            for (int i = 0; i < hostConfig.Libraries.Count; i++)
-            {
-                ImportLibrary(assemblies, paths, hostConfig.Libraries[i]);
-            }
-            return assemblies;
         }
     }
 }

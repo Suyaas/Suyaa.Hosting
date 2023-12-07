@@ -17,6 +17,30 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         // 异步上下文
         private readonly AsyncLocal<ServiceProviderWrapper> _asyncLocal = new AsyncLocal<ServiceProviderWrapper>();
 
+        #region 构造函数
+
+        /// <summary>
+        /// 依赖控制器
+        /// </summary>
+        public DependencyManager()
+        {
+            _services = new ServiceCollection();
+            _services.AddSingleton<IDependencyManager>(this);
+            _assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+        }
+
+        /// <summary>
+        /// 依赖控制器
+        /// </summary>
+        public DependencyManager(IServiceCollection services)
+        {
+            _services = services;
+            _services.AddSingleton<IDependencyManager>(this);
+            _assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+        }
+
+        #endregion
+
         #region 静态方法
 
         // 当前依赖管理器
@@ -53,25 +77,21 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         /// </summary>
         public IEnumerable<Assembly> Assemblies => _assemblies;
 
-        /// <summary>
-        /// 依赖控制器
-        /// </summary>
-        public DependencyManager()
-        {
-            _services = new ServiceCollection();
-            _services.AddSingleton<IDependencyManager>(this);
-            _assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
-        }
+        #region 程序集操作
 
         /// <summary>
-        /// 依赖控制器
+        /// 引用程序集
         /// </summary>
-        public DependencyManager(IServiceCollection services)
+        /// <param name="assembly"></param>
+        public void Include(Assembly assembly)
         {
-            _services = services;
-            _services.AddSingleton<IDependencyManager>(this);
-            _assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            if (_assemblies.Contains(assembly)) return;
+            _assemblies.Add(assembly);
         }
+
+        #endregion
+
+        #region 注册
 
         /// <summary>
         /// 注册
@@ -99,7 +119,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         private void RegisterTransient(Type serviceType, Type implementationType)
         {
             // 获取所有可抽取的类型
-            var types = GetResolveTypes(serviceType);
+            var types = GetImplementationTypes(serviceType);
             // 判断已经有存在的实现，如果有，独占注册只允许一个
             foreach (var type in types)
             {
@@ -118,7 +138,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         private void RegisterExclusive(Type serviceType, Type implementationType)
         {
             // 获取所有可抽取的类型
-            var types = GetResolveTypes(serviceType);
+            var types = GetImplementationTypes(serviceType);
             // 判断已经有存在的实现，如果有，独占注册只允许一个
             foreach (var type in types)
             {
@@ -126,7 +146,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection
                 if (_exclusive.IsAssignableFrom(type))
                 {
                     // 抛出独占异常
-                    throw new DependencyException(implementationType, $"Exclusive type already exists");
+                    throw new DependencyException(implementationType, "Exists", $"Exclusive type already exists");
                 }
             }
             // 移除所有现有的注册
@@ -162,31 +182,24 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         }
 
         /// <summary>
-        /// 注册
+        /// 注册实例
         /// </summary>
         /// <param name="serviceType"></param>
         /// <param name="implementationInstance"></param>
-        public void Register(Type serviceType, object implementationInstance)
+        public void RegisterInstance(Type serviceType, object implementationInstance)
         {
             _services.AddSingleton(serviceType, implementationInstance);
         }
 
+        #endregion
+
         /// <summary>
-        /// 获取服务类获取所有的可实现类
+        /// 移除注入
         /// </summary>
         /// <param name="serviceType"></param>
-        /// <returns></returns>
-        public List<Type> GetResolveTypes(Type serviceType)
+        public void Remove(Type serviceType)
         {
-            List<Type> list = new List<Type>();
-            var types = _services.Where(d => d.ServiceType == serviceType).Select(d => d.ImplementationType).ToList();
-            if (types is null) return list;
-            foreach (var type in types)
-            {
-                if (type is null) continue;
-                list.Add(type);
-            }
-            return list;
+            _services.RemoveAll(serviceType);
         }
 
         /// <summary>
@@ -210,14 +223,21 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         }
 
         /// <summary>
-        /// 引用程序集
+        /// 获取服务类获取所有的可实现类
         /// </summary>
-        /// <param name="assembly"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void Include(Assembly assembly)
+        /// <param name="serviceType"></param>
+        /// <returns></returns>
+        public IEnumerable<Type> GetImplementationTypes(Type serviceType)
         {
-            if (_assemblies.Contains(assembly)) return;
-            _assemblies.Add(assembly);
+            List<Type> list = new List<Type>();
+            var types = _services.Where(d => d.ServiceType == serviceType).Select(d => d.ImplementationType).ToList();
+            if (types is null) return list;
+            foreach (var type in types)
+            {
+                if (type is null) continue;
+                list.Add(type);
+            }
+            return list;
         }
     }
 }

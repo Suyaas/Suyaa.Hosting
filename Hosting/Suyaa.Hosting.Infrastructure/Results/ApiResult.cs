@@ -91,20 +91,6 @@ namespace Suyaa.Hosting.Infrastructure.Results
         public virtual T? Data { get; set; }
 
         /// <summary>
-        /// 结果类型
-        /// </summary>
-        [JsonPropertyName("dataType")]
-        public virtual string? DataType { get; set; }
-
-        /// <summary>
-        /// API输出结果
-        /// </summary>
-        public ApiResult()
-        {
-            DataType = typeof(T).Name;
-        }
-
-        /// <summary>
         /// 执行结果
         /// </summary>
         /// <param name="context"></param>

@@ -17,7 +17,7 @@ namespace Suyaa.Hosting.Infrastructure.Assemblies.Helpers
         /// <param name="services"></param>
         /// <param name="assemblies"></param>
         /// <returns></returns>
-        public static IMvcBuilder AddControllers(this IServiceCollection services, List<Assembly> assemblies)
+        public static IMvcBuilder AddControllers(this IServiceCollection services, IEnumerable<Assembly> assemblies)
         {
             return services.AddControllers().AddAssemblyList(assemblies);
         }
@@ -29,7 +29,7 @@ namespace Suyaa.Hosting.Infrastructure.Assemblies.Helpers
         /// <param name="configure"></param>
         /// <param name="assemblies"></param>
         /// <returns></returns>
-        public static IMvcBuilder AddControllers(this IServiceCollection services, Action<MvcOptions>? configure, List<Assembly> assemblies)
+        public static IMvcBuilder AddControllers(this IServiceCollection services, Action<MvcOptions>? configure, IEnumerable<Assembly> assemblies)
         {
             return services.AddControllers(configure).AddAssemblyList(assemblies);
         }
@@ -40,7 +40,7 @@ namespace Suyaa.Hosting.Infrastructure.Assemblies.Helpers
         /// <param name="services"></param>
         /// <param name="assemblies"></param>
         /// <returns></returns>
-        public static IMvcBuilder AddRazorPages(this IServiceCollection services, List<Assembly> assemblies)
+        public static IMvcBuilder AddRazorPages(this IServiceCollection services, IEnumerable<Assembly> assemblies)
         {
             return services.AddRazorPages().AddAssemblyList(assemblies);
         }

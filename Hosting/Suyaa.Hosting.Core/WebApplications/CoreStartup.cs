@@ -1,4 +1,8 @@
-﻿using Suyaa.Hosting.Common.WebApplications;
+﻿using Suyaa.Hosting.Common.DependencyInjection;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.Modules.Helpers;
+using Suyaa.Hosting.Common.WebApplications;
+using Suyaa.Hosting.Core.Helpers;
 
 namespace Suyaa.Hosting.Core.WebApplications
 {
@@ -7,6 +11,13 @@ namespace Suyaa.Hosting.Core.WebApplications
     /// </summary>
     public class CoreStartup : CommonStartup
     {
-
+        /// <summary>
+        /// 依赖配置
+        /// </summary>
+        /// <param name="dependencyManager"></param>
+        protected override void OnConfigureDependency(IDependencyManager dependencyManager)
+        {
+            base.OnConfigureDependency(dependencyManager);
+        }
     }
 }

@@ -2,15 +2,17 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Suyaa.Hosting.Common.WebApplications;
-using Suyaa.Hosting.Infrastructure.Resources;
 using Suyaa.Hosting.Infrastructure.Exceptions;
+using Suyaa.Hosting.Resources;
+using Suyaa.Hosting.Common.Resources;
+using Suyaa.Hosting.App.WebApplications;
 
 namespace Suyaa.Hosting.WebApplications
 {
     /// <summary>
     /// 简洁应用供应商
     /// </summary>
-    public class NeatStartup : CommonStartup
+    public class NeatStartup : AppStartup
     {
 
         /// <summary>

@@ -12,10 +12,9 @@ using Suyaa.Hosting.Common.Configures.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
-using Suyaa.Hosting.Common.Modules.Helpers;
+using Suyaa.Hosting.Common.Resources;
 using Suyaa.Hosting.Core.Helpers;
 using Suyaa.Hosting.Infrastructure.Assemblies.Helpers;
-using Suyaa.Hosting.Infrastructure.Resources;
 using System.Reflection;
 
 namespace Suyaa.Hosting.WebApplications
@@ -26,29 +25,15 @@ namespace Suyaa.Hosting.WebApplications
     public class HostStartup : NeatStartup
     {
         // 私有变量定义
-        private readonly List<Assembly> _assemblies;
         private readonly List<Type> _filters;
-        private readonly List<string> _paths;
 
         /// <summary>
         /// Api应用供应商
         /// </summary>
         public HostStartup()
         {
-            _assemblies = new List<Assembly>();
-            _paths = new List<string>();
             _filters = new List<Type>();
         }
-
-        /// <summary>
-        /// 导入路径配置
-        /// </summary>
-        protected virtual void OnConfigurePath(IList<string> paths) { }
-
-        /// <summary>
-        /// 导入路径配置
-        /// </summary>
-        protected virtual void OnConfigureAssembly(IList<Assembly> assemblies) { }
 
         /// <summary>
         /// 配置应用
@@ -81,9 +66,9 @@ namespace Suyaa.Hosting.WebApplications
             app.UseEndpoints(endpoints =>
             {
                 // 映射所有页面
-                if (HostConfig.IsRazorPageSupport) endpoints.MapRazorPages();
+                if (HostConfig.IsRazorPageSupported) endpoints.MapRazorPages();
                 // 映射所有控制器
-                if (HostConfig.IsControllerSupport) endpoints.MapControllers();
+                if (HostConfig.IsControllerSupported) endpoints.MapControllers();
             });
             #endregion
         }
@@ -94,18 +79,10 @@ namespace Suyaa.Hosting.WebApplications
         /// <param name="dependency"></param>
         protected override void OnConfigureDependency(IDependencyManager dependency)
         {
+            base.OnConfigureDependency(dependency);
             // 添加基础组件注入
             dependency.Register<IHttpContextAccessor, HttpContextAccessor>(Lifetimes.Singleton);
-            dependency.Register<Logs.Dependency.ILogger>(sy.Logger.GetCurrentLogger());
-            dependency.Register(typeof(IOptionConfig<>), typeof(OptionConfig<>), Lifetimes.Singleton);
-            dependency.Register(HostConfig);
-            dependency.Register(Configuration);
-            // 添加程序集
-            dependency.Includes(_assemblies);
-            // 先执行自动注册
-            dependency.RegisterAll();
-            // 注册所有的模块
-            dependency.AddModulers(_assemblies);
+            dependency.RegisterInstance<Logs.Dependency.ILogger>(sy.Logger.GetCurrentLogger());
         }
 
         /// <summary>
@@ -121,21 +98,6 @@ namespace Suyaa.Hosting.WebApplications
 
             base.OnConfigureBuilder(builder);
 
-            #region 应用路径配置
-            sy.Logger.Debug($"Server Start ...", LogEvents.Server);
-            // 预处理寻址路径
-            _paths.Clear();
-            _paths.Add(sy.Assembly.ExecutionDirectory);
-            foreach (var path in HostConfig.Paths) _paths.Add(sy.IO.GetFullPath(path));
-            #endregion
-
-            #region 加载模块
-            sy.Logger.Debug($"Import Modules ...", LogEvents.Server);
-            OnConfigurePath(_paths);
-            _assemblies.AddFromHostConfig(HostConfig, _paths);
-            OnConfigureAssembly(_assemblies);
-            #endregion
-
         }
 
         /// <summary>
@@ -149,43 +111,11 @@ namespace Suyaa.Hosting.WebApplications
             // 输出服务注册日志
             sy.Logger.Debug($"Api services configure start ...", LogEvents.Services);
 
-            #region 添加控制器配置
-            // 添加服务配置
-            ServiceOption option = new ServiceOption();
-            option.RouteUrl = "/app";
-            option.AddAssemblies(_assemblies);
-
-            // 根据配置添加所有的控制器
-            if (HostConfig.IsControllerSupport)
-            {
-                services.AddControllers(options =>
-                {
-                    // 添加过滤器
-                    sy.Logger.Debug($"Add {typeof(ApiActionFilter).FullName}", LogEvents.Filter);
-                    options.Filters.Add<ApiActionFilter>();
-                    sy.Logger.Debug($"Add {typeof(ApiAsyncActionFilter).FullName}", LogEvents.Filter);
-                    options.Filters.Add<ApiAsyncActionFilter>();
-                    foreach (var filter in _filters)
-                    {
-                        sy.Logger.Debug($"Add {filter.FullName}", LogEvents.Filter);
-                        options.Filters.Add(filter);
-                    }
-                    // 添加约定器
-                    options.Conventions.Add(new ServiceApplicationModelConvention(option));
-                    options.Conventions.Add(new ServiceActionModelConvention());
-                }, _assemblies).ConfigureApplicationPartManager(pm =>
-                {
-                    // 添加自定义控制器
-                    pm.FeatureProviders.Add(new ServiceControllerFeatureProvider(option));
-                });
-            }
-            #endregion
-
             #region 添加页面配置
             // 根据配置添加所有的控制器
-            if (HostConfig.IsRazorPageSupport)
+            if (HostConfig.IsRazorPageSupported)
             {
-                services.AddRazorPages(_assemblies);
+                services.AddRazorPages(this.Assemblies);
             }
             #endregion
 
@@ -224,11 +154,21 @@ namespace Suyaa.Hosting.WebApplications
             #endregion
 
             #region 配置Razor页面
-            if (HostConfig.IsRazorPageSupport) services.AddRazorPages();
+            if (HostConfig.IsRazorPageSupported) services.AddRazorPages();
             #endregion
 
             // 输出服务注册日志
             sy.Logger.Debug($"Api services configure completed.", LogEvents.Services);
+        }
+
+        /// <summary>
+        /// 程序集配置
+        /// </summary>
+        /// <param name="assemblies"></param>
+        protected override void OnConfigureAssembly(IList<Assembly> assemblies)
+        {
+            base.OnConfigureAssembly(assemblies);
+            assemblies.Import<ModuleStartup>();
         }
     }
 }

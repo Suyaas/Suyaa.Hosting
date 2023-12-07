@@ -47,12 +47,17 @@ namespace Suyaa.Hosting.Common.Configures
         /// <summary>
         /// 是否支持页面
         /// </summary>
-        public bool IsRazorPageSupport { get; set; }
+        public bool IsRazorPageSupported { get; set; }
 
         /// <summary>
         /// 是否支持控制器
         /// </summary>
-        public bool IsControllerSupport { get; set; }
+        public bool IsControllerSupported { get; set; }
+
+        /// <summary>
+        /// 领域服务
+        /// </summary>
+        public HostDomainService DomainService { get; set; } = new HostDomainService();
 
         /// <summary>
         /// 舒雅服务配置
@@ -83,6 +88,8 @@ namespace Suyaa.Hosting.Common.Configures
                 Description = "All APIs",
                 Keyword = "*"
             });
+            this.DomainService.IsSupported = false;
+            this.DomainService.RouteRoot = "/app";
         }
     }
 
@@ -106,6 +113,24 @@ namespace Suyaa.Hosting.Common.Configures
         /// 过滤关键字
         /// </summary>
         public string Keyword { get; set; } = string.Empty;
+
+    }
+
+    /// <summary>
+    /// 领域服务配置
+    /// </summary>
+    public sealed class HostDomainService
+    {
+
+        /// <summary>
+        /// 是否支持
+        /// </summary>
+        public bool IsSupported { get; set; } = false;
+
+        /// <summary>
+        /// 路由根路径
+        /// </summary>
+        public string RouteRoot { get; set; } = string.Empty;
 
     }
 }

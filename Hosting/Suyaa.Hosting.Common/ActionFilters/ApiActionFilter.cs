@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Hosting.Common.ActionFilters.Dependency;
 using Suyaa.Hosting.Common.Attributes;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.Exceptions;
 using Suyaa.Hosting.Infrastructure.Exceptions;
 using Suyaa.Hosting.Infrastructure.Results;
@@ -13,19 +14,18 @@ namespace Suyaa.Hosting.Common.ActionFilters
     /// </summary>
     public class ApiActionFilter : IActionFilter
     {
-
         #region DI注入
 
-        private readonly IActionFilterProvider _actionFilterProvider;
+        private readonly IApiExecutedProvider _apiExecutedProvider;
 
         /// <summary>
         /// Api执行过滤器
         /// </summary>
         public ApiActionFilter(
-            IActionFilterProvider actionFilterProvider
+            IApiExecutedProvider apiExecutedProvider
             )
         {
-            _actionFilterProvider = actionFilterProvider;
+            _apiExecutedProvider = apiExecutedProvider;
         }
 
         #endregion
@@ -47,7 +47,8 @@ namespace Suyaa.Hosting.Common.ActionFilters
                 {
                     sy.Logger.Error(context.Exception.ToString(), context.ActionDescriptor.DisplayName.Fixed());
                     context.ExceptionHandled = true;
-                    context.Result = context.Exception.ToApiResult();
+                    //context.Result = context.Exception.ToApiResult();
+                    context.Result = _apiExecutedProvider.OnError(context.Exception);
                     return;
                 }
                 // 处理空结果
@@ -75,11 +76,11 @@ namespace Suyaa.Hosting.Common.ActionFilters
                         context.Result = new ApiResult();
                         return;
                     }
-                    context.Result = new ApiResult<object>() { Data = obj.Value, DataType = obj.DeclaredType.Name };
+                    context.Result = new ApiResult<object>() { Data = obj.Value };
                     return;
                 }
                 // 直接返回
-                context.Result = new ApiResult<object>() { Data = result, DataType = type.Name };
+                context.Result = new ApiResult<object>() { Data = result };
             }
             catch (Exception ex)
             {

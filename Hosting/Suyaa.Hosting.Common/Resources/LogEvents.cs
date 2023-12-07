@@ -1,4 +1,4 @@
-﻿namespace Suyaa.Hosting.Infrastructure.Resources
+﻿namespace Suyaa.Hosting.Common.Resources
 {
     /// <summary>
     /// 日志事件类型

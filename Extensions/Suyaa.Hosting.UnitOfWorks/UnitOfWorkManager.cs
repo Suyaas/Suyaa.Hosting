@@ -35,12 +35,13 @@ namespace Suyaa.Hosting.UnitOfWork
         /// <summary>
         /// 建立一个新的工作单元
         /// </summary>
-        public void Begin()
+        public IUnitOfWork Begin()
         {
             lock (_asyncLocal)
             {
                 var work = _dependencyManager.Resolve<IUnitOfWork>();
                 _asyncLocal.Value = new UnitOfWorkWrapper(work);
+                return work;
             }
         }
 

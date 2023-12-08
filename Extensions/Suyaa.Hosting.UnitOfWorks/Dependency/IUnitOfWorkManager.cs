@@ -14,7 +14,7 @@ namespace Suyaa.Hosting.UnitOfWork.Dependency
         /// <summary>
         /// 开始一个工作单元
         /// </summary>
-        void Begin();
+        IUnitOfWork Begin();
 
         /// <summary>
         /// 获取当前工作单元

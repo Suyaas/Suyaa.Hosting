@@ -3,6 +3,7 @@ using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Hosting.Common.Sessions.Dependency;
 using Suyaa.Hosting.Common.Sessions.Helpers;
+using Suyaa.Hosting.UnitOfWork.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,15 @@ namespace SimpleHosting.Sessions
     public sealed class SessionApp : DomainServiceApp
     {
         private readonly IDependencyManager _dependencyManager;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
 
         public SessionApp(
-            IDependencyManager dependencyManager
+            IDependencyManager dependencyManager,
+            IUnitOfWorkManager unitOfWorkManager
             )
         {
             _dependencyManager = dependencyManager;
+            _unitOfWorkManager = unitOfWorkManager;
         }
 
 
@@ -42,9 +46,15 @@ namespace SimpleHosting.Sessions
         {
             await SetSessionValue();
             var sessionManager = _dependencyManager.Resolve<ISessionManager>();
-            var session = sessionManager.GetSession();
-            var value = session.Get<string>("test");
-            return value ?? string.Empty;
+            var session1 = sessionManager.GetSession();
+            string value2;
+            using (_unitOfWorkManager.Begin())
+            {
+                var session2 = sessionManager.GetSession();
+                value2 = session2.Get<string>("test") ?? string.Empty;
+            }
+            var value1 = session1.Get<string>("test");
+            return $"v1:{value1}, v2:{value2}";
         }
     }
 }

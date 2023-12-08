@@ -35,8 +35,4 @@
     <ProjectReference Include="..\..\Hosting\Suyaa.Hosting.Common\Suyaa.Hosting.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Providers\" />
-  </ItemGroup>
-
 </Project>

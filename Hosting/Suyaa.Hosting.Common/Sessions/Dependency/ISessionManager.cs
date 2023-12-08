@@ -16,5 +16,11 @@ namespace Suyaa.Hosting.Common.Sessions.Dependency
         /// </summary>
         /// <returns></returns>
         ISession GetSession();
+
+        /// <summary>
+        /// 释放当前交互信息
+        /// </summary>
+        /// <returns></returns>
+        void ReleaseSession();
     }
 }

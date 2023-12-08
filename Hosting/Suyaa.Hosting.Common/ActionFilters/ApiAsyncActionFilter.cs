@@ -14,7 +14,7 @@ namespace Suyaa.Hosting.Common.ActionFilters
         #region DI注入
 
         private readonly IDependencyManager _dependencyManager;
-        private readonly IEnumerable<Type> _types;
+        private readonly IEnumerable<IActionFilterProvider> _providers;
 
         /// <summary>
         /// Api执行过滤器
@@ -24,7 +24,7 @@ namespace Suyaa.Hosting.Common.ActionFilters
             )
         {
             _dependencyManager = dependencyManager;
-            _types = _dependencyManager.GetImplementationTypes<IActionFilterProvider>();
+            _providers = _dependencyManager.Resolves<IActionFilterProvider>();
         }
 
         #endregion
@@ -38,20 +38,14 @@ namespace Suyaa.Hosting.Common.ActionFilters
         /// <exception cref="UserFriendlyException"></exception>
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            // 所有切片初始化
-            List<IActionFilterProvider> actionFilterProviders = new List<IActionFilterProvider>();
-            foreach (var type in _types)
-            {
-                actionFilterProviders.Add((IActionFilterProvider)_dependencyManager.Resolve(type));
-            }
             // 执行前置逻辑
-            foreach (var provider in actionFilterProviders)
+            foreach (var provider in _providers)
             {
                 provider.OnActionExecuting(context);
             }
             var contextExecuted = await next();
             // 执行后置逻辑
-            foreach (var provider in actionFilterProviders)
+            foreach (var provider in _providers)
             {
                 provider.OnActionExecuted(contextExecuted);
             }

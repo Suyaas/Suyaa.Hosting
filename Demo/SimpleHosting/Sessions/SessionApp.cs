@@ -1,4 +1,6 @@
 ﻿using Suyaa.Hosting.App.Services;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Hosting.Common.Sessions.Dependency;
 using Suyaa.Hosting.Common.Sessions.Helpers;
 using System;
@@ -14,13 +16,22 @@ namespace SimpleHosting.Sessions
     /// </summary>
     public sealed class SessionApp : DomainServiceApp
     {
-        private readonly ISessionManager _sessionManager;
+        private readonly IDependencyManager _dependencyManager;
 
         public SessionApp(
-            ISessionManager sessionManager
+            IDependencyManager dependencyManager
             )
         {
-            _sessionManager = sessionManager;
+            _dependencyManager = dependencyManager;
+        }
+
+
+        private async Task SetSessionValue()
+        {
+            var sessionManager = _dependencyManager.Resolve<ISessionManager>();
+            var session = sessionManager.GetSession();
+            session.Set("test", "123222");
+            await Task.CompletedTask;
         }
 
         /// <summary>
@@ -29,10 +40,11 @@ namespace SimpleHosting.Sessions
         /// <returns></returns>
         public async Task<string> GetTestValue()
         {
-            var session = _sessionManager.GetSession();
-            session.Set("test", "123");
+            await SetSessionValue();
+            var sessionManager = _dependencyManager.Resolve<ISessionManager>();
+            var session = sessionManager.GetSession();
             var value = session.Get<string>("test");
-            return await Task.FromResult(value) ?? string.Empty;
+            return value ?? string.Empty;
         }
     }
 }

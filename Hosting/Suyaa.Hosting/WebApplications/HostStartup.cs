@@ -79,16 +79,16 @@ namespace Suyaa.Hosting.WebApplications
         /// <summary>
         /// 配置依赖
         /// </summary>
-        /// <param name="dependency"></param>
-        protected override void OnConfigureDependency(IDependencyManager dependency)
+        /// <param name="dependencyManager"></param>
+        protected override void OnConfigureDependency(IDependencyManager dependencyManager)
         {
-            base.OnConfigureDependency(dependency);
+            base.OnConfigureDependency(dependencyManager);
             // 添加基础组件注入
-            dependency.Register<IHttpContextAccessor, HttpContextAccessor>(Lifetimes.Singleton);
+            dependencyManager.Register<IHttpContextAccessor, HttpContextAccessor>(Lifetimes.Singleton);
             // 注入日志管理器
-            dependency.RegisterInstance<Logs.Dependency.ILogger>(sy.Logger.GetCurrentLogger());
+            dependencyManager.RegisterInstance<Logs.Dependency.ILogger>(sy.Logger.GetCurrentLogger());
             // 注入简单的交互信息模块
-            dependency.AddSession();
+            dependencyManager.AddSession();
         }
 
         /// <summary>

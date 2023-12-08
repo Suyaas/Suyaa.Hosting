@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Extensions\Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWork.csproj" />
     <ProjectReference Include="..\..\Hosting\Suyaa.Hosting\Suyaa.Hosting.csproj" />
   </ItemGroup>
 

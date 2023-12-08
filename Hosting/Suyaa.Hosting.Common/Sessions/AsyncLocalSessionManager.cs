@@ -39,7 +39,7 @@ namespace Suyaa.Hosting.Common.Sessions
         /// <returns></returns>
         public ISession GetSession()
         {
-            if (_asyncLocal.Value is null)
+            if (_asyncLocal.Value is null || _asyncLocal.Value.Session is null)
             {
                 lock (_asyncLocal)
                 {
@@ -47,7 +47,18 @@ namespace Suyaa.Hosting.Common.Sessions
                     _asyncLocal.Value = new AsyncLocalSessionWrapper(provider.GetSession());
                 }
             }
-            return _asyncLocal.Value.Session;
+            return _asyncLocal.Value.Session!;
+        }
+
+        /// <summary>
+        /// 释放交互信息
+        /// </summary>
+        public void ReleaseSession()
+        {
+            lock (_asyncLocal)
+            {
+                _asyncLocal.Value = new AsyncLocalSessionWrapper();
+            }
         }
     }
 }

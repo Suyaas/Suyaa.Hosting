@@ -22,8 +22,13 @@ namespace Suyaa.Hosting.Common.Sessions
         }
 
         /// <summary>
+        /// 交互信息包裹层
+        /// </summary>
+        public AsyncLocalSessionWrapper() { }
+
+        /// <summary>
         /// 交互信息
         /// </summary>
-        public ISession Session { get; }
+        public ISession? Session { get; }
     }
 }

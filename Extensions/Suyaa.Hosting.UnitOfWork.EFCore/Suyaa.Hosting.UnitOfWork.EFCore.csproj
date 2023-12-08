@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>1.9.2310.55</Version>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
+    <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
+    <PackageProjectUrl>https://github.com/Suyaas/Suyaa.Hosting</PackageProjectUrl>
+    <PackageIcon>Suyaa_red_128.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Suyaas/Suyaa.Hosting</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>host,efcore</PackageTags>
+    <Description>舒雅微服务组件中的EFCore数据库操作插件</Description>
+    <Title>$(AssemblyName)</Title>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon\Suyaa_red_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Suyaa.EFCore" Version="1.7.2312.35" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Suyaa.Hosting.UnitOfWork.Data\Suyaa.Hosting.UnitOfWork.Data.csproj" />
+  </ItemGroup>
+
+</Project>

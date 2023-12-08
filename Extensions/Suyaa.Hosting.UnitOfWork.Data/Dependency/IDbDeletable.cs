@@ -13,6 +13,11 @@ namespace Suyaa.Hosting.Data.Dependency
         /// 数据更新
         /// </summary>
         /// <returns></returns>
+        void Delete(TEntity entity);
+        /// <summary>
+        /// 数据更新
+        /// </summary>
+        /// <returns></returns>
         Task DeleteAsync(TEntity entity);
     }
 }

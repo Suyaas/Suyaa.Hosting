@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -13,8 +13,8 @@
     <RepositoryUrl>https://github.com/Suyaas/Suyaa.Hosting</RepositoryUrl>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>host,efcore</PackageTags>
-    <Description>舒雅微服务组件中的EFCore数据库操作插件</Description>
+    <PackageTags>host,orm</PackageTags>
+    <Description>舒雅微服务组件中的数据库操作插件</Description>
     <Title>$(AssemblyName)</Title>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -32,11 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Suyaa.EFCore" Version="1.7.2312.35" />
+    <PackageReference Include="Suyaa.Data" Version="1.7.2312.35" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Suyaa.Hosting.Data\Suyaa.Hosting.Data.csproj" />
+    <ProjectReference Include="..\Suyaa.Hosting.UnitOfWork\Suyaa.Hosting.UnitOfWork.csproj" />
   </ItemGroup>
 
 </Project>

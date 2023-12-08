@@ -18,16 +18,13 @@ namespace Suyaa.Hosting.Common.Configures
         /// <param name="type"></param>
         public OptionConfig(IDependencyManager dependencyManager, Type type)
         {
-            var types = dependencyManager.GetImplementationTypes(type);
-            if (types.Any())
+            var obj = dependencyManager.Resolve(type);
+            if (obj is null)
             {
-                _value = dependencyManager.Resolve(types.First());
+                obj = sy.Assembly.Create(type) ?? throw new TypeNotSupportedException(type);
+                if (obj is IConfig config) config.Default();
             }
-            else
-            {
-                _value = sy.Assembly.Create(type) ?? throw new TypeNotSupportedException(type);
-                if (_value is IConfig config) config.Default();
-            }
+            _value = obj;
         }
 
         /// <summary>

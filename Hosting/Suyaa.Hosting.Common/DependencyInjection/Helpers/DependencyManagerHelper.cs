@@ -263,9 +263,29 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
         /// 抽取
         /// </summary>
         /// <param name="dependencyManager"></param>
-        public static T Resolve<T>(this IDependencyManager dependencyManager)
+        public static object ResolveRequired(this IDependencyManager dependencyManager, Type type)
         {
-            return (T)dependencyManager.Resolve(typeof(T));
+            var obj = dependencyManager.Resolve(type);
+            if (obj is null) throw new NullException(type);
+            return obj;
+        }
+
+        /// <summary>
+        /// 抽取
+        /// </summary>
+        /// <param name="dependencyManager"></param>
+        public static T ResolveRequired<T>(this IDependencyManager dependencyManager)
+        {
+            return (T)dependencyManager.ResolveRequired(typeof(T));
+        }
+
+        /// <summary>
+        /// 抽取
+        /// </summary>
+        /// <param name="dependencyManager"></param>
+        public static T? Resolve<T>(this IDependencyManager dependencyManager)
+        {
+            return (T?)dependencyManager.Resolve(typeof(T));
         }
 
         /// <summary>
@@ -278,7 +298,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
             var types = dependencyManager.GetImplementationTypes<T>();
             foreach (var type in types)
             {
-                list.Add((T)dependencyManager.Resolve(type));
+                list.Add((T)dependencyManager.ResolveRequired(type));
             }
             return list;
         }

@@ -206,7 +206,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         /// 抽取
         /// </summary>
         /// <param name="type"></param>
-        public object Resolve(Type type)
+        public object? Resolve(Type type)
         {
             // 处理异步上下文
             if (_asyncLocal.Value is null)

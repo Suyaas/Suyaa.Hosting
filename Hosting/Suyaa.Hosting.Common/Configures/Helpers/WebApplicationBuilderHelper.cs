@@ -21,9 +21,9 @@ namespace Suyaa.Hosting.Common.Configures.Helpers
         {
             // 添加配置
             var source = builder.Configuration.AddConfigurationSource<TConfig>();
-            var hostConfig = source.GetConfig();
+            var config = source.GetConfig();
             // 注入依赖
-            if (hostConfig != null) builder.Services.AddSingleton(hostConfig);
+            if (config != null) builder.Services.AddSingleton(config);
             return builder;
         }
 

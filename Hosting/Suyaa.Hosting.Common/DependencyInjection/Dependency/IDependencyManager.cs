@@ -49,7 +49,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Dependency
         /// 抽取
         /// </summary>
         /// <param name="type"></param>
-        object Resolve(Type type);
+        object? Resolve(Type type);
 
         /// <summary>
         /// 获取服务类获取所有的可实现类

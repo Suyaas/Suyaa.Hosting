@@ -55,11 +55,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.EFCore", "Ext
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.Multilingual", "Extensions\Suyaa.Hosting.Multilingual\Suyaa.Hosting.Multilingual.csproj", "{A7F8AFA0-D7FB-4736-B34C-BD1F0D3917EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWorks", "Extensions\Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWorks.csproj", "{5F265A2B-733D-4601-B8E2-0FDD93A0AFEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWork", "Extensions\Suyaa.Hosting.UnitOfWorks\Suyaa.Hosting.UnitOfWork.csproj", "{5F265A2B-733D-4601-B8E2-0FDD93A0AFEF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniHosting", "Demo\MiniHosting\MiniHosting.csproj", "{AE613337-314E-4A32-A10B-3A8ED48BDBDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleHosting", "Demo\SimpleHosting\SimpleHosting.csproj", "{8160F53D-4503-4EB8-BE8C-5B4AE22A58A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleHosting", "Demo\SimpleHosting\SimpleHosting.csproj", "{8160F53D-4503-4EB8-BE8C-5B4AE22A58A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -21,6 +21,7 @@ namespace Suyaa.Hosting.Common.Exceptions
         /// 主机友好错误
         /// </summary>
         /// <param name="message"></param>
+        /// <param name="parameters"></param>
         public UserFriendlyException(string message, params string[] parameters) : base(KEY_FRIENDLY, message, parameters)
         {
             ErrorCode = ErrorCode.Undefined;

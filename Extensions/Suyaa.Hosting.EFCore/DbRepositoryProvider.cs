@@ -1,15 +1,11 @@
 ﻿using Suyaa.Data.Dependency;
 using Suyaa.Data.Descriptors;
-using Suyaa.EFCore;
 using Suyaa.EFCore.Contexts;
 using Suyaa.EFCore.Descriptors;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Data.Dependency;
 using Suyaa.Hosting.EFCore.Dependency;
-using Suyaa.Hosting.Kernel;
-using Suyaa.Hosting.Kernel.Dependency;
-using System.Collections.Generic;
+using Suyaa.Hosting.Infrastructure.Exceptions;
 
 namespace Suyaa.Hosting.EFCore
 {

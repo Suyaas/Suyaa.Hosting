@@ -14,6 +14,9 @@ namespace Suyaa.Hosting.Common.Configures
         /// </summary>
         public Dictionary<string, KestrelEndpoint> Endpoints { get; set; } = new Dictionary<string, KestrelEndpoint>();
 
+        /// <summary>
+        /// 生成默认配置
+        /// </summary>
         public void Default()
         {
             this.Endpoints.Clear();

@@ -20,7 +20,11 @@ namespace Suyaa.Hosting.Common.Configures
             return _provider?.Config;
         }
 
-        // 构建配置
+        /// <summary>
+        /// 构建配置
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <returns></returns>
         public override IConfigurationProvider Build(IConfigurationBuilder builder)
         {
             EnsureDefaults(builder);

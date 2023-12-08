@@ -1,12 +1,6 @@
 ﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.EFCore.Dependency;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Suyaa.Hosting.EFCore
 {

@@ -262,10 +262,25 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
         /// <summary>
         /// 抽取
         /// </summary>
-        /// <param name="manager"></param>
-        public static T Resolve<T>(this IDependencyManager manager)
+        /// <param name="dependencyManager"></param>
+        public static T Resolve<T>(this IDependencyManager dependencyManager)
         {
-            return (T)manager.Resolve(typeof(T));
+            return (T)dependencyManager.Resolve(typeof(T));
+        }
+
+        /// <summary>
+        /// 抽取多个实现
+        /// </summary>
+        /// <param name="dependencyManager"></param>
+        public static List<T> Resolves<T>(this IDependencyManager dependencyManager)
+        {
+            List<T> list = new List<T>();
+            var types = dependencyManager.GetImplementationTypes<T>();
+            foreach (var type in types)
+            {
+                list.Add((T)dependencyManager.Resolve(type));
+            }
+            return list;
         }
 
         /// <summary>

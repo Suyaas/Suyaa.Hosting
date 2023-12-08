@@ -13,8 +13,11 @@ using Suyaa.Hosting.Common.DependencyInjection;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Hosting.Common.Resources;
+using Suyaa.Hosting.Common.Sessions.Dependency;
 using Suyaa.Hosting.Core.Helpers;
 using Suyaa.Hosting.Infrastructure.Assemblies.Helpers;
+using Suyaa.Hosting.Sessions;
+using Suyaa.Hosting.Sessions.Helpers;
 using System.Reflection;
 
 namespace Suyaa.Hosting.WebApplications
@@ -82,7 +85,10 @@ namespace Suyaa.Hosting.WebApplications
             base.OnConfigureDependency(dependency);
             // 添加基础组件注入
             dependency.Register<IHttpContextAccessor, HttpContextAccessor>(Lifetimes.Singleton);
+            // 注入日志管理器
             dependency.RegisterInstance<Logs.Dependency.ILogger>(sy.Logger.GetCurrentLogger());
+            // 注入简单的交互信息模块
+            dependency.AddSession();
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using Suyaa.Hosting.WebApplications;
 using Suyaa.Hosting.Common.ActionFilters.Helpers;
 using Suyaa.Hosting.Common.DependencyInjection;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Sessions.Helpers;
 
 namespace PagesDemo
 {

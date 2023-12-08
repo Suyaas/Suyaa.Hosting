@@ -29,6 +29,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         /// 依赖异常
         /// </summary>
         /// <param name="type"></param>
+        /// <param name="key"></param>
         /// <param name="message"></param>
         public DependencyException(Type type, string key, string message) : base(KEY_DEPENDENCY + "." + key, "Type '{0}' dependency error: " + message, type.FullName ?? string.Empty)
         {

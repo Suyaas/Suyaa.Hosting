@@ -13,7 +13,6 @@ namespace Suyaa.Hosting.Common.Configures.Helpers
         /// <summary>
         /// 注册可选配置
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static IDependencyManager AddOptionConfigure(this IDependencyManager dependency)
         {
@@ -24,7 +23,6 @@ namespace Suyaa.Hosting.Common.Configures.Helpers
         /// <summary>
         /// 注册配置相关的所有功能
         /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static IDependencyManager AddConfigures(this IDependencyManager dependency)
         {

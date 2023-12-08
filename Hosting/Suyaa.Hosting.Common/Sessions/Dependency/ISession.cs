@@ -6,18 +6,17 @@
     public interface ISession
     {
         /// <summary>
-        /// 用户唯一标识
+        /// 设置值
         /// </summary>
-        string? Uid { get; set; }
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        void Set(string key, object? value);
 
         /// <summary>
-        /// 租户Id
+        /// 获取值
         /// </summary>
-        int? TenantId { get; set; }
-
-        /// <summary>
-        /// 过期时间
-        /// </summary>
-        DateTime? InvalidTime { get; set; }
+        /// <param name="key"></param>
+        /// <returns></returns>
+        object? Get(string key);
     }
 }

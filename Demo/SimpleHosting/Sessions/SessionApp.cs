@@ -32,7 +32,7 @@ namespace SimpleHosting.Sessions
 
         private async Task SetSessionValue()
         {
-            var sessionManager = _dependencyManager.Resolve<ISessionManager>();
+            var sessionManager = _dependencyManager.ResolveRequired<ISessionManager>();
             var session = sessionManager.GetSession();
             session.Set("test", "123222");
             await Task.CompletedTask;
@@ -45,7 +45,7 @@ namespace SimpleHosting.Sessions
         public async Task<string> GetTestValue()
         {
             await SetSessionValue();
-            var sessionManager = _dependencyManager.Resolve<ISessionManager>();
+            var sessionManager = _dependencyManager.ResolveRequired<ISessionManager>();
             var session1 = sessionManager.GetSession();
             string value2;
             using (_unitOfWorkManager.Begin())

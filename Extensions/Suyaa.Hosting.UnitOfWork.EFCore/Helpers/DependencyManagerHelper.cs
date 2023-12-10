@@ -1,12 +1,14 @@
-﻿using Suyaa.EFCore;
+﻿using Suyaa.EFCore.Contexts;
 using Suyaa.EFCore.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
-using Suyaa.Hosting.Common.DependencyManager;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
-using Suyaa.Hosting.Data.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Hosting.EFCore.Dependency;
-using Suyaa.Hosting.Kernel.Helpers;
 using Suyaa.Hosting.Multilingual.Helpers;
+using Suyaa.Hosting.UnitOfWork.EFCore;
+using Suyaa.Hosting.UnitOfWork.EFCore.Dependency;
+using IDbSetFactory = Suyaa.Hosting.UnitOfWork.EFCore.Dependency.IDbSetFactory;
+using IDbSetProvider = Suyaa.Hosting.UnitOfWork.EFCore.Dependency.IDbSetProvider;
 
 namespace Suyaa.Hosting.EFCore.Helpers
 {
@@ -18,26 +20,26 @@ namespace Suyaa.Hosting.EFCore.Helpers
         /// <summary>
         /// 添加EFCore支持
         /// </summary>
-        /// <param name="dependency"></param>
+        /// <param name="dependencyManager"></param>
         /// <returns></returns>
-        public static IDependencyManager AddEFCore(this IDependencyManager dependency)
+        public static IDependencyManager AddEFCoreUnitOfWork(this IDependencyManager dependencyManager)
         {
             // 注册程序集
-            dependency.Include<DbContextFactory>();
+            dependencyManager.Include<DbSetFactory>();
             // 使用数据库
-            dependency.AddDatabase();
-            // 注册所有的数据库上下文
-            List<Type> excludeContextTypes = new List<Type>() { typeof(DbDescriptorTypeContext) };
-            dependency.RegisterTransients<IDbDescriptorContext>(type => !excludeContextTypes.Contains(type));
-            // 注册连接描述工厂
-            dependency.Register<IDbConnectionDescriptorFactory, DbConnectionDescriptorFactory>(Lifetimes.Singleton);
-            // 注册数据库上下文工厂
-            dependency.Register<IDbContextFactory, DbContextFactory>(Lifetimes.Singleton);
+            dependencyManager.AddDbUnitOfWork();
+            // 注册所有的带描述数据库上下文
+            List<Type> excludeContextTypes = new List<Type>() { typeof(DescriptorTypeDbContext) };
+            dependencyManager.RegisterTransientImplementations(typeof(IDescriptorDbContext), tp => !excludeContextTypes.Contains(tp));
+            // 注册所有的 DbSet 供应商
+            dependencyManager.RegisterTransientImplementations<IDbSetProvider>();
+            // 注册数据库 DbSet 工厂
+            dependencyManager.Register<IDbSetFactory, DbSetFactory>(Lifetimes.Singleton);
             // 注册异步数据库上下文
-            dependency.Register<IDbContextAsyncWork, DbContextAsyncWork>(Lifetimes.Transient);
-            dependency.Register<IDbContextAsyncProvider, DbContextAsyncProvider>(Lifetimes.Transient);
-            dependency.Register<IDbContextAsyncManager, DbContextAsyncManager>(Lifetimes.Transient);
-            return dependency;
+            dependencyManager.Register<IDbContextWork, DbContextWork>(Lifetimes.Transient);
+            dependencyManager.Register<IDbContextWorkProvider, DbContextWorkProvider>(Lifetimes.Transient);
+            dependencyManager.Register<IDbContextWorkManager, DbContextWorkManager>(Lifetimes.Transient);
+            return dependencyManager;
         }
     }
 }

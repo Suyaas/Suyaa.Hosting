@@ -13,23 +13,27 @@ namespace Suyaa.Hosting.EFCore
     /// <summary>
     /// 数据库上下文包裹层
     /// </summary>
-    public sealed class DbContentWrapper
+    public sealed class DbContentWorkWrapper
     {
 
         /// <summary>
         /// 数据库上下文包裹层
         /// </summary>
-        public DbContentWrapper(IDbContextAsyncWork? dbContextAsyncWork)
+        public DbContentWorkWrapper()
+        {
+        }
+
+        /// <summary>
+        /// 数据库上下文包裹层
+        /// </summary>
+        public DbContentWorkWrapper(IDbContextWork? dbContextAsyncWork)
         {
             DbContextAsyncWork = dbContextAsyncWork;
-
-            //DbContext = dbContext;
-            //dbContext.ConnectionDescriptor.ToConnectionString();
         }
 
         /// <summary>
         /// 数据库上下文异步工作
         /// </summary>
-        public IDbContextAsyncWork? DbContextAsyncWork { get; }
+        public IDbContextWork? DbContextAsyncWork { get; }
     }
 }

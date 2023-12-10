@@ -1,11 +1,14 @@
 ﻿using Suyaa.Data.Dependency;
 using Suyaa.Data.Descriptors;
 using Suyaa.EFCore.Contexts;
+using Suyaa.EFCore.Dependency;
 using Suyaa.EFCore.Descriptors;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Data.Dependency;
 using Suyaa.Hosting.EFCore.Dependency;
 using Suyaa.Hosting.Infrastructure.Exceptions;
+using Suyaa.Hosting.UnitOfWork.EFCore.Dependency;
+using IDbSetFactory = Suyaa.Hosting.UnitOfWork.EFCore.Dependency.IDbSetFactory;
 
 namespace Suyaa.Hosting.EFCore
 {
@@ -20,28 +23,28 @@ namespace Suyaa.Hosting.EFCore
         #region DI注入
 
         private readonly IDependencyManager _dependencyManager;
-        private readonly IDbContextFactory _dbContextFactory;
-        private readonly IDbContextAsyncProvider _dbContextAsyncProvider;
+        private readonly IDbSetFactory _dbSetFactory;
+        private readonly IDbContextWorkManager _dbContextWorkManager;
 
         /// <summary>
         /// 仓库供应商
         /// </summary>
         public DbRepositoryProvider(
             IDependencyManager dependencyManager,
-            IDbContextFactory dbContextFactory,
-            IDbContextAsyncProvider dbContextAsyncProvider
+            IDbSetFactory dbSetFactory,
+            IDbContextWorkManager dbContextWorkManager
             )
         {
             _dependencyManager = dependencyManager;
-            _dbContextFactory = dbContextFactory;
-            _dbContextAsyncProvider = dbContextAsyncProvider;
+            _dbSetFactory = dbSetFactory;
+            _dbContextWorkManager = dbContextWorkManager;
         }
         #endregion
 
         // 获取实例描述
         private DbSetDescriptor GetDbEntity()
         {
-            var descriptor = _dbContextFactory.GetEntity<TEntity>();
+            var descriptor = _dbSetFactory.GetDbSet<TEntity>();
             if (descriptor is null) throw new HostException($"Entity '{typeof(TEntity).FullName}' not found.");
             return descriptor;
         }
@@ -49,13 +52,13 @@ namespace Suyaa.Hosting.EFCore
         // 获取实例描述
         private DescriptorDbContext GetDbContext(DbSetDescriptor descriptor)
         {
-            var work = _dbContextAsyncProvider.GetCurrentWork();
+            var work = _dbContextWorkManager.GetWork();
             if (work is null) throw new HostException($"DbContextWork not found.");
             var dbContext = work.GetDbContext(descriptor.ConnectionDescriptor);
             if (dbContext is null)
             {
                 //throw new HostException($"DbContext not found.");
-                dbContext = (DescriptorDbContext)_dependencyManager.Resolve(descriptor.Context);
+                dbContext = (DescriptorDbContext)_dependencyManager.Resolve(descriptor.);
                 work.SetDbContext(dbContext);
                 dbContext = work.GetDbContext(descriptor.ConnectionDescriptor);
                 if (dbContext is null) throw new HostException($"DbContext not found.");
@@ -123,6 +126,11 @@ namespace Suyaa.Hosting.EFCore
             context.Set<TEntity>();
             context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await context.SaveChangesAsync();
+        }
+
+        public void Delete(TEntity entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

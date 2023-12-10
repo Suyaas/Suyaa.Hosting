@@ -136,12 +136,13 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
         /// </summary>
         /// <param name="dependencyManager"></param>
         /// <param name="serviceType"></param>
+        /// <param name="predicate"></param>
         /// <returns></returns>
-        public static IDependencyManager RegisterTransientImplementations(this IDependencyManager dependencyManager, Type serviceType)
+        public static IDependencyManager RegisterTransientImplementations(this IDependencyManager dependencyManager, Type serviceType, Func<Type, bool> predicate)
         {
             foreach (Assembly assembly in dependencyManager.Assemblies)
             {
-                dependencyManager.RegisterTransientImplementations(serviceType, assembly);
+                dependencyManager.RegisterTransientImplementations(serviceType, assembly, predicate);
             }
             return dependencyManager;
         }
@@ -154,7 +155,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
         /// <returns></returns>
         public static IDependencyManager RegisterTransientImplementations<T>(this IDependencyManager dependencyManager)
         {
-            return dependencyManager.RegisterTransientImplementations(typeof(T));
+            return dependencyManager.RegisterTransientImplementations(typeof(T), tp => true);
         }
 
         #endregion
@@ -263,6 +264,7 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
         /// 抽取
         /// </summary>
         /// <param name="dependencyManager"></param>
+        /// <param name="type"></param>
         public static object ResolveRequired(this IDependencyManager dependencyManager, Type type)
         {
             var obj = dependencyManager.Resolve(type);

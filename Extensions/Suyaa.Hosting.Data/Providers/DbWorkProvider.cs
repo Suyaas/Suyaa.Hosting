@@ -37,7 +37,7 @@ namespace Suyaa.Hosting.Data.Providers
         /// <returns></returns>
         public IDbWork CreateWork(IDbWorkManager dbWorkManager)
         {
-            return _dependencyManager.Resolve<IDbWork>();
+            return _dependencyManager.ResolveRequired<IDbWork>();
         }
 
     }

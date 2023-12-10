@@ -9,12 +9,12 @@ namespace Suyaa.Hosting.EFCore.Dependency
     /// <summary>
     /// 数据库上下文异步管理器
     /// </summary>
-    public interface IDbContextAsyncManager
+    public interface IDbContextWorkProvider
     {
         /// <summary>
         /// 创建一个异步工作
         /// </summary>
         /// <returns></returns>
-        IDbContextAsyncWork CreateWork();
+        IDbContextWork CreateWork();
     }
 }

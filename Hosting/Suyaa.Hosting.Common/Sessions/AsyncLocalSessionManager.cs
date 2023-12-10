@@ -43,7 +43,7 @@ namespace Suyaa.Hosting.Common.Sessions
             {
                 lock (_asyncLocal)
                 {
-                    var provider = _dependencyManager.Resolve<ISessionProvider>();
+                    var provider = _dependencyManager.ResolveRequired<ISessionProvider>();
                     _asyncLocal.Value = new AsyncLocalSessionWrapper(provider.GetSession());
                 }
             }

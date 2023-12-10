@@ -1,8 +1,11 @@
 ﻿using Suyaa.Data;
 using Suyaa.EFCore;
 using Suyaa.EFCore.Contexts;
+using Suyaa.EFCore.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.EFCore.Dependency;
 using Suyaa.Hosting.EFCore.Helpers;
+using Suyaa.Hosting.UnitOfWork.EFCore.Dependency;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,27 +17,30 @@ namespace Suyaa.Hosting.EFCore
     /// <summary>
     /// 数据库上下文异步作业
     /// </summary>
-    public class DbContextAsyncWork : Disposable, IDbContextAsyncWork
+    public class DbContextWork : Disposable, IDbContextWork
     {
+        private readonly IDependencyManager _dependencyManager;
+        private readonly IDbSetFactory _dbSetFactory;
 
         #region DI注入
 
-        private readonly IDbContextAsyncProvider _dbContextAsyncProvider;
-        private readonly IDbContextFactory _dbContextFactory;
+        private readonly IDbContextWorkManager _dbContextWorkManager;
         private readonly Dictionary<string, DescriptorTypeDbContext> _dbContexts;
         //private DynamicDbContext? _dbContext;
 
         /// <summary>
         /// 数据库上下文异步作业
         /// </summary>
-        public DbContextAsyncWork(
-            IDbContextAsyncProvider dbContextAsyncProvider,
-            IDbContextFactory dbContextFactory
+        public DbContextWork(
+            IDependencyManager dependencyManager,
+            IDbSetFactory dbSetFactory,
+            IDbContextWorkManager dbContextWorkManager
             )
         {
             this.IsCompleted = false;
-            _dbContextAsyncProvider = dbContextAsyncProvider;
-            _dbContextFactory = dbContextFactory;
+            _dependencyManager = dependencyManager;
+            _dbSetFactory = dbSetFactory;
+            _dbContextWorkManager = dbContextWorkManager;
             _dbContexts = new Dictionary<string, DescriptorTypeDbContext>();
         }
 

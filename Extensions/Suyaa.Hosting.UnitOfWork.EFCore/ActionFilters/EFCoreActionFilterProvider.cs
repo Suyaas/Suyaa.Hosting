@@ -15,17 +15,17 @@ namespace Suyaa.Hosting.EFCore.ActionFilters
     public sealed class EFCoreActionFilterProvider : IActionFilterProvider
     {
         // 私有变量
-        private IDbContextAsyncWork? _dbContextAsyncWork;
+        private IDbContextWork? _dbContextAsyncWork;
 
         #region DI注入
 
-        private readonly IDbContextAsyncManager _dbContextAsyncManager;
+        private readonly IDbContextWorkManager _dbContextAsyncManager;
 
         /// <summary>
         /// EFCore切片供应商
         /// </summary>
         public EFCoreActionFilterProvider(
-            IDbContextAsyncManager dbContextAsyncManager
+            IDbContextWorkManager dbContextAsyncManager
             )
         {
             _dbContextAsyncManager = dbContextAsyncManager;

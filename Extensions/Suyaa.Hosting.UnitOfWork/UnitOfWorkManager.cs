@@ -39,7 +39,7 @@ namespace Suyaa.Hosting.UnitOfWork
         {
             lock (_asyncLocal)
             {
-                var work = _dependencyManager.Resolve<IUnitOfWork>();
+                var work = _dependencyManager.ResolveRequired<IUnitOfWork>();
                 _asyncLocal.Value = new UnitOfWorkWrapper(work);
                 return work;
             }

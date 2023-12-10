@@ -34,7 +34,7 @@ namespace Suyaa.Data.SimpleDbWorks
         /// <returns></returns>
         public IDbWorkManager CreateManager(DbConnectionDescriptor dbConnectionDescriptor)
         {
-            return _dependencyManager.Resolve<IDbWorkManager>();
+            return _dependencyManager.ResolveRequired<IDbWorkManager>();
         }
     }
 }

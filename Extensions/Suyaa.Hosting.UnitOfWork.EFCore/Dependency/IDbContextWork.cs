@@ -13,7 +13,7 @@ namespace Suyaa.Hosting.EFCore.Dependency
     /// <summary>
     /// 数据库上下文异步工作
     /// </summary>
-    public interface IDbContextAsyncWork : IDisposable
+    public interface IDbContextWork : IDisposable
     {
         /// <summary>
         /// 完成

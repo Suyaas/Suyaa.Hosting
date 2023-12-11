@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
-    <Version>1.11.2312.58</Version>
+    <Version>1.11.2312.59</Version>
     <Description>舒雅主机服务组件中的应用域处理</Description>
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
     <PackageProjectUrl>https://github.com/Suyaas/Suyaa.Hosting</PackageProjectUrl>

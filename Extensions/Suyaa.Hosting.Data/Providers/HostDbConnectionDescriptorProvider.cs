@@ -15,7 +15,7 @@ namespace Suyaa.Hosting.Data.Providers
     /// <summary>
     /// 数据库连接描述供应商
     /// </summary>
-    public sealed class DbConnectionDescriptorProvider : IDbConnectionDescriptorProvider
+    public sealed class HostDbConnectionDescriptorProvider : IDbConnectionDescriptorProvider
     {
 
         // 所有连接信息
@@ -23,17 +23,13 @@ namespace Suyaa.Hosting.Data.Providers
 
         #region 依赖注入
 
-        private readonly IDependencyManager _dependencyManager;
-
         /// <summary>
         /// 数据库连接描述供应商
         /// </summary>
-        public DbConnectionDescriptorProvider(
-            IDependencyManager dependencyManager,
+        public HostDbConnectionDescriptorProvider(
             IOptionConfig<DatabaseConfig> databaseConfig
             )
         {
-            _dependencyManager = dependencyManager;
             _descriptors = new List<IDbConnectionDescriptor>();
             var config = databaseConfig.CurrentValue;
             foreach (var connection in config.Connections)

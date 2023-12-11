@@ -46,6 +46,9 @@ namespace Suyaa.Hosting.UnitOfWork.Providers
         /// <param name="context"></param>
         public void OnActionExecuted(ActionExecutedContext context)
         {
+            var work = _unitOfWorkManager.GetWork();
+            if (work is null) return;
+            work.Complete();
             _unitOfWorkManager.ReleaseWork();
         }
     }

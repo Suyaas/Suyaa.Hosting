@@ -1,7 +1,9 @@
 ﻿using Suyaa.Data;
 using Suyaa.Data.Dependency;
 using Suyaa.Data.Providers;
+using Suyaa.EFCore.Contexts;
 using Suyaa.EFCore.Dependency;
+using Suyaa.EFCore.Factories;
 using Suyaa.EFCore.Providers;
 using Suyaa.Hosting.Common.DependencyInjection;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
@@ -24,19 +26,22 @@ namespace Suyaa.Hosting.EfCore.Helpers
         public static IDependencyManager AddEfCore(this IDependencyManager dependencyManager)
         {
             // 注册程序集
+            dependencyManager.Include<DbContextFacotry>();
             dependencyManager.Include<HostDbContextFacotry>();
             // 使用数据库
             dependencyManager.AddData();
             // 注册作业相关
             dependencyManager.Remove<IDbWork>();
             dependencyManager.Register<IDbWork, EfCoreWork>(Lifetimes.Transient);
-            //// 注册所有的带描述数据库上下文
             //List<Type> excludeContextTypes = new List<Type>() { typeof(DescriptorTypeDbContext) };
             //dependencyManager.RegisterTransientImplementations(typeof(IDescriptorDbContext), tp => !excludeContextTypes.Contains(tp));
             //// 注册所有的 DbSet 供应商
             //dependencyManager.RegisterTransientImplementations<IEntityModelProvider>();
             // 注册异步数据库上下文
             dependencyManager.Register<IDbContextFactory, HostDbContextFacotry>(Lifetimes.Singleton);
+            dependencyManager.RegisterTransientImplementations<IDbContextProvider>();
+            List<Type> excludeContextTypes = new List<Type>() { typeof(DescriptorTypeDbContext) };
+            dependencyManager.RegisterTransientImplementations(typeof(IDescriptorDbContext), tp => !excludeContextTypes.Contains(tp));
             //dependencyManager.Register<IDbContextWork, DbContextWork>(Lifetimes.Transient);
             //dependencyManager.Register<IDbContextWorkProvider, DbContextWorkProvider>(Lifetimes.Transient);
             //dependencyManager.Register<IDbContextWorkManager, DbContextWorkManager>(Lifetimes.Transient);

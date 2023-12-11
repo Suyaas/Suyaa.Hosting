@@ -31,6 +31,7 @@ namespace Suyaa.Hosting.Data.Helpers
             // 注册连接描述相关
             dependencyManager.Register<IDbConnectionDescriptorFactory, HostDbConnectionDescriptorFactory>(Lifetimes.Singleton);
             dependencyManager.RegisterTransientImplementations<IDbConnectionDescriptorProvider>();
+            dependencyManager.Register<IDbConnectionDescriptorManager, DbConnectionDescriptorManager>(Lifetimes.Transient);
             // 注册作业相关
             dependencyManager.Register<IDbWorkProvider, HostDbWorkProvider>(Lifetimes.Transient);
             dependencyManager.Register<IDbWorkManagerProvider, HostDbWorkManagerProvider>(Lifetimes.Transient);

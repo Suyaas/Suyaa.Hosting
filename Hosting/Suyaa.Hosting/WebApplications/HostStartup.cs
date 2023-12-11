@@ -98,7 +98,7 @@ namespace Suyaa.Hosting.WebApplications
         protected override void OnConfigureBuilder(WebApplicationBuilder builder)
         {
             // 设置配置地址
-            string configurePath = sy.IO.CombinePath(sy.Hosting.GetModulePath<HostStartup>(), "Configure/" + sy.Hosting.GetAspNetCoreEnvironment());
+            string configurePath = sy.Hosting.GetConfigurePath();
             sy.IO.CreateFolder(configurePath);
             builder.Configuration.SetBasePath(configurePath);
 

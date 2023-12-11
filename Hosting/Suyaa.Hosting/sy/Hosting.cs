@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Suyaa;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Infrastructure.Exceptions;
+using Suyaa.Hosting.WebApplications;
 using System.Diagnostics;
 
 namespace sy
@@ -59,6 +60,17 @@ namespace sy
             var filePath = typeof(T).Assembly.Location;
             var folder = sy.IO.GetFolderPath(filePath);
             return folder;
+        }
+
+        /// <summary>
+        /// 获取配置地址
+        /// </summary>
+        /// <returns></returns>
+        public static string GetConfigurePath()
+        {
+            // 设置配置地址
+            string configurePath = IO.CombinePath(GetModulePath<HostStartup>(), "Configure/" + GetAspNetCoreEnvironment());
+            return configurePath;
         }
 
         /// <summary>

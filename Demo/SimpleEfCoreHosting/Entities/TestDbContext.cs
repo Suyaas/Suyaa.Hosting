@@ -2,14 +2,15 @@
 using Suyaa.Data.Dependency;
 using Suyaa.EFCore.Contexts;
 using Suyaa.EFCore.Helpers;
+using Suyaa.Hosting.EfCore.DbContexts;
 
 namespace SimpleEfCoreHosting.Entities
 {
-    public class TestDbContext : DescriptorDbContext
+    public class TestDbContext : HostDbContext
     {
         public DbSet<Test> Tests { get; set; }
 
-        public TestDbContext(IDbConnectionDescriptorManager dbConnectionDescriptorManager) : base(dbConnectionDescriptorManager.GetCurrentConnection(), dbConnectionDescriptorManager.GetCurrentConnection().DatabaseType.GetEfCoreProvider().DbContextOptionsProvider.GetDbContextOptions(dbConnectionDescriptorManager.GetCurrentConnection().ToConnectionString()))
+        public TestDbContext(IDbConnectionDescriptorManager dbConnectionDescriptorManager) : base(dbConnectionDescriptorManager)
         {
         }
 

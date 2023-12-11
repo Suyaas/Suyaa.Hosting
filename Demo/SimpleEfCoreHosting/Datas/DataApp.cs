@@ -1,5 +1,6 @@
 ﻿using SimpleEfCoreHosting.Entities;
 using Suyaa.Data.Dependency;
+using Suyaa.EFCore.Dependency;
 using Suyaa.Hosting.App.Services;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
@@ -30,6 +31,9 @@ namespace SimpleEfCoreHosting.Datas
 
         public async Task<Test> GetTest()
         {
+            var dbFactory = _dependencyManager.ResolveRequired<IDbFactory>();
+            var dbContextFactory = _dependencyManager.ResolveRequired<IDbContextFactory>();
+            var workNew = _dependencyManager.ResolveRequired<IDbWork>();
             var test = new Test();
             var testRepository = _dependencyManager.ResolveRequired<IRepository<Test, string>>();
             testRepository.Insert(test);

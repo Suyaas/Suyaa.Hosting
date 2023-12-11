@@ -6,17 +6,17 @@ namespace Suyaa.Hosting.Common.Configures.Helpers
     /// <summary>
     /// 配置管理器助手
     /// </summary>
-    public static class ConfigurationManagerHelper
+    public static class ConfigurationBuilderHelper
     {
         /// <summary>
         /// 添加Kestrel配置
         /// </summary>
         /// <returns></returns>
-        public static ConfigurationSource<TConfig> AddConfigurationSource<TConfig>(this ConfigurationManager manager)
+        public static ConfigurationSource<TConfig> AddConfigurationSource<TConfig>(this IConfigurationBuilder builder)
             where TConfig : class, IConfig, new()
         {
             var source = new ConfigurationSource<TConfig>();
-            manager.Sources.Add(source);
+            builder.Sources.Add(source);
             return source;
         }
     }

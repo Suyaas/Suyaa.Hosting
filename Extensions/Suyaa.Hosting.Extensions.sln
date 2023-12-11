@@ -19,6 +19,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWork.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWork.EfCore", "Suyaa.Hosting.UnitOfWork.EFCore\Suyaa.Hosting.UnitOfWork.EfCore.csproj", "{7C05A3BD-8C48-44E6-A21D-9E287CFCD349}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{EED8C6C4-596F-456F-9E6B-CCB9A6DDB208}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleEfCoreHosting", "..\Demo\SimpleEfCoreHosting\SimpleEfCoreHosting.csproj", "{6AA7B6DD-290B-4239-8332-B7A913A37144}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,9 +61,16 @@ Global
 		{7C05A3BD-8C48-44E6-A21D-9E287CFCD349}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C05A3BD-8C48-44E6-A21D-9E287CFCD349}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C05A3BD-8C48-44E6-A21D-9E287CFCD349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA7B6DD-290B-4239-8332-B7A913A37144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA7B6DD-290B-4239-8332-B7A913A37144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA7B6DD-290B-4239-8332-B7A913A37144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA7B6DD-290B-4239-8332-B7A913A37144}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6AA7B6DD-290B-4239-8332-B7A913A37144} = {EED8C6C4-596F-456F-9E6B-CCB9A6DDB208}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4742FCC8-87B2-425A-928F-DC6F228D4A77}

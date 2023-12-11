@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Suyaa.Hosting.UnitOfWork.EFCore.Helpers;
+using Suyaa.Hosting.Jwt.Helpers;
 
 namespace SimpleEfCoreHosting
 {
@@ -23,13 +24,16 @@ namespace SimpleEfCoreHosting
     {
         protected override void OnConfigureBuilder(WebApplicationBuilder builder)
         {
+            builder.AddConfigures();
             base.OnConfigureBuilder(builder);
             builder.AddDatabaseConfigure();
+            builder.AddJwtConfigure();
         }
         protected override void OnConfigureDependency(IDependencyManager dependencyManager)
         {
             base.OnConfigureDependency(dependencyManager);
             dependencyManager.AddEfCoreUnitOfWork();
+            dependencyManager.AddJwt();
         }
         protected override void OnConfigureAssembly(IList<Assembly> assemblies)
         {

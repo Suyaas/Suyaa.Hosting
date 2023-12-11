@@ -2,8 +2,11 @@
 using Suyaa.Data.Dependency;
 using Suyaa.EFCore.Dependency;
 using Suyaa.Hosting.App.Services;
+using Suyaa.Hosting.Common.Configures;
+using Suyaa.Hosting.Common.Configures.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
+using Suyaa.Hosting.Jwt.Configures;
 using Suyaa.Logs.Dependency;
 
 namespace SimpleEfCoreHosting.Datas
@@ -27,6 +30,12 @@ namespace SimpleEfCoreHosting.Datas
         {
             _dependencyManager = dependencyManager;
             _logger = logger;
+        }
+
+        public async Task<string> GetJwtConfig()
+        {
+            var jwtConfig = _dependencyManager.ResolveRequired<IOptionConfig<JwtConfig>>();
+            return await Task.FromResult(jwtConfig.CurrentValue.TokenKey);
         }
 
         public async Task<Test> GetTest()

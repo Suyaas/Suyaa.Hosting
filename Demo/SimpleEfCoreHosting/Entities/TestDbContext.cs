@@ -10,7 +10,8 @@ namespace SimpleEfCoreHosting.Entities
     {
         public DbSet<Test> Tests { get; set; }
 
-        public TestDbContext(IDbConnectionDescriptorManager dbConnectionDescriptorManager) : base(dbConnectionDescriptorManager)
+        public TestDbContext(IDbConnectionDescriptorManager dbConnectionDescriptorManager, IEntityModelConventionFactory entityModelConventionFactory)
+            : base(dbConnectionDescriptorManager, entityModelConventionFactory)
         {
         }
 

@@ -1,4 +1,5 @@
 ﻿using Suyaa.Configure;
+using Suyaa.Hosting.Common.Configures.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Suyaa.Hosting.Jwt.Configures
     /// <summary>
     /// Jwt配置项
     /// </summary>
+    [Configuration("Jwt")]
     public class JwtConfig : IConfig
     {
         /// <summary>

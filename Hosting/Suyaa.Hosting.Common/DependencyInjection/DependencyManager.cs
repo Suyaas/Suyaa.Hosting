@@ -104,6 +104,8 @@ namespace Suyaa.Hosting.Common.DependencyInjection
             if (implementationType.IsInterface) return;
             // 过滤抽象类
             if (implementationType.IsAbstract) return;
+            // 去重校验
+            if (GetImplementationTypes(implementationType).Contains(implementationType)) return;
             switch (lifeCycle)
             {
                 case Lifetimes.Singleton:
@@ -120,6 +122,8 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         {
             // 获取所有可抽取的类型
             var types = GetImplementationTypes(serviceType);
+            // 去重校验
+            if (types.Contains(implementationType)) return;
             // 判断已经有存在的实现，如果有，独占注册只允许一个
             foreach (var type in types)
             {
@@ -139,6 +143,8 @@ namespace Suyaa.Hosting.Common.DependencyInjection
         {
             // 获取所有可抽取的类型
             var types = GetImplementationTypes(serviceType);
+            // 去重校验
+            if (types.Contains(implementationType)) return;
             // 判断已经有存在的实现，如果有，独占注册只允许一个
             foreach (var type in types)
             {
@@ -167,6 +173,8 @@ namespace Suyaa.Hosting.Common.DependencyInjection
             if (implementationType.IsInterface) return;
             // 过滤抽象类
             if (implementationType.IsAbstract) return;
+            // 去重校验
+            if (GetImplementationTypes(serviceType).Contains(implementationType)) return;
             switch (lifeCycle)
             {
                 case Lifetimes.Singleton:

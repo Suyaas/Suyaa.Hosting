@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Hosting.Common.Configures;
+using Suyaa.Hosting.Common.Configures.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.Exceptions;
 using Suyaa.Hosting.Common.Sessions.Dependency;
@@ -30,7 +31,7 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
         /// </summary>
         public JwtAuthorizeFilter(
             IJwtManager<TData> jwtDataManager,
-            OptionConfig<JwtConfig> jwtOption,
+            IOptionConfig<JwtConfig> jwtOption,
             ISessionManager sessionManager,
             //II18n i18n,
             IDependencyManager dependency

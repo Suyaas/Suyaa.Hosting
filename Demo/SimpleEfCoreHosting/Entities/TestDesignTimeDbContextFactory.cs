@@ -11,6 +11,9 @@ using Suyaa.Hosting.Data.Providers;
 using Suyaa.Hosting.Common.Configures;
 using Suyaa;
 using Suyaa.Hosting.Data.Helpers;
+using Suyaa.Hosting.Common.DependencyInjection;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 
 namespace SimpleEfCoreHosting.Entities
 {
@@ -41,6 +44,14 @@ namespace SimpleEfCoreHosting.Entities
             return dbConnectionDescriptorFactory;
         }
 
+        // 获取实体建模约定器工厂
+        private static IEntityModelConventionFactory GetEntityModelConventionFactory()
+        {
+            var dependencyManager = DependencyManager.GetCurrent();
+            if (dependencyManager is null) throw new NullException<IDependencyManager>();
+            return dependencyManager.ResolveRequired<IEntityModelConventionFactory>();
+        }
+
         public TestDesignTimeDbContextFactory() : base(GetDbConnectionDescriptorFactory())
         {
             Console.WriteLine("TestDesignTimeDbContextFactory");
@@ -49,7 +60,7 @@ namespace SimpleEfCoreHosting.Entities
         public override TestDbContext CreateDbContext(IDbConnectionDescriptorFactory dbConnectionDescriptorFactory, string[] args)
         {
             Console.WriteLine(dbConnectionDescriptorFactory.DefaultConnection.ToConnectionString());
-            return new TestDbContext(new DbConnectionDescriptorManager(dbConnectionDescriptorFactory));
+            return new TestDbContext(new DbConnectionDescriptorManager(dbConnectionDescriptorFactory), GetEntityModelConventionFactory());
         }
     }
 }

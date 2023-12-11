@@ -1,5 +1,4 @@
-﻿using Suyaa.DependencyInjection;
-using Suyaa.Hosting.Jwt.Dependency;
+﻿using Suyaa.Hosting.Jwt.Dependency;
 
 namespace Suyaa.Hosting.Jwt
 {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Common.Exceptions;
 using Suyaa.Hosting.Common.Sessions.Dependency;
 using Suyaa.Hosting.Infrastructure.Exceptions;
@@ -80,9 +79,9 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
             {
                 jwtData = _jwtManager.Provider.Builder.GetData(token);
                 _jwtManager.SetCurrentData(jwtData);
-                _session.Uid = jwtData.Uid;
-                _session.TenantId = jwtData.TenantId;
-                _session.InvalidTime = DateTime.Now.AddHours(1);
+                _session.Set("Uid", jwtData.Uid);
+                _session.Set("TenantId", jwtData.TenantId);
+                _session.Set("InvalidTime", DateTime.Now.AddHours(1));
             }
             catch (HostException ex)
             {

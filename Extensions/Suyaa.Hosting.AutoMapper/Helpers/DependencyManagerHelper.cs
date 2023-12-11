@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Suyaa.Hosting.AutoMapper.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
-using Suyaa.Hosting.Common.DependencyManager;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
 using Suyaa.Hosting.Mappers;
 using System.Reflection;
 
@@ -67,7 +66,7 @@ namespace Suyaa.Hosting.AutoMapper.Helpers
                 cfg.AddProfile(profile);
             });
             var mapper = configuration.CreateMapper();
-            dependency.Register<IMapper>(mapper);
+            dependency.RegisterInstance<IMapper>(mapper);
             dependency.Register<IObjectMapper, ObjectMapper>(Lifetimes.Exclusive);
             return dependency;
         }

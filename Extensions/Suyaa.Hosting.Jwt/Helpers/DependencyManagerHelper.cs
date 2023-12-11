@@ -1,6 +1,6 @@
-﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
-using Suyaa.Hosting.Common.DependencyManager;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
+﻿using Suyaa.Hosting.Common.DependencyInjection;
+using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Hosting.Jwt.ActionFilters;
 using Suyaa.Hosting.Jwt.Dependency;
 using Suyaa.Hosting.Jwt.Options;
@@ -40,7 +40,7 @@ namespace Suyaa.Hosting.Jwt.Helpers
             // 注册程序集
             dependency.Include<JwtData>();
             // 注册配置
-            dependency.Register(option);
+            dependency.RegisterInstance(option);
             // 注册管理器
             dependency.Register<IJwtManager<TData>, JwtManager<TData>>(Lifetimes.Transient);
             // 注册数据供应商

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Suyaa.Hosting.Common.DependencyInjection.Dependency;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
+﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Hosting.Jwt.Dependency;
-using Suyaa.Hosting.Jwt.Options;
 
 namespace Suyaa.Hosting.Jwt
 {
@@ -37,7 +31,7 @@ namespace Suyaa.Hosting.Jwt
         /// 创建构建器
         /// </summary>
         /// <returns></returns>
-        public IJwtBuilder<JwtData> Builder => _jwtBuilder ??= _dependencyManager.Resolve<IJwtBuilder<JwtData>>();
+        public IJwtBuilder<JwtData> Builder => _jwtBuilder ??= _dependencyManager.ResolveRequired<IJwtBuilder<JwtData>>();
 
         /// <summary>
         /// 创建Jwt数据

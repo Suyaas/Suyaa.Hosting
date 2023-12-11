@@ -1,8 +1,6 @@
 ﻿using Suyaa.Hosting.Common.DependencyInjection.Dependency;
-using Suyaa.Hosting.Common.DependencyManager.Dependency;
+using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Hosting.Jwt.Dependency;
-using System.Runtime;
-using System.Xml.Linq;
 
 namespace Suyaa.Hosting.Jwt
 {
@@ -47,7 +45,7 @@ namespace Suyaa.Hosting.Jwt
             {
                 lock (_asyncLocal)
                 {
-                    var jwtDataProvider = _dependency.Resolve<IJwtDataProvider<TData>>();
+                    var jwtDataProvider = _dependency.ResolveRequired<IJwtDataProvider<TData>>();
                     _asyncLocal.Value = new JwtDataWrapper(jwtDataProvider.CreateJwtData());
                 }
             }
@@ -74,6 +72,6 @@ namespace Suyaa.Hosting.Jwt
         /// <summary>
         /// 数据供应商
         /// </summary>
-        public IJwtDataProvider<TData> Provider => _provider ??= _dependency.Resolve<IJwtDataProvider<TData>>();
+        public IJwtDataProvider<TData> Provider => _provider ??= _dependency.ResolveRequired<IJwtDataProvider<TData>>();
     }
 }

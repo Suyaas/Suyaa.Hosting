@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Suyaa.Data" Version="1.8.2312.40" />
+    <PackageReference Include="Suyaa.Data" Version="1.8.2312.41" />
   </ItemGroup>
 
   <ItemGroup>

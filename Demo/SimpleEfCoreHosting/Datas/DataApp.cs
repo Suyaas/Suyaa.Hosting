@@ -1,16 +1,11 @@
-﻿using SimpleHosting.Entities;
+﻿using SimpleEfCoreHosting.Entities;
 using Suyaa.Data.Dependency;
 using Suyaa.Hosting.App.Services;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Logs.Dependency;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SimpleHosting.Datas
+namespace SimpleEfCoreHosting.Datas
 {
     /// <summary>
     /// 数据

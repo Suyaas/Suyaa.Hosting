@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Suyaa.Data.PostgreSQL" Version="1.8.2312.38" />
+    <PackageReference Include="Suyaa.EFCore.PostgreSQL" Version="1.8.2312.38" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Extensions\Suyaa.Hosting.UnitOfWork.Data\Suyaa.Hosting.UnitOfWork.Data.csproj" />
+    <ProjectReference Include="..\..\Extensions\Suyaa.Hosting.UnitOfWork.EFCore\Suyaa.Hosting.UnitOfWork.EfCore.csproj" />
     <ProjectReference Include="..\..\Hosting\Suyaa.Hosting\Suyaa.Hosting.csproj" />
   </ItemGroup>
 

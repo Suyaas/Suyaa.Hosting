@@ -1,4 +1,7 @@
-﻿using Suyaa.Data.Dependency;
+﻿using Suyaa.Data;
+using Suyaa.Data.Dependency;
+using Suyaa.Data.Factories;
+using Suyaa.Data.Providers;
 using Suyaa.Data.SimpleDbWorks;
 using Suyaa.Hosting.Common.DependencyInjection;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
@@ -24,22 +27,29 @@ namespace Suyaa.Hosting.Data.Helpers
         {
             // 注册程序集
             dependencyManager.Include<StandardEntity>();
-            // 注册所有的连接描述供应商
+            dependencyManager.Include<EntityModelProvider>();
+            // 注册连接描述相关
+            dependencyManager.Register<IDbConnectionDescriptorFactory, HostDbConnectionDescriptorFactory>(Lifetimes.Singleton);
             dependencyManager.RegisterTransientImplementations<IDbConnectionDescriptorProvider>();
-            // 注册作业供应商
-            dependencyManager.Register<IDbWorkProvider, DbWorkProvider>(Lifetimes.Transient);
-            // 注册作业管理器供应商
-            dependencyManager.Register<IDbWorkManagerProvider, DbWorkManagerProvider>(Lifetimes.Transient);
-            // 注册作业管理器
-            dependencyManager.Register<IDbWorkManager, DbWorkManager>(Lifetimes.Transient);
-            // 注册作业
-            dependencyManager.Register<IDbWork, SimpleDbWork>(Lifetimes.Transient);
+            // 注册作业相关
+            dependencyManager.Register<IDbWorkProvider, HostDbWorkProvider>(Lifetimes.Transient);
+            dependencyManager.Register<IDbWorkManagerProvider, HostDbWorkManagerProvider>(Lifetimes.Transient);
+            dependencyManager.Register<IDbWorkManager, HostDbWorkManager>(Lifetimes.Transient);
+            dependencyManager.Register<IDbWork, DbWork>(Lifetimes.Transient);
             // 注册数据仓库
-            dependencyManager.Register(typeof(IRepository<,>), typeof(SimpleRepository<,>), Lifetimes.Transient);
+            dependencyManager.Register(typeof(IRepository<,>), typeof(Repository<,>), Lifetimes.Transient);
+            dependencyManager.Register<ISqlRepository, SqlRepository>(Lifetimes.Transient);
             // 注册数据库工厂
             dependencyManager.Register<IDbFactory, DbFactory>(Lifetimes.Singleton);
-            // 注册数据库连接描述工厂
-            dependencyManager.Register<IDbConnectionDescriptorFactory, DbConnectionDescriptorFactory>(Lifetimes.Singleton);
+            // 注册实体建模相关
+            dependencyManager.Register<IEntityModelFactory, EntityModelFactory>(Lifetimes.Singleton);
+            dependencyManager.RegisterTransientImplementations<IEntityModelProvider>();
+            dependencyManager.RegisterTransientImplementations<IEntityModelConvention>();
+            // 注册数据库操作供应商
+            dependencyManager.Register(typeof(IDbInsertProvider<>), typeof(DbInsertProvider<>), Lifetimes.Transient);
+            dependencyManager.Register(typeof(IDbDeleteProvider<>), typeof(DbDeleteProvider<>), Lifetimes.Transient);
+            dependencyManager.Register(typeof(IDbUpdateProvider<>), typeof(DbUpdateProvider<>), Lifetimes.Transient);
+            dependencyManager.Register(typeof(IDbQueryProvider<>), typeof(DbQueryProvider<>), Lifetimes.Transient);
             return dependencyManager;
         }
     }

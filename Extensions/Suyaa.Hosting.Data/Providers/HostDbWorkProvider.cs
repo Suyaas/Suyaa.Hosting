@@ -14,17 +14,16 @@ namespace Suyaa.Hosting.Data.Providers
     /// <summary>
     /// 数据库作业供应商
     /// </summary>
-    public sealed class DbWorkProvider : IDbWorkProvider
+    public sealed class HostDbWorkProvider : IDbWorkProvider
     {
         #region 依赖注入
 
         private readonly IDependencyManager _dependencyManager;
-        private IDbWork? _work;
 
         /// <summary>
         /// 数据库作业供应商
         /// </summary>
-        public DbWorkProvider(IDependencyManager dependencyManager)
+        public HostDbWorkProvider(IDependencyManager dependencyManager)
         {
             _dependencyManager = dependencyManager;
         }

@@ -59,9 +59,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWork", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWork.Data", "Extensions\Suyaa.Hosting.UnitOfWork.Data\Suyaa.Hosting.UnitOfWork.Data.csproj", "{9638A90C-E485-4C49-B215-E487E3F0AF4A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWork.EFCore", "Extensions\Suyaa.Hosting.UnitOfWork.EFCore\Suyaa.Hosting.UnitOfWork.EFCore.csproj", "{06FC87A8-A777-4BF3-BB41-5F0CB42CD2E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.UnitOfWork.EfCore", "Extensions\Suyaa.Hosting.UnitOfWork.EFCore\Suyaa.Hosting.UnitOfWork.EfCore.csproj", "{06FC87A8-A777-4BF3-BB41-5F0CB42CD2E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Hosting.Data", "Extensions\Suyaa.Hosting.Data\Suyaa.Hosting.Data.csproj", "{D31A60BD-6892-41C1-95D5-AAA650B36570}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suyaa.Hosting.Data", "Extensions\Suyaa.Hosting.Data\Suyaa.Hosting.Data.csproj", "{D31A60BD-6892-41C1-95D5-AAA650B36570}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleEfCoreHosting", "Demo\SimpleEfCoreHosting\SimpleEfCoreHosting.csproj", "{BE9AC120-6016-4C00-B7D7-831AB58E2EA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyaa.Hosting.EfCore", "Extensions\Suyaa.Hosting.EfCore\Suyaa.Hosting.EfCore.csproj", "{4429A6D2-E969-4DAD-9F8A-8C2A451F9010}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -169,6 +173,14 @@ Global
 		{D31A60BD-6892-41C1-95D5-AAA650B36570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D31A60BD-6892-41C1-95D5-AAA650B36570}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D31A60BD-6892-41C1-95D5-AAA650B36570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE9AC120-6016-4C00-B7D7-831AB58E2EA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE9AC120-6016-4C00-B7D7-831AB58E2EA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE9AC120-6016-4C00-B7D7-831AB58E2EA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE9AC120-6016-4C00-B7D7-831AB58E2EA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4429A6D2-E969-4DAD-9F8A-8C2A451F9010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4429A6D2-E969-4DAD-9F8A-8C2A451F9010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4429A6D2-E969-4DAD-9F8A-8C2A451F9010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4429A6D2-E969-4DAD-9F8A-8C2A451F9010}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -199,6 +211,8 @@ Global
 		{9638A90C-E485-4C49-B215-E487E3F0AF4A} = {DE8313FA-094C-4842-93FE-5271C5486F0E}
 		{06FC87A8-A777-4BF3-BB41-5F0CB42CD2E0} = {DE8313FA-094C-4842-93FE-5271C5486F0E}
 		{D31A60BD-6892-41C1-95D5-AAA650B36570} = {DE8313FA-094C-4842-93FE-5271C5486F0E}
+		{BE9AC120-6016-4C00-B7D7-831AB58E2EA8} = {34DB06AB-CBE9-491C-8D82-0EE5C958C4FE}
+		{4429A6D2-E969-4DAD-9F8A-8C2A451F9010} = {DE8313FA-094C-4842-93FE-5271C5486F0E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23FC978D-1BFE-4D83-8947-4484CE603405}

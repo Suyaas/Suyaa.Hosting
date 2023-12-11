@@ -32,10 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Suyaa.EFCore" Version="1.7.2312.35" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Suyaa.Hosting.EfCore\Suyaa.Hosting.EfCore.csproj" />
     <ProjectReference Include="..\Suyaa.Hosting.UnitOfWork.Data\Suyaa.Hosting.UnitOfWork.Data.csproj" />
   </ItemGroup>
 

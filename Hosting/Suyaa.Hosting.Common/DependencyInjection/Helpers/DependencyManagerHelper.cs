@@ -261,6 +261,16 @@ namespace Suyaa.Hosting.Common.DependencyInjection.Helpers
         #endregion
 
         /// <summary>
+        /// 移除
+        /// </summary>
+        /// <param name="dependencyManager"></param>
+        public static IDependencyManager Remove<T>(this IDependencyManager dependencyManager)
+        {
+            dependencyManager.Remove(typeof(T));
+            return dependencyManager;
+        }
+
+        /// <summary>
         /// 抽取
         /// </summary>
         /// <param name="dependencyManager"></param>

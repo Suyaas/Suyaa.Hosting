@@ -14,7 +14,7 @@ namespace Suyaa.Hosting.Data.Factories
     /// <summary>
     /// 数据库连接工厂
     /// </summary>
-    public sealed class DbConnectionDescriptorFactory : IDbConnectionDescriptorFactory
+    public sealed class HostDbConnectionDescriptorFactory : IDbConnectionDescriptorFactory
     {
         // 所有连接信息
         private readonly Dictionary<string, IDbConnectionDescriptor> _descriptors;
@@ -27,7 +27,7 @@ namespace Suyaa.Hosting.Data.Factories
         /// <summary>
         /// 数据库连接工厂
         /// </summary>
-        public DbConnectionDescriptorFactory(
+        public HostDbConnectionDescriptorFactory(
             IDependencyManager dependencyManager,
             IOptionConfig<DatabaseConfig> databaseConfig
             )

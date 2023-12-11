@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Suyaa.Data" Version="1.8.2312.38" />
+    <PackageReference Include="Suyaa.EFCore" Version="1.8.2312.38" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Hosting\Suyaa.Hosting.Common\Suyaa.Hosting.Common.csproj" />
+    <ProjectReference Include="..\Suyaa.Hosting.Data\Suyaa.Hosting.Data.csproj" />
   </ItemGroup>
 
 </Project>

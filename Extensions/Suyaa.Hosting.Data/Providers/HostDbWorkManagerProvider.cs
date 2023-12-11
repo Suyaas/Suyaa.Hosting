@@ -11,16 +11,16 @@ using System.Text;
 namespace Suyaa.Data.SimpleDbWorks
 {
     /// <summary>
-    /// 简单的数据库供应商
+    /// 主机数据库作业管理者供应商
     /// </summary>
-    public sealed class DbWorkManagerProvider : IDbWorkManagerProvider
+    public sealed class HostDbWorkManagerProvider : IDbWorkManagerProvider
     {
         private readonly IDependencyManager _dependencyManager;
 
         /// <summary>
-        /// 简单的数据库工作者供应商
+        /// 主机数据库作业管理者供应商
         /// </summary>
-        public DbWorkManagerProvider(
+        public HostDbWorkManagerProvider(
             IDependencyManager dependencyManager
             )
         {
@@ -30,9 +30,8 @@ namespace Suyaa.Data.SimpleDbWorks
         /// <summary>
         /// 创建一个工作者管理器
         /// </summary>
-        /// <param name="dbConnectionDescriptor"></param>
         /// <returns></returns>
-        public IDbWorkManager CreateManager(DbConnectionDescriptor dbConnectionDescriptor)
+        public IDbWorkManager CreateManager()
         {
             return _dependencyManager.ResolveRequired<IDbWorkManager>();
         }

@@ -17,7 +17,9 @@ namespace Suyaa.Hosting.EfCore.DbContexts
         /// 主机数据库上下文
         /// </summary>
         /// <param name="dbConnectionDescriptorManager"></param>
-        protected HostDbContext(IDbConnectionDescriptorManager dbConnectionDescriptorManager) : base(dbConnectionDescriptorManager.GetCurrentConnection())
+        /// <param name="entityModelConventionFactory"></param>
+        protected HostDbContext(IDbConnectionDescriptorManager dbConnectionDescriptorManager, IEntityModelConventionFactory entityModelConventionFactory)
+            : base(dbConnectionDescriptorManager.GetCurrentConnection(), entityModelConventionFactory)
         {
         }
     }

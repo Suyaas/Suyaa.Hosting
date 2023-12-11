@@ -44,6 +44,7 @@ namespace Suyaa.Hosting.Data.Helpers
             dependencyManager.Register<IDbFactory, DbFactory>(Lifetimes.Singleton);
             // 注册实体建模相关
             dependencyManager.Register<IEntityModelFactory, EntityModelFactory>(Lifetimes.Singleton);
+            dependencyManager.Register<IEntityModelConventionFactory, HostEntityModelConventionFactory>(Lifetimes.Singleton);
             dependencyManager.RegisterTransientImplementations<IEntityModelProvider>();
             dependencyManager.RegisterTransientImplementations<IEntityModelConvention>();
             // 注册数据库操作供应商

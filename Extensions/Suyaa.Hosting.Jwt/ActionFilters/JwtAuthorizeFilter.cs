@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
+using Suyaa.Hosting.Common.Configures;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.Exceptions;
 using Suyaa.Hosting.Common.Sessions.Dependency;
 using Suyaa.Hosting.Infrastructure.Exceptions;
+using Suyaa.Hosting.Jwt.Configures;
 using Suyaa.Hosting.Jwt.Dependency;
-using Suyaa.Hosting.Jwt.Options;
 
 namespace Suyaa.Hosting.Jwt.ActionFilters
 {
@@ -17,7 +18,8 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
 
         #region DI注入
         private readonly IJwtManager<TData> _jwtManager;
-        private readonly JwtOption _jwtOption;
+        private readonly JwtConfig _jwtOption;
+        private readonly ISessionManager _sessionManager;
         private readonly ISession _session;
         private readonly IDependencyManager _dependency;
 
@@ -28,15 +30,16 @@ namespace Suyaa.Hosting.Jwt.ActionFilters
         /// </summary>
         public JwtAuthorizeFilter(
             IJwtManager<TData> jwtDataManager,
-            JwtOption jwtOption,
-            ISession session,
+            OptionConfig<JwtConfig> jwtOption,
+            ISessionManager sessionManager,
             //II18n i18n,
             IDependencyManager dependency
             )
         {
             _jwtManager = jwtDataManager;
-            _jwtOption = jwtOption;
-            _session = session;
+            _jwtOption = jwtOption.CurrentValue;
+            _sessionManager = sessionManager;
+            _session = _sessionManager.GetSession();
             _dependency = dependency;
             //_i18n = i18n;
         }

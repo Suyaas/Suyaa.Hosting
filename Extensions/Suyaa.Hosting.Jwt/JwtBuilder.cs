@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Suyaa.Hosting.Infrastructure.Exceptions;
+using Suyaa.Hosting.Jwt.Configures;
 using Suyaa.Hosting.Jwt.Dependency;
-using Suyaa.Hosting.Jwt.Options;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -21,14 +21,14 @@ namespace Suyaa.Hosting.Jwt
         where TData : class, IJwtData, new()
     {
         // 配置项
-        private readonly JwtOption _option;
+        private readonly JwtConfig _option;
         private readonly Type _type;
 
         /// <summary>
         /// Jwt构建器
         /// </summary>
         /// <param name="option">配置项</param>
-        public JwtBuilder(JwtOption option)
+        public JwtBuilder(JwtConfig option)
         {
             _option = option;
             _type = typeof(TData);
@@ -37,7 +37,7 @@ namespace Suyaa.Hosting.Jwt
         /// <summary>
         /// 配置项
         /// </summary>
-        public JwtOption Option => _option;
+        public JwtConfig Option => _option;
 
         /// <summary>
         /// 转化为Jwt对象

@@ -2,8 +2,8 @@
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
 using Suyaa.Hosting.Jwt.ActionFilters;
+using Suyaa.Hosting.Jwt.Configures;
 using Suyaa.Hosting.Jwt.Dependency;
-using Suyaa.Hosting.Jwt.Options;
 
 namespace Suyaa.Hosting.Jwt.Helpers
 {
@@ -17,13 +17,10 @@ namespace Suyaa.Hosting.Jwt.Helpers
         /// 添加Jwt数据支持
         /// </summary>
         /// <param name="dependency"></param>
-        /// <param name="jwtOptionAction"></param>
         /// <returns></returns>
-        public static IDependencyManager AddJwt(this IDependencyManager dependency, Action<JwtOption>? jwtOptionAction = null)
+        public static IDependencyManager AddJwt(this IDependencyManager dependency)
         {
-            var option = new JwtOption();
-            jwtOptionAction?.Invoke(option);
-            dependency.AddJwt<JwtDataProvider, JwtData>(option);
+            dependency.AddJwt<JwtDataProvider, JwtData>();
             return dependency;
         }
 
@@ -31,16 +28,13 @@ namespace Suyaa.Hosting.Jwt.Helpers
         /// 添加Jwt数据支持
         /// </summary>
         /// <param name="dependency"></param>
-        /// <param name="option"></param>
         /// <returns></returns>
-        public static IDependencyManager AddJwt<TProvider, TData>(this IDependencyManager dependency, JwtOption option)
+        public static IDependencyManager AddJwt<TProvider, TData>(this IDependencyManager dependency)
             where TProvider : class, IJwtDataProvider<TData>
             where TData : class, IJwtData, new()
         {
             // 注册程序集
             dependency.Include<JwtData>();
-            // 注册配置
-            dependency.RegisterInstance(option);
             // 注册管理器
             dependency.Register<IJwtManager<TData>, JwtManager<TData>>(Lifetimes.Transient);
             // 注册数据供应商

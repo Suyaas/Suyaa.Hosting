@@ -4,7 +4,29 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Version>1.11.2312.57</Version>
+    <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
+    <Description>舒雅主机服务组件中的EFCore数据库操作扩展</Description>
+    <PackageProjectUrl>https://github.com/Suyaas/Suyaa.Hosting</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Suyaas/Suyaa.Hosting</RepositoryUrl>
+    <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
+    <PackageTags>host,efcore</PackageTags>
+    <PackageIcon>Suyaa_red_128.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon\Suyaa_red_128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Suyaa.EFCore" Version="1.8.2312.38" />

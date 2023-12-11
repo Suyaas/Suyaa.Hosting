@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>1.9.2310.55</Version>
+    <Version>1.11.2312.57</Version>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Wenling Lianyi Network Technology Co., Ltd.</Authors>
     <Copyright>Copyright © Wenling Lianyi Network Technology Co., Ltd. 2014</Copyright>
@@ -14,7 +14,7 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>host,efcore</PackageTags>
-    <Description>舒雅微服务组件中的EFCore数据库操作插件</Description>
+    <Description>舒雅主机组件中支持工作单元的EFCore数据库操作插件</Description>
     <Title>$(AssemblyName)</Title>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>

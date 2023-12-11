@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Extensions\Suyaa.Hosting.UnitOfWork.Data\Suyaa.Hosting.UnitOfWork.Data.csproj" />
     <ProjectReference Include="..\..\Hosting\Suyaa.Hosting\Suyaa.Hosting.csproj" />
   </ItemGroup>
 

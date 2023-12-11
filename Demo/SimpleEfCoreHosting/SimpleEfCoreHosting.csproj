@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Extensions\Suyaa.Hosting.UnitOfWork.EFCore\Suyaa.Hosting.UnitOfWork.EfCore.csproj" />
     <ProjectReference Include="..\..\Hosting\Suyaa.Hosting\Suyaa.Hosting.csproj" />
   </ItemGroup>
 

@@ -25,9 +25,9 @@ namespace Suyaa.Hosting.Common.Configures
     }
 
     /// <summary>
-    /// 主机服务Swagger配置
+    /// 主机服务终端配置
     /// </summary>
-    public class KestrelEndpoint
+    public sealed class KestrelEndpoint
     {
 
         /// <summary>
@@ -39,6 +39,29 @@ namespace Suyaa.Hosting.Common.Configures
         /// 客户端证书类型
         /// </summary>
         public string? ClientCertificateMode { get; set; }
+
+        /// <summary>
+        /// 客户端证书类型
+        /// </summary>
+        public KestrelEndpointCertificate? Certificate { get; set; }
+
+    }
+
+    /// <summary>
+    /// 主机服务终端证书配置
+    /// </summary>
+    public sealed class KestrelEndpointCertificate
+    {
+
+        /// <summary>
+        /// 地址
+        /// </summary>
+        public string Path { get; set; } = string.Empty;
+
+        /// <summary>
+        /// 客户端证书类型
+        /// </summary>
+        public string Password { get; set; } = string.Empty;
 
     }
 }

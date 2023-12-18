@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using SimpleHosting;
 using Suyaa.Hosting.Infrastructure.WebApplications.Helpers;
+using Suyaa.Hosting.WebApplications;
 
-WebApplication.CreateBuilder(args).Build<Startup>().Run();
+WebApplication.CreateBuilder(args).Build<HostStartup>().Run();

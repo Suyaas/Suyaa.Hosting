@@ -9,6 +9,7 @@ using Suyaa.Hosting.App.Options;
 using Suyaa.Hosting.Common.ActionFilters;
 using Suyaa.Hosting.Common.Configures;
 using Suyaa.Hosting.Common.Configures.Dependency;
+using Suyaa.Hosting.Common.Configures.Helpers;
 using Suyaa.Hosting.Common.DependencyInjection;
 using Suyaa.Hosting.Common.DependencyInjection.Dependency;
 using Suyaa.Hosting.Common.DependencyInjection.Helpers;
@@ -16,6 +17,7 @@ using Suyaa.Hosting.Common.Resources;
 using Suyaa.Hosting.Common.Sessions.Dependency;
 using Suyaa.Hosting.Core.Helpers;
 using Suyaa.Hosting.Infrastructure.Assemblies.Helpers;
+using Suyaa.Hosting.Redirects.Helpers;
 using Suyaa.Hosting.Sessions;
 using Suyaa.Hosting.Sessions.Helpers;
 using System.Reflection;
@@ -74,6 +76,9 @@ namespace Suyaa.Hosting.WebApplications
                 if (HostConfig.IsControllerSupported) endpoints.MapControllers();
             });
             #endregion
+
+            // 添加重定向支持
+            app.UseRedirects();
         }
 
         /// <summary>
@@ -104,6 +109,8 @@ namespace Suyaa.Hosting.WebApplications
 
             base.OnConfigureBuilder(builder);
 
+            // 添加重定向配置
+            builder.AddRedirectConfigure();
         }
 
         /// <summary>
